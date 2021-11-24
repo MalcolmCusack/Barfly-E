@@ -1,0 +1,1512 @@
+type Mixer @aws_iam @aws_api_key {
+  id: ID!
+  name: String
+  price: Float
+  brand: String
+  img: AWSJSON
+  specialID: ID
+  cocktailID: ID
+  shotID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  MixerCocktails(cocktailID: ModelIDKeyConditionInput, filter: ModelMixerCocktailFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMixerCocktailConnection @aws_iam @aws_api_key
+  MixerSpecials(specialID: ModelIDKeyConditionInput, filter: ModelMixerSpecialFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMixerSpecialConnection @aws_iam @aws_api_key
+}
+
+type LiquorType @aws_iam @aws_api_key {
+  id: ID!
+  name: String
+  type: String
+  price: Float
+  brand: String
+  img: AWSJSON
+  specialID: ID
+  cocktailID: ID
+  shotID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  LiquorTypeShots(shotID: ModelIDKeyConditionInput, filter: ModelLiquorTypeShotFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLiquorTypeShotConnection @aws_iam @aws_api_key
+  LiquorTypeCocktails(cocktailID: ModelIDKeyConditionInput, filter: ModelLiquorTypeCocktailFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLiquorTypeCocktailConnection @aws_iam @aws_api_key
+  LiquorTypeSpecials(specialID: ModelIDKeyConditionInput, filter: ModelLiquorTypeSpecialFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLiquorTypeSpecialConnection @aws_iam @aws_api_key
+}
+
+type Special @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  price: Float!
+  img: AWSJSON
+  description: String
+  menuID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  Mixers(filter: ModelMixerFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMixerConnection @aws_iam @aws_api_key
+  LiquorTypes(filter: ModelLiquorTypeFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLiquorTypeConnection @aws_iam @aws_api_key
+  liquortypes(liquortypeID: ModelIDKeyConditionInput, filter: ModelLiquorTypeSpecialFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLiquorTypeSpecialConnection @aws_iam @aws_api_key
+  mixers(mixerID: ModelIDKeyConditionInput, filter: ModelMixerSpecialFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMixerSpecialConnection @aws_iam @aws_api_key
+}
+
+type Wine @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  price: Float!
+  description: String
+  img: AWSJSON
+  brand: String
+  menuID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Beer @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  price: Float!
+  request: String
+  img: AWSJSON
+  brand: String
+  menuID: ID
+  description: String
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Cocktail @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  price: Float!
+  description: String
+  img: AWSJSON
+  menuID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  Mixers(filter: ModelMixerFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMixerConnection @aws_iam @aws_api_key
+  LiquorTypes(filter: ModelLiquorTypeFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLiquorTypeConnection @aws_iam @aws_api_key
+  liquortypes(liquortypeID: ModelIDKeyConditionInput, filter: ModelLiquorTypeCocktailFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLiquorTypeCocktailConnection @aws_iam @aws_api_key
+  mixers(mixerID: ModelIDKeyConditionInput, filter: ModelMixerCocktailFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMixerCocktailConnection @aws_iam @aws_api_key
+}
+
+type Shot @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  price: Float!
+  description: String
+  img: AWSJSON
+  menuID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  Mixers(filter: ModelMixerFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMixerConnection @aws_iam @aws_api_key
+  LiquorTypes(filter: ModelLiquorTypeFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLiquorTypeConnection @aws_iam @aws_api_key
+  liquortypes(liquortypeID: ModelIDKeyConditionInput, filter: ModelLiquorTypeShotFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLiquorTypeShotConnection @aws_iam @aws_api_key
+}
+
+type Food @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  price: Float!
+  type: String
+  img: AWSJSON
+  description: String
+  menuID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Menu @aws_iam @aws_api_key {
+  id: ID!
+  barID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  Specials(filter: ModelSpecialFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelSpecialConnection @aws_iam @aws_api_key
+  Wines(filter: ModelWineFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelWineConnection @aws_iam @aws_api_key
+  Beers(filter: ModelBeerFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelBeerConnection @aws_iam @aws_api_key
+  Cocktails(filter: ModelCocktailFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelCocktailConnection @aws_iam @aws_api_key
+  Shots(filter: ModelShotFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelShotConnection @aws_iam @aws_api_key
+  Foods(filter: ModelFoodFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelFoodConnection @aws_iam @aws_api_key
+}
+
+type Employee @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  barID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  Bar: Bar @aws_iam @aws_api_key
+  Orders(filter: ModelOrderFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelOrderConnection @aws_iam @aws_api_key
+}
+
+type Bar @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  email: AWSEmail!
+  phone: AWSPhone
+  profileImg: AWSJSON
+  location: AWSJSON
+  payment: AWSJSON
+  event: String
+  address: AWSJSON
+  nightSummary: AWSJSON
+  bio: String
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  Menu(filter: ModelMenuFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMenuConnection @aws_iam @aws_api_key
+  Employees(filter: ModelEmployeeFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelEmployeeConnection @aws_iam @aws_api_key
+  Orders(filter: ModelOrderFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelOrderConnection @aws_iam @aws_api_key
+}
+
+type Order @aws_iam @aws_api_key {
+  id: ID!
+  timestamp: AWSDateTime
+  items: [AWSJSON!]
+  completed: Boolean!
+  userID: ID
+  barID: ID
+  employeeID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  User: User @aws_iam @aws_api_key
+}
+
+type User @aws_iam @aws_api_key {
+  id: ID!
+  email: AWSEmail!
+  phone: AWSPhone
+  profileImg: AWSJSON
+  location: AWSJSON
+  age: String
+  createdAt: AWSDateTime
+  name: String!
+  address: AWSJSON
+  order: String
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  updatedAt: AWSDateTime!
+  Orders(filter: ModelOrderFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelOrderConnection @aws_iam @aws_api_key
+}
+
+type LiquorTypeShot @aws_iam @aws_api_key {
+  id: ID!
+  liquortypeID: ID!
+  shotID: ID!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  liquortype: LiquorType! @aws_iam @aws_api_key
+  shot: Shot! @aws_iam @aws_api_key
+}
+
+type LiquorTypeCocktail @aws_iam @aws_api_key {
+  id: ID!
+  liquortypeID: ID!
+  cocktailID: ID!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  liquortype: LiquorType! @aws_iam @aws_api_key
+  cocktail: Cocktail! @aws_iam @aws_api_key
+}
+
+type LiquorTypeSpecial @aws_iam @aws_api_key {
+  id: ID!
+  liquortypeID: ID!
+  specialID: ID!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  liquortype: LiquorType! @aws_iam @aws_api_key
+  special: Special! @aws_iam @aws_api_key
+}
+
+type MixerCocktail @aws_iam @aws_api_key {
+  id: ID!
+  mixerID: ID!
+  cocktailID: ID!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  mixer: Mixer! @aws_iam @aws_api_key
+  cocktail: Cocktail! @aws_iam @aws_api_key
+}
+
+type MixerSpecial @aws_iam @aws_api_key {
+  id: ID!
+  mixerID: ID!
+  specialID: ID!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  mixer: Mixer! @aws_iam @aws_api_key
+  special: Special! @aws_iam @aws_api_key
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelMixerConnection @aws_api_key @aws_iam {
+  items: [Mixer!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelMixerFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  price: ModelFloatInput
+  brand: ModelStringInput
+  img: ModelStringInput
+  specialID: ModelIDInput
+  cocktailID: ModelIDInput
+  shotID: ModelIDInput
+  and: [ModelMixerFilterInput]
+  or: [ModelMixerFilterInput]
+  not: ModelMixerFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getMixer(id: ID!): Mixer @aws_api_key @aws_iam
+  listMixers(filter: ModelMixerFilterInput, limit: Int, nextToken: String): ModelMixerConnection @aws_api_key @aws_iam
+  syncMixers(filter: ModelMixerFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelMixerConnection @aws_api_key @aws_iam
+  getLiquorType(id: ID!): LiquorType @aws_api_key @aws_iam
+  listLiquorTypes(filter: ModelLiquorTypeFilterInput, limit: Int, nextToken: String): ModelLiquorTypeConnection @aws_api_key @aws_iam
+  syncLiquorTypes(filter: ModelLiquorTypeFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelLiquorTypeConnection @aws_api_key @aws_iam
+  getSpecial(id: ID!): Special @aws_api_key @aws_iam
+  listSpecials(filter: ModelSpecialFilterInput, limit: Int, nextToken: String): ModelSpecialConnection @aws_api_key @aws_iam
+  syncSpecials(filter: ModelSpecialFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelSpecialConnection @aws_api_key @aws_iam
+  getWine(id: ID!): Wine @aws_api_key @aws_iam
+  listWines(filter: ModelWineFilterInput, limit: Int, nextToken: String): ModelWineConnection @aws_api_key @aws_iam
+  syncWines(filter: ModelWineFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelWineConnection @aws_api_key @aws_iam
+  getBeer(id: ID!): Beer @aws_api_key @aws_iam
+  listBeers(filter: ModelBeerFilterInput, limit: Int, nextToken: String): ModelBeerConnection @aws_api_key @aws_iam
+  syncBeers(filter: ModelBeerFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelBeerConnection @aws_api_key @aws_iam
+  getCocktail(id: ID!): Cocktail @aws_api_key @aws_iam
+  listCocktails(filter: ModelCocktailFilterInput, limit: Int, nextToken: String): ModelCocktailConnection @aws_api_key @aws_iam
+  syncCocktails(filter: ModelCocktailFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelCocktailConnection @aws_api_key @aws_iam
+  getShot(id: ID!): Shot @aws_api_key @aws_iam
+  listShots(filter: ModelShotFilterInput, limit: Int, nextToken: String): ModelShotConnection @aws_api_key @aws_iam
+  syncShots(filter: ModelShotFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelShotConnection @aws_api_key @aws_iam
+  getFood(id: ID!): Food @aws_api_key @aws_iam
+  listFoods(filter: ModelFoodFilterInput, limit: Int, nextToken: String): ModelFoodConnection @aws_api_key @aws_iam
+  syncFoods(filter: ModelFoodFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelFoodConnection @aws_api_key @aws_iam
+  getMenu(id: ID!): Menu @aws_api_key @aws_iam
+  listMenus(filter: ModelMenuFilterInput, limit: Int, nextToken: String): ModelMenuConnection @aws_api_key @aws_iam
+  syncMenus(filter: ModelMenuFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelMenuConnection @aws_api_key @aws_iam
+  getEmployee(id: ID!): Employee @aws_api_key @aws_iam
+  listEmployees(filter: ModelEmployeeFilterInput, limit: Int, nextToken: String): ModelEmployeeConnection @aws_api_key @aws_iam
+  syncEmployees(filter: ModelEmployeeFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelEmployeeConnection @aws_api_key @aws_iam
+  getBar(id: ID!): Bar @aws_api_key @aws_iam
+  listBars(filter: ModelBarFilterInput, limit: Int, nextToken: String): ModelBarConnection @aws_api_key @aws_iam
+  syncBars(filter: ModelBarFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelBarConnection @aws_api_key @aws_iam
+  getOrder(id: ID!): Order @aws_api_key @aws_iam
+  listOrders(filter: ModelOrderFilterInput, limit: Int, nextToken: String): ModelOrderConnection @aws_api_key @aws_iam
+  syncOrders(filter: ModelOrderFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelOrderConnection @aws_api_key @aws_iam
+  getUser(id: ID!): User @aws_api_key @aws_iam
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection @aws_api_key @aws_iam
+  syncUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelUserConnection @aws_api_key @aws_iam
+  syncLiquorTypeShots(filter: ModelLiquorTypeShotFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelLiquorTypeShotConnection @aws_api_key @aws_iam
+  syncLiquorTypeCocktails(filter: ModelLiquorTypeCocktailFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelLiquorTypeCocktailConnection @aws_api_key @aws_iam
+  syncLiquorTypeSpecials(filter: ModelLiquorTypeSpecialFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelLiquorTypeSpecialConnection @aws_api_key @aws_iam
+  syncMixerCocktails(filter: ModelMixerCocktailFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelMixerCocktailConnection @aws_api_key @aws_iam
+  syncMixerSpecials(filter: ModelMixerSpecialFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelMixerSpecialConnection @aws_api_key @aws_iam
+}
+
+input CreateMixerInput {
+  id: ID
+  name: String
+  price: Float
+  brand: String
+  img: AWSJSON
+  specialID: ID
+  cocktailID: ID
+  shotID: ID
+  _version: Int
+}
+
+input UpdateMixerInput {
+  id: ID!
+  name: String
+  price: Float
+  brand: String
+  img: AWSJSON
+  specialID: ID
+  cocktailID: ID
+  shotID: ID
+  _version: Int
+}
+
+input DeleteMixerInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createMixer(input: CreateMixerInput!, condition: ModelMixerConditionInput): Mixer @aws_api_key @aws_iam
+  updateMixer(input: UpdateMixerInput!, condition: ModelMixerConditionInput): Mixer @aws_api_key @aws_iam
+  deleteMixer(input: DeleteMixerInput!, condition: ModelMixerConditionInput): Mixer @aws_api_key @aws_iam
+  createLiquorType(input: CreateLiquorTypeInput!, condition: ModelLiquorTypeConditionInput): LiquorType @aws_api_key @aws_iam
+  updateLiquorType(input: UpdateLiquorTypeInput!, condition: ModelLiquorTypeConditionInput): LiquorType @aws_api_key @aws_iam
+  deleteLiquorType(input: DeleteLiquorTypeInput!, condition: ModelLiquorTypeConditionInput): LiquorType @aws_api_key @aws_iam
+  createSpecial(input: CreateSpecialInput!, condition: ModelSpecialConditionInput): Special @aws_api_key @aws_iam
+  updateSpecial(input: UpdateSpecialInput!, condition: ModelSpecialConditionInput): Special @aws_api_key @aws_iam
+  deleteSpecial(input: DeleteSpecialInput!, condition: ModelSpecialConditionInput): Special @aws_api_key @aws_iam
+  createWine(input: CreateWineInput!, condition: ModelWineConditionInput): Wine @aws_api_key @aws_iam
+  updateWine(input: UpdateWineInput!, condition: ModelWineConditionInput): Wine @aws_api_key @aws_iam
+  deleteWine(input: DeleteWineInput!, condition: ModelWineConditionInput): Wine @aws_api_key @aws_iam
+  createBeer(input: CreateBeerInput!, condition: ModelBeerConditionInput): Beer @aws_api_key @aws_iam
+  updateBeer(input: UpdateBeerInput!, condition: ModelBeerConditionInput): Beer @aws_api_key @aws_iam
+  deleteBeer(input: DeleteBeerInput!, condition: ModelBeerConditionInput): Beer @aws_api_key @aws_iam
+  createCocktail(input: CreateCocktailInput!, condition: ModelCocktailConditionInput): Cocktail @aws_api_key @aws_iam
+  updateCocktail(input: UpdateCocktailInput!, condition: ModelCocktailConditionInput): Cocktail @aws_api_key @aws_iam
+  deleteCocktail(input: DeleteCocktailInput!, condition: ModelCocktailConditionInput): Cocktail @aws_api_key @aws_iam
+  createShot(input: CreateShotInput!, condition: ModelShotConditionInput): Shot @aws_api_key @aws_iam
+  updateShot(input: UpdateShotInput!, condition: ModelShotConditionInput): Shot @aws_api_key @aws_iam
+  deleteShot(input: DeleteShotInput!, condition: ModelShotConditionInput): Shot @aws_api_key @aws_iam
+  createFood(input: CreateFoodInput!, condition: ModelFoodConditionInput): Food @aws_api_key @aws_iam
+  updateFood(input: UpdateFoodInput!, condition: ModelFoodConditionInput): Food @aws_api_key @aws_iam
+  deleteFood(input: DeleteFoodInput!, condition: ModelFoodConditionInput): Food @aws_api_key @aws_iam
+  createMenu(input: CreateMenuInput!, condition: ModelMenuConditionInput): Menu @aws_api_key @aws_iam
+  updateMenu(input: UpdateMenuInput!, condition: ModelMenuConditionInput): Menu @aws_api_key @aws_iam
+  deleteMenu(input: DeleteMenuInput!, condition: ModelMenuConditionInput): Menu @aws_api_key @aws_iam
+  createEmployee(input: CreateEmployeeInput!, condition: ModelEmployeeConditionInput): Employee @aws_api_key @aws_iam
+  updateEmployee(input: UpdateEmployeeInput!, condition: ModelEmployeeConditionInput): Employee @aws_api_key @aws_iam
+  deleteEmployee(input: DeleteEmployeeInput!, condition: ModelEmployeeConditionInput): Employee @aws_api_key @aws_iam
+  createBar(input: CreateBarInput!, condition: ModelBarConditionInput): Bar @aws_api_key @aws_iam
+  updateBar(input: UpdateBarInput!, condition: ModelBarConditionInput): Bar @aws_api_key @aws_iam
+  deleteBar(input: DeleteBarInput!, condition: ModelBarConditionInput): Bar @aws_api_key @aws_iam
+  createOrder(input: CreateOrderInput!, condition: ModelOrderConditionInput): Order @aws_api_key @aws_iam
+  updateOrder(input: UpdateOrderInput!, condition: ModelOrderConditionInput): Order @aws_api_key @aws_iam
+  deleteOrder(input: DeleteOrderInput!, condition: ModelOrderConditionInput): Order @aws_api_key @aws_iam
+  createUser(input: CreateUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  updateUser(input: UpdateUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  deleteUser(input: DeleteUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  createLiquorTypeShot(input: CreateLiquorTypeShotInput!, condition: ModelLiquorTypeShotConditionInput): LiquorTypeShot @aws_api_key @aws_iam
+  updateLiquorTypeShot(input: UpdateLiquorTypeShotInput!, condition: ModelLiquorTypeShotConditionInput): LiquorTypeShot @aws_api_key @aws_iam
+  deleteLiquorTypeShot(input: DeleteLiquorTypeShotInput!, condition: ModelLiquorTypeShotConditionInput): LiquorTypeShot @aws_api_key @aws_iam
+  createLiquorTypeCocktail(input: CreateLiquorTypeCocktailInput!, condition: ModelLiquorTypeCocktailConditionInput): LiquorTypeCocktail @aws_api_key @aws_iam
+  updateLiquorTypeCocktail(input: UpdateLiquorTypeCocktailInput!, condition: ModelLiquorTypeCocktailConditionInput): LiquorTypeCocktail @aws_api_key @aws_iam
+  deleteLiquorTypeCocktail(input: DeleteLiquorTypeCocktailInput!, condition: ModelLiquorTypeCocktailConditionInput): LiquorTypeCocktail @aws_api_key @aws_iam
+  createLiquorTypeSpecial(input: CreateLiquorTypeSpecialInput!, condition: ModelLiquorTypeSpecialConditionInput): LiquorTypeSpecial @aws_api_key @aws_iam
+  updateLiquorTypeSpecial(input: UpdateLiquorTypeSpecialInput!, condition: ModelLiquorTypeSpecialConditionInput): LiquorTypeSpecial @aws_api_key @aws_iam
+  deleteLiquorTypeSpecial(input: DeleteLiquorTypeSpecialInput!, condition: ModelLiquorTypeSpecialConditionInput): LiquorTypeSpecial @aws_api_key @aws_iam
+  createMixerCocktail(input: CreateMixerCocktailInput!, condition: ModelMixerCocktailConditionInput): MixerCocktail @aws_api_key @aws_iam
+  updateMixerCocktail(input: UpdateMixerCocktailInput!, condition: ModelMixerCocktailConditionInput): MixerCocktail @aws_api_key @aws_iam
+  deleteMixerCocktail(input: DeleteMixerCocktailInput!, condition: ModelMixerCocktailConditionInput): MixerCocktail @aws_api_key @aws_iam
+  createMixerSpecial(input: CreateMixerSpecialInput!, condition: ModelMixerSpecialConditionInput): MixerSpecial @aws_api_key @aws_iam
+  updateMixerSpecial(input: UpdateMixerSpecialInput!, condition: ModelMixerSpecialConditionInput): MixerSpecial @aws_api_key @aws_iam
+  deleteMixerSpecial(input: DeleteMixerSpecialInput!, condition: ModelMixerSpecialConditionInput): MixerSpecial @aws_api_key @aws_iam
+}
+
+input ModelMixerConditionInput {
+  name: ModelStringInput
+  price: ModelFloatInput
+  brand: ModelStringInput
+  img: ModelStringInput
+  specialID: ModelIDInput
+  cocktailID: ModelIDInput
+  shotID: ModelIDInput
+  and: [ModelMixerConditionInput]
+  or: [ModelMixerConditionInput]
+  not: ModelMixerConditionInput
+}
+
+type Subscription {
+  onCreateMixer: Mixer @aws_subscribe(mutations: ["createMixer"]) @aws_api_key @aws_iam
+  onUpdateMixer: Mixer @aws_subscribe(mutations: ["updateMixer"]) @aws_api_key @aws_iam
+  onDeleteMixer: Mixer @aws_subscribe(mutations: ["deleteMixer"]) @aws_api_key @aws_iam
+  onCreateLiquorType: LiquorType @aws_subscribe(mutations: ["createLiquorType"]) @aws_api_key @aws_iam
+  onUpdateLiquorType: LiquorType @aws_subscribe(mutations: ["updateLiquorType"]) @aws_api_key @aws_iam
+  onDeleteLiquorType: LiquorType @aws_subscribe(mutations: ["deleteLiquorType"]) @aws_api_key @aws_iam
+  onCreateSpecial: Special @aws_subscribe(mutations: ["createSpecial"]) @aws_api_key @aws_iam
+  onUpdateSpecial: Special @aws_subscribe(mutations: ["updateSpecial"]) @aws_api_key @aws_iam
+  onDeleteSpecial: Special @aws_subscribe(mutations: ["deleteSpecial"]) @aws_api_key @aws_iam
+  onCreateWine: Wine @aws_subscribe(mutations: ["createWine"]) @aws_api_key @aws_iam
+  onUpdateWine: Wine @aws_subscribe(mutations: ["updateWine"]) @aws_api_key @aws_iam
+  onDeleteWine: Wine @aws_subscribe(mutations: ["deleteWine"]) @aws_api_key @aws_iam
+  onCreateBeer: Beer @aws_subscribe(mutations: ["createBeer"]) @aws_api_key @aws_iam
+  onUpdateBeer: Beer @aws_subscribe(mutations: ["updateBeer"]) @aws_api_key @aws_iam
+  onDeleteBeer: Beer @aws_subscribe(mutations: ["deleteBeer"]) @aws_api_key @aws_iam
+  onCreateCocktail: Cocktail @aws_subscribe(mutations: ["createCocktail"]) @aws_api_key @aws_iam
+  onUpdateCocktail: Cocktail @aws_subscribe(mutations: ["updateCocktail"]) @aws_api_key @aws_iam
+  onDeleteCocktail: Cocktail @aws_subscribe(mutations: ["deleteCocktail"]) @aws_api_key @aws_iam
+  onCreateShot: Shot @aws_subscribe(mutations: ["createShot"]) @aws_api_key @aws_iam
+  onUpdateShot: Shot @aws_subscribe(mutations: ["updateShot"]) @aws_api_key @aws_iam
+  onDeleteShot: Shot @aws_subscribe(mutations: ["deleteShot"]) @aws_api_key @aws_iam
+  onCreateFood: Food @aws_subscribe(mutations: ["createFood"]) @aws_api_key @aws_iam
+  onUpdateFood: Food @aws_subscribe(mutations: ["updateFood"]) @aws_api_key @aws_iam
+  onDeleteFood: Food @aws_subscribe(mutations: ["deleteFood"]) @aws_api_key @aws_iam
+  onCreateMenu: Menu @aws_subscribe(mutations: ["createMenu"]) @aws_api_key @aws_iam
+  onUpdateMenu: Menu @aws_subscribe(mutations: ["updateMenu"]) @aws_api_key @aws_iam
+  onDeleteMenu: Menu @aws_subscribe(mutations: ["deleteMenu"]) @aws_api_key @aws_iam
+  onCreateEmployee: Employee @aws_subscribe(mutations: ["createEmployee"]) @aws_api_key @aws_iam
+  onUpdateEmployee: Employee @aws_subscribe(mutations: ["updateEmployee"]) @aws_api_key @aws_iam
+  onDeleteEmployee: Employee @aws_subscribe(mutations: ["deleteEmployee"]) @aws_api_key @aws_iam
+  onCreateBar: Bar @aws_subscribe(mutations: ["createBar"]) @aws_api_key @aws_iam
+  onUpdateBar: Bar @aws_subscribe(mutations: ["updateBar"]) @aws_api_key @aws_iam
+  onDeleteBar: Bar @aws_subscribe(mutations: ["deleteBar"]) @aws_api_key @aws_iam
+  onCreateOrder: Order @aws_subscribe(mutations: ["createOrder"]) @aws_api_key @aws_iam
+  onUpdateOrder: Order @aws_subscribe(mutations: ["updateOrder"]) @aws_api_key @aws_iam
+  onDeleteOrder: Order @aws_subscribe(mutations: ["deleteOrder"]) @aws_api_key @aws_iam
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"]) @aws_api_key @aws_iam
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"]) @aws_api_key @aws_iam
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"]) @aws_api_key @aws_iam
+  onCreateLiquorTypeShot: LiquorTypeShot @aws_subscribe(mutations: ["createLiquorTypeShot"]) @aws_api_key @aws_iam
+  onUpdateLiquorTypeShot: LiquorTypeShot @aws_subscribe(mutations: ["updateLiquorTypeShot"]) @aws_api_key @aws_iam
+  onDeleteLiquorTypeShot: LiquorTypeShot @aws_subscribe(mutations: ["deleteLiquorTypeShot"]) @aws_api_key @aws_iam
+  onCreateLiquorTypeCocktail: LiquorTypeCocktail @aws_subscribe(mutations: ["createLiquorTypeCocktail"]) @aws_api_key @aws_iam
+  onUpdateLiquorTypeCocktail: LiquorTypeCocktail @aws_subscribe(mutations: ["updateLiquorTypeCocktail"]) @aws_api_key @aws_iam
+  onDeleteLiquorTypeCocktail: LiquorTypeCocktail @aws_subscribe(mutations: ["deleteLiquorTypeCocktail"]) @aws_api_key @aws_iam
+  onCreateLiquorTypeSpecial: LiquorTypeSpecial @aws_subscribe(mutations: ["createLiquorTypeSpecial"]) @aws_api_key @aws_iam
+  onUpdateLiquorTypeSpecial: LiquorTypeSpecial @aws_subscribe(mutations: ["updateLiquorTypeSpecial"]) @aws_api_key @aws_iam
+  onDeleteLiquorTypeSpecial: LiquorTypeSpecial @aws_subscribe(mutations: ["deleteLiquorTypeSpecial"]) @aws_api_key @aws_iam
+  onCreateMixerCocktail: MixerCocktail @aws_subscribe(mutations: ["createMixerCocktail"]) @aws_api_key @aws_iam
+  onUpdateMixerCocktail: MixerCocktail @aws_subscribe(mutations: ["updateMixerCocktail"]) @aws_api_key @aws_iam
+  onDeleteMixerCocktail: MixerCocktail @aws_subscribe(mutations: ["deleteMixerCocktail"]) @aws_api_key @aws_iam
+  onCreateMixerSpecial: MixerSpecial @aws_subscribe(mutations: ["createMixerSpecial"]) @aws_api_key @aws_iam
+  onUpdateMixerSpecial: MixerSpecial @aws_subscribe(mutations: ["updateMixerSpecial"]) @aws_api_key @aws_iam
+  onDeleteMixerSpecial: MixerSpecial @aws_subscribe(mutations: ["deleteMixerSpecial"]) @aws_api_key @aws_iam
+}
+
+type ModelLiquorTypeConnection @aws_api_key @aws_iam {
+  items: [LiquorType!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelLiquorTypeFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  type: ModelStringInput
+  price: ModelFloatInput
+  brand: ModelStringInput
+  img: ModelStringInput
+  specialID: ModelIDInput
+  cocktailID: ModelIDInput
+  shotID: ModelIDInput
+  and: [ModelLiquorTypeFilterInput]
+  or: [ModelLiquorTypeFilterInput]
+  not: ModelLiquorTypeFilterInput
+}
+
+input CreateLiquorTypeInput {
+  id: ID
+  name: String
+  type: String
+  price: Float
+  brand: String
+  img: AWSJSON
+  specialID: ID
+  cocktailID: ID
+  shotID: ID
+  _version: Int
+}
+
+input UpdateLiquorTypeInput {
+  id: ID!
+  name: String
+  type: String
+  price: Float
+  brand: String
+  img: AWSJSON
+  specialID: ID
+  cocktailID: ID
+  shotID: ID
+  _version: Int
+}
+
+input DeleteLiquorTypeInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelLiquorTypeConditionInput {
+  name: ModelStringInput
+  type: ModelStringInput
+  price: ModelFloatInput
+  brand: ModelStringInput
+  img: ModelStringInput
+  specialID: ModelIDInput
+  cocktailID: ModelIDInput
+  shotID: ModelIDInput
+  and: [ModelLiquorTypeConditionInput]
+  or: [ModelLiquorTypeConditionInput]
+  not: ModelLiquorTypeConditionInput
+}
+
+type ModelSpecialConnection @aws_api_key @aws_iam {
+  items: [Special!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelSpecialFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  price: ModelFloatInput
+  img: ModelStringInput
+  description: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelSpecialFilterInput]
+  or: [ModelSpecialFilterInput]
+  not: ModelSpecialFilterInput
+}
+
+input CreateSpecialInput {
+  id: ID
+  name: String!
+  price: Float!
+  img: AWSJSON
+  description: String
+  menuID: ID
+  _version: Int
+}
+
+input UpdateSpecialInput {
+  id: ID!
+  name: String
+  price: Float
+  img: AWSJSON
+  description: String
+  menuID: ID
+  _version: Int
+}
+
+input DeleteSpecialInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSpecialConditionInput {
+  name: ModelStringInput
+  price: ModelFloatInput
+  img: ModelStringInput
+  description: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelSpecialConditionInput]
+  or: [ModelSpecialConditionInput]
+  not: ModelSpecialConditionInput
+}
+
+type ModelWineConnection @aws_api_key @aws_iam {
+  items: [Wine!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelWineFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  price: ModelFloatInput
+  description: ModelStringInput
+  img: ModelStringInput
+  brand: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelWineFilterInput]
+  or: [ModelWineFilterInput]
+  not: ModelWineFilterInput
+}
+
+input CreateWineInput {
+  id: ID
+  name: String!
+  price: Float!
+  description: String
+  img: AWSJSON
+  brand: String
+  menuID: ID
+  _version: Int
+}
+
+input UpdateWineInput {
+  id: ID!
+  name: String
+  price: Float
+  description: String
+  img: AWSJSON
+  brand: String
+  menuID: ID
+  _version: Int
+}
+
+input DeleteWineInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelWineConditionInput {
+  name: ModelStringInput
+  price: ModelFloatInput
+  description: ModelStringInput
+  img: ModelStringInput
+  brand: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelWineConditionInput]
+  or: [ModelWineConditionInput]
+  not: ModelWineConditionInput
+}
+
+type ModelBeerConnection @aws_api_key @aws_iam {
+  items: [Beer!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelBeerFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  price: ModelFloatInput
+  request: ModelStringInput
+  img: ModelStringInput
+  brand: ModelStringInput
+  menuID: ModelIDInput
+  description: ModelStringInput
+  and: [ModelBeerFilterInput]
+  or: [ModelBeerFilterInput]
+  not: ModelBeerFilterInput
+}
+
+input CreateBeerInput {
+  id: ID
+  name: String!
+  price: Float!
+  request: String
+  img: AWSJSON
+  brand: String
+  menuID: ID
+  description: String
+  _version: Int
+}
+
+input UpdateBeerInput {
+  id: ID!
+  name: String
+  price: Float
+  request: String
+  img: AWSJSON
+  brand: String
+  menuID: ID
+  description: String
+  _version: Int
+}
+
+input DeleteBeerInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelBeerConditionInput {
+  name: ModelStringInput
+  price: ModelFloatInput
+  request: ModelStringInput
+  img: ModelStringInput
+  brand: ModelStringInput
+  menuID: ModelIDInput
+  description: ModelStringInput
+  and: [ModelBeerConditionInput]
+  or: [ModelBeerConditionInput]
+  not: ModelBeerConditionInput
+}
+
+type ModelCocktailConnection @aws_api_key @aws_iam {
+  items: [Cocktail!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelCocktailFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  price: ModelFloatInput
+  description: ModelStringInput
+  img: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelCocktailFilterInput]
+  or: [ModelCocktailFilterInput]
+  not: ModelCocktailFilterInput
+}
+
+input CreateCocktailInput {
+  id: ID
+  name: String!
+  price: Float!
+  description: String
+  img: AWSJSON
+  menuID: ID
+  _version: Int
+}
+
+input UpdateCocktailInput {
+  id: ID!
+  name: String
+  price: Float
+  description: String
+  img: AWSJSON
+  menuID: ID
+  _version: Int
+}
+
+input DeleteCocktailInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelCocktailConditionInput {
+  name: ModelStringInput
+  price: ModelFloatInput
+  description: ModelStringInput
+  img: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelCocktailConditionInput]
+  or: [ModelCocktailConditionInput]
+  not: ModelCocktailConditionInput
+}
+
+type ModelShotConnection @aws_api_key @aws_iam {
+  items: [Shot!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelShotFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  price: ModelFloatInput
+  description: ModelStringInput
+  img: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelShotFilterInput]
+  or: [ModelShotFilterInput]
+  not: ModelShotFilterInput
+}
+
+input CreateShotInput {
+  id: ID
+  name: String!
+  price: Float!
+  description: String
+  img: AWSJSON
+  menuID: ID
+  _version: Int
+}
+
+input UpdateShotInput {
+  id: ID!
+  name: String
+  price: Float
+  description: String
+  img: AWSJSON
+  menuID: ID
+  _version: Int
+}
+
+input DeleteShotInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelShotConditionInput {
+  name: ModelStringInput
+  price: ModelFloatInput
+  description: ModelStringInput
+  img: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelShotConditionInput]
+  or: [ModelShotConditionInput]
+  not: ModelShotConditionInput
+}
+
+type ModelFoodConnection @aws_api_key @aws_iam {
+  items: [Food!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelFoodFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  price: ModelFloatInput
+  type: ModelStringInput
+  img: ModelStringInput
+  description: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelFoodFilterInput]
+  or: [ModelFoodFilterInput]
+  not: ModelFoodFilterInput
+}
+
+input CreateFoodInput {
+  id: ID
+  name: String!
+  price: Float!
+  type: String
+  img: AWSJSON
+  description: String
+  menuID: ID
+  _version: Int
+}
+
+input UpdateFoodInput {
+  id: ID!
+  name: String
+  price: Float
+  type: String
+  img: AWSJSON
+  description: String
+  menuID: ID
+  _version: Int
+}
+
+input DeleteFoodInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelFoodConditionInput {
+  name: ModelStringInput
+  price: ModelFloatInput
+  type: ModelStringInput
+  img: ModelStringInput
+  description: ModelStringInput
+  menuID: ModelIDInput
+  and: [ModelFoodConditionInput]
+  or: [ModelFoodConditionInput]
+  not: ModelFoodConditionInput
+}
+
+type ModelMenuConnection @aws_api_key @aws_iam {
+  items: [Menu!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelMenuFilterInput {
+  id: ModelIDInput
+  barID: ModelIDInput
+  and: [ModelMenuFilterInput]
+  or: [ModelMenuFilterInput]
+  not: ModelMenuFilterInput
+}
+
+input CreateMenuInput {
+  id: ID
+  barID: ID
+  _version: Int
+}
+
+input UpdateMenuInput {
+  id: ID!
+  barID: ID
+  _version: Int
+}
+
+input DeleteMenuInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelMenuConditionInput {
+  barID: ModelIDInput
+  and: [ModelMenuConditionInput]
+  or: [ModelMenuConditionInput]
+  not: ModelMenuConditionInput
+}
+
+type ModelEmployeeConnection @aws_api_key @aws_iam {
+  items: [Employee!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelEmployeeFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  barID: ModelIDInput
+  and: [ModelEmployeeFilterInput]
+  or: [ModelEmployeeFilterInput]
+  not: ModelEmployeeFilterInput
+}
+
+input CreateEmployeeInput {
+  id: ID
+  name: String!
+  barID: ID
+  _version: Int
+  employeeBarId: ID
+}
+
+input UpdateEmployeeInput {
+  id: ID!
+  name: String
+  barID: ID
+  _version: Int
+  employeeBarId: ID
+}
+
+input DeleteEmployeeInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelEmployeeConditionInput {
+  name: ModelStringInput
+  barID: ModelIDInput
+  and: [ModelEmployeeConditionInput]
+  or: [ModelEmployeeConditionInput]
+  not: ModelEmployeeConditionInput
+}
+
+type ModelBarConnection @aws_api_key @aws_iam {
+  items: [Bar!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelBarFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  profileImg: ModelStringInput
+  location: ModelStringInput
+  payment: ModelStringInput
+  event: ModelStringInput
+  address: ModelStringInput
+  nightSummary: ModelStringInput
+  bio: ModelStringInput
+  and: [ModelBarFilterInput]
+  or: [ModelBarFilterInput]
+  not: ModelBarFilterInput
+}
+
+input CreateBarInput {
+  id: ID
+  name: String!
+  email: AWSEmail!
+  phone: AWSPhone
+  profileImg: AWSJSON
+  location: AWSJSON
+  payment: AWSJSON
+  event: String
+  address: AWSJSON
+  nightSummary: AWSJSON
+  bio: String
+  _version: Int
+}
+
+input UpdateBarInput {
+  id: ID!
+  name: String
+  email: AWSEmail
+  phone: AWSPhone
+  profileImg: AWSJSON
+  location: AWSJSON
+  payment: AWSJSON
+  event: String
+  address: AWSJSON
+  nightSummary: AWSJSON
+  bio: String
+  _version: Int
+}
+
+input DeleteBarInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelBarConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  profileImg: ModelStringInput
+  location: ModelStringInput
+  payment: ModelStringInput
+  event: ModelStringInput
+  address: ModelStringInput
+  nightSummary: ModelStringInput
+  bio: ModelStringInput
+  and: [ModelBarConditionInput]
+  or: [ModelBarConditionInput]
+  not: ModelBarConditionInput
+}
+
+type ModelOrderConnection @aws_api_key @aws_iam {
+  items: [Order!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelOrderFilterInput {
+  id: ModelIDInput
+  timestamp: ModelStringInput
+  items: ModelStringInput
+  completed: ModelBooleanInput
+  userID: ModelIDInput
+  barID: ModelIDInput
+  employeeID: ModelIDInput
+  and: [ModelOrderFilterInput]
+  or: [ModelOrderFilterInput]
+  not: ModelOrderFilterInput
+}
+
+input CreateOrderInput {
+  id: ID
+  timestamp: AWSDateTime
+  items: [AWSJSON!]
+  completed: Boolean!
+  userID: ID
+  barID: ID
+  employeeID: ID
+  _version: Int
+  orderUserId: ID
+}
+
+input UpdateOrderInput {
+  id: ID!
+  timestamp: AWSDateTime
+  items: [AWSJSON!]
+  completed: Boolean
+  userID: ID
+  barID: ID
+  employeeID: ID
+  _version: Int
+  orderUserId: ID
+}
+
+input DeleteOrderInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelOrderConditionInput {
+  timestamp: ModelStringInput
+  items: ModelStringInput
+  completed: ModelBooleanInput
+  userID: ModelIDInput
+  barID: ModelIDInput
+  employeeID: ModelIDInput
+  and: [ModelOrderConditionInput]
+  or: [ModelOrderConditionInput]
+  not: ModelOrderConditionInput
+}
+
+type ModelUserConnection @aws_api_key @aws_iam {
+  items: [User!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelUserFilterInput {
+  id: ModelIDInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  profileImg: ModelStringInput
+  location: ModelStringInput
+  age: ModelStringInput
+  createdAt: ModelStringInput
+  name: ModelStringInput
+  address: ModelStringInput
+  order: ModelStringInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+input CreateUserInput {
+  id: ID
+  email: AWSEmail!
+  phone: AWSPhone
+  profileImg: AWSJSON
+  location: AWSJSON
+  age: String
+  createdAt: AWSDateTime
+  name: String!
+  address: AWSJSON
+  order: String
+  _version: Int
+}
+
+input UpdateUserInput {
+  id: ID!
+  email: AWSEmail
+  phone: AWSPhone
+  profileImg: AWSJSON
+  location: AWSJSON
+  age: String
+  createdAt: AWSDateTime
+  name: String
+  address: AWSJSON
+  order: String
+  _version: Int
+}
+
+input DeleteUserInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelUserConditionInput {
+  email: ModelStringInput
+  phone: ModelStringInput
+  profileImg: ModelStringInput
+  location: ModelStringInput
+  age: ModelStringInput
+  createdAt: ModelStringInput
+  name: ModelStringInput
+  address: ModelStringInput
+  order: ModelStringInput
+  and: [ModelUserConditionInput]
+  or: [ModelUserConditionInput]
+  not: ModelUserConditionInput
+}
+
+type ModelLiquorTypeShotConnection @aws_iam @aws_api_key {
+  items: [LiquorTypeShot!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelLiquorTypeShotFilterInput {
+  id: ModelIDInput
+  liquortypeID: ModelIDInput
+  shotID: ModelIDInput
+  and: [ModelLiquorTypeShotFilterInput]
+  or: [ModelLiquorTypeShotFilterInput]
+  not: ModelLiquorTypeShotFilterInput
+}
+
+input CreateLiquorTypeShotInput {
+  id: ID
+  liquortypeID: ID!
+  shotID: ID!
+  _version: Int
+}
+
+input UpdateLiquorTypeShotInput {
+  id: ID!
+  liquortypeID: ID
+  shotID: ID
+  _version: Int
+}
+
+input DeleteLiquorTypeShotInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelLiquorTypeShotConditionInput {
+  liquortypeID: ModelIDInput
+  shotID: ModelIDInput
+  and: [ModelLiquorTypeShotConditionInput]
+  or: [ModelLiquorTypeShotConditionInput]
+  not: ModelLiquorTypeShotConditionInput
+}
+
+type ModelLiquorTypeCocktailConnection @aws_iam @aws_api_key {
+  items: [LiquorTypeCocktail!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelLiquorTypeCocktailFilterInput {
+  id: ModelIDInput
+  liquortypeID: ModelIDInput
+  cocktailID: ModelIDInput
+  and: [ModelLiquorTypeCocktailFilterInput]
+  or: [ModelLiquorTypeCocktailFilterInput]
+  not: ModelLiquorTypeCocktailFilterInput
+}
+
+input CreateLiquorTypeCocktailInput {
+  id: ID
+  liquortypeID: ID!
+  cocktailID: ID!
+  _version: Int
+}
+
+input UpdateLiquorTypeCocktailInput {
+  id: ID!
+  liquortypeID: ID
+  cocktailID: ID
+  _version: Int
+}
+
+input DeleteLiquorTypeCocktailInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelLiquorTypeCocktailConditionInput {
+  liquortypeID: ModelIDInput
+  cocktailID: ModelIDInput
+  and: [ModelLiquorTypeCocktailConditionInput]
+  or: [ModelLiquorTypeCocktailConditionInput]
+  not: ModelLiquorTypeCocktailConditionInput
+}
+
+type ModelLiquorTypeSpecialConnection @aws_iam @aws_api_key {
+  items: [LiquorTypeSpecial!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelLiquorTypeSpecialFilterInput {
+  id: ModelIDInput
+  liquortypeID: ModelIDInput
+  specialID: ModelIDInput
+  and: [ModelLiquorTypeSpecialFilterInput]
+  or: [ModelLiquorTypeSpecialFilterInput]
+  not: ModelLiquorTypeSpecialFilterInput
+}
+
+input CreateLiquorTypeSpecialInput {
+  id: ID
+  liquortypeID: ID!
+  specialID: ID!
+  _version: Int
+}
+
+input UpdateLiquorTypeSpecialInput {
+  id: ID!
+  liquortypeID: ID
+  specialID: ID
+  _version: Int
+}
+
+input DeleteLiquorTypeSpecialInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelLiquorTypeSpecialConditionInput {
+  liquortypeID: ModelIDInput
+  specialID: ModelIDInput
+  and: [ModelLiquorTypeSpecialConditionInput]
+  or: [ModelLiquorTypeSpecialConditionInput]
+  not: ModelLiquorTypeSpecialConditionInput
+}
+
+type ModelMixerCocktailConnection @aws_iam @aws_api_key {
+  items: [MixerCocktail!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelMixerCocktailFilterInput {
+  id: ModelIDInput
+  mixerID: ModelIDInput
+  cocktailID: ModelIDInput
+  and: [ModelMixerCocktailFilterInput]
+  or: [ModelMixerCocktailFilterInput]
+  not: ModelMixerCocktailFilterInput
+}
+
+input CreateMixerCocktailInput {
+  id: ID
+  mixerID: ID!
+  cocktailID: ID!
+  _version: Int
+}
+
+input UpdateMixerCocktailInput {
+  id: ID!
+  mixerID: ID
+  cocktailID: ID
+  _version: Int
+}
+
+input DeleteMixerCocktailInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelMixerCocktailConditionInput {
+  mixerID: ModelIDInput
+  cocktailID: ModelIDInput
+  and: [ModelMixerCocktailConditionInput]
+  or: [ModelMixerCocktailConditionInput]
+  not: ModelMixerCocktailConditionInput
+}
+
+type ModelMixerSpecialConnection @aws_iam @aws_api_key {
+  items: [MixerSpecial!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelMixerSpecialFilterInput {
+  id: ModelIDInput
+  mixerID: ModelIDInput
+  specialID: ModelIDInput
+  and: [ModelMixerSpecialFilterInput]
+  or: [ModelMixerSpecialFilterInput]
+  not: ModelMixerSpecialFilterInput
+}
+
+input CreateMixerSpecialInput {
+  id: ID
+  mixerID: ID!
+  specialID: ID!
+  _version: Int
+}
+
+input UpdateMixerSpecialInput {
+  id: ID!
+  mixerID: ID
+  specialID: ID
+  _version: Int
+}
+
+input DeleteMixerSpecialInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelMixerSpecialConditionInput {
+  mixerID: ModelIDInput
+  specialID: ModelIDInput
+  and: [ModelMixerSpecialConditionInput]
+  or: [ModelMixerSpecialConditionInput]
+  not: ModelMixerSpecialConditionInput
+}
+
+input ModelIDKeyConditionInput {
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  between: [ID]
+  beginsWith: ID
+}
