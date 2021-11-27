@@ -6,32 +6,18 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import {API, graphqlOperation} from 'aws-amplify';
 import {onCreateOrder} from '../src/graphql/subscriptions';
+import { listOrders } from '../src/graphql/queries';
+import OrderQueue from '../src/components/OrderQueue';
 
 export default function TabOneScreen({ navigation }) {
-
-  const [orders, setOrders] = React.useState([])
-
-  function subscribe() {
-    API.graphql(graphqlOperation(onCreateOrder)
-    ).subscribe({
-        next: (orderData) => {
-            console.log("orderData: ", orderData)
-            setOrders([...orders, orderData.value.data.items])
-        }
-    })
-}
-
-
-  React.useEffect(() => {
-      console.log('work')
-      subscribe()
-      
-  }, [])
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab One</Text>
-      <Text>What up</Text>
+      
+
+      <OrderQueue />
+      
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
     </View>
