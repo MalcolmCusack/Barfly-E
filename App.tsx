@@ -8,6 +8,7 @@ import Navigation from './navigation';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports'
 
+
 Amplify.configure(config)
 
 export default function App() {
@@ -19,8 +20,9 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
+          <Navigation colorScheme={colorScheme} />
+          <StatusBar />
+      
         
       </SafeAreaProvider>
     );

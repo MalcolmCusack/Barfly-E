@@ -7,19 +7,19 @@ import { RootTabScreenProps } from '../types';
 import {API, graphqlOperation} from 'aws-amplify';
 import {onCreateOrder} from '../src/graphql/subscriptions';
 import { listOrders } from '../src/graphql/queries';
-import OrderQueue from '../src/components/OrderQueue';
+import OrderQueue from '../src/components/orderqueue/OrderQueue';
 
 export default function TabOneScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
+      <Text style={styles.title}>Order Queue</Text>
       
 
       <OrderQueue />
       
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      
     </View>
   );
 }
