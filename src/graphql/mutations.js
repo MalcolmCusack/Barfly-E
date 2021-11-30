@@ -1092,7 +1092,6 @@ export const updateOrder = /* GraphQL */ `
   ) {
     updateOrder(input: $input, condition: $condition) {
       id
-      timestamp
       items
       completed
       userID
@@ -1113,7 +1112,6 @@ export const updateOrder = /* GraphQL */ `
         createdAt
         name
         address
-        order
         _version
         _deleted
         _lastChangedAt

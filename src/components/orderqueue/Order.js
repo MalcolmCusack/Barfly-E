@@ -1,47 +1,115 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Text, View } from '../../../components/Themed';
 import {Card, Title, Paragraph, Button} from 'react-native-paper';
+import { getUser } from '../../graphql/queries';
+import {API, graphqlOperation} from 'aws-amplify';
+import { List, Colors } from 'react-native-paper';
+import {updateOrder} from '../../graphql/mutations';
+
 
 
 const Order = ({ order }) => {
 
     const [orderItems, setOrderItems] = useState(JSON.parse(order.items))
+    const [user, setUser] = useState()
+    const [isLoading, setIsLoading] = useState(true)
+    const [expanded, setExpanded] = useState(false)
 
-    //const items = JSON.parse(order.items)
-    //setOrderItems(orderItems => [...orderItems, items])
+    const payload = {
+        id: order.id,
+        completed: !order.completed,
+        items: order.items,
+        userID: order.userID
 
-    /*const fakeOrder = {
-        {
-            id: "b723b404-cf4a-43a9-813e-9433d7ace619",
-            completed: false,
-            userID: "7dbc2a86-e62d-4f7f-9678-8315a3d1220e",
-            createdAt: "2021-11-27T04:25:32.084Z",
-            "items": [
-                "[{\"price\":6,\"name\":\"Mac n Cheese\",\"id\":\"ef750631-340d-4b8a-9dc2-75bd685893e0\"},{\"price\":69.69,\"name\":\"Can of whoop ass\",\"id\":\"ca27fa30-54ac-4d0e-92a8-f5d216360289\"}]"
-            ],
-            
+    }
+
+    const updateCurrentOrder = async () => {
+
+
+        try {
+            const update = API.graphql(graphqlOperation(updateOrder, {
+                input: payload
+            }))
+            const updateResponse = await update
+            console.log(updateResponse)
+        } catch (err) {
+            console.log(err)
         }
-    }*/
+        
+    }
+
+    useEffect(() => {
+
+        const gatherUser = async () => {
+            try { 
+                console.log(order)
+                const data = API.graphql( {query: getUser, 
+                    variables: {
+                        id: order.userID
+                    }
+                })
+                const response =  await data
+                console.log(response)
+                setUser(response.data.getUser)
+                setIsLoading(false)
+    
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        gatherUser()
+
+        
+    }, [])
+
+    const handlePress = () => {
+        setExpanded(!expanded)
+    }
+
+     const renderOrder = () => {
+        <List.Section>
+        <List.Accordion
+           title={user.name + "'s Order"}
+           expanded={expanded}
+           onPress={handlePress}
+       >
+           {orderItems.map(item => {
+              return <List.Item key={item.id} 
+                title={item.name} 
+                description={item.id} 
+                left={props => {<List.Icon color={Colors.blue500} icon='check'/>}}
+                right={props => {<List.Icon icon='check'/>}}
+                >
+              </List.Item>
+             
+           })
+           }
+       </List.Accordion>
+    </List.Section>
+     }
+
+
 
     return (
 
         <View>
-            {orderItems.map(item => {
+            {!isLoading ? orderItems.map(item => {
                return  (
-                   <Card>
+                   <Card key={item.id}>
                        <Card.Title title={item.name} />
                        <Card.Content>
-                           <Paragraph>For Malcolm Cusack</Paragraph>
+                           <Paragraph>{user.name}</Paragraph>
                         
                        </Card.Content>
                        <Card.Actions>
-                           <Button>Start</Button>
-                           <Button>Complete</Button>
+                           <Button onPress={updateCurrentOrder}>Start</Button>
+                           <Button onPress={updateCurrentOrder}>Complete</Button>
                        </Card.Actions>
 
                    </Card>
                )
-            })}
+            }) : null}
             
             
 

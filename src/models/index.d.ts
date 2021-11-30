@@ -307,7 +307,6 @@ export declare class User {
   readonly createdAt?: string;
   readonly name: string;
   readonly address?: string;
-  readonly order?: string;
   readonly Orders?: (Order | null)[];
   readonly updatedAt?: string;
   constructor(init: ModelInit<User, UserMetaData>);

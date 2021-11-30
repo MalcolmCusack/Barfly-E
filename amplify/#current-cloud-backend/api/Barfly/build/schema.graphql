@@ -204,15 +204,14 @@ type Order @aws_iam @aws_api_key {
 
 type User @aws_iam @aws_api_key {
   id: ID!
-  email: AWSEmail!
-  phone: AWSPhone
+  email: String!
+  phone: String
   profileImg: AWSJSON
   location: AWSJSON
   age: String
   createdAt: AWSDateTime
   name: String!
   address: AWSJSON
-  order: String
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -1237,7 +1236,6 @@ input ModelUserFilterInput {
   createdAt: ModelStringInput
   name: ModelStringInput
   address: ModelStringInput
-  order: ModelStringInput
   and: [ModelUserFilterInput]
   or: [ModelUserFilterInput]
   not: ModelUserFilterInput
@@ -1245,29 +1243,27 @@ input ModelUserFilterInput {
 
 input CreateUserInput {
   id: ID
-  email: AWSEmail!
-  phone: AWSPhone
+  email: String!
+  phone: String
   profileImg: AWSJSON
   location: AWSJSON
   age: String
   createdAt: AWSDateTime
   name: String!
   address: AWSJSON
-  order: String
   _version: Int
 }
 
 input UpdateUserInput {
   id: ID!
-  email: AWSEmail
-  phone: AWSPhone
+  email: String
+  phone: String
   profileImg: AWSJSON
   location: AWSJSON
   age: String
   createdAt: AWSDateTime
   name: String
   address: AWSJSON
-  order: String
   _version: Int
 }
 
@@ -1285,7 +1281,6 @@ input ModelUserConditionInput {
   createdAt: ModelStringInput
   name: ModelStringInput
   address: ModelStringInput
-  order: ModelStringInput
   and: [ModelUserConditionInput]
   or: [ModelUserConditionInput]
   not: ModelUserConditionInput

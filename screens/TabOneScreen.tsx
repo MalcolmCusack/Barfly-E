@@ -18,7 +18,7 @@ export default function TabOneScreen({ navigation }) {
 
       <OrderQueue />
       
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+  
       
     </View>
   );
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    marginBottom: '20px'
   },
   separator: {
     marginVertical: 30,
