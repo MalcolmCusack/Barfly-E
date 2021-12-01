@@ -258,23 +258,6 @@
         }
       }
     },
-    "functionCreateUser": {
-      "Type": "AWS::CloudFormation::Stack",
-      "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-barfly-staging-35333-deployment/amplify-cfn-templates/function/CreateUser-cloudformation-template.json",
-        "Parameters": {
-          "deploymentBucketName": "amplify-barfly-staging-35333-deployment",
-          "s3Key": "amplify-builds/CreateUser-50526e52735168384c34-build.zip",
-          "apiBarflyGraphQLAPIIdOutput": {
-            "Fn::GetAtt": [
-              "apiBarfly",
-              "Outputs.GraphQLAPIIdOutput"
-            ]
-          },
-          "env": "staging"
-        }
-      }
-    },
     "UpdateRolesWithIDPFunction": {
       "DependsOn": [
         "AuthRole",

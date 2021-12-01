@@ -11,13 +11,13 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      display: 'felx'
+      display: 'flex'
     },
     orderQueueContainer: {
     flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      display: 'felx',
+      display: 'flex',
       flexDirection: 'row',
       flexWrap: 'wrap'
     },
@@ -38,7 +38,6 @@ const OrderQueue = () => {
 
     const [orderItems, setOrderItems] = useState([])
     const [orders, setOrders] = useState([])
-    const [allOrders, setAllOrders] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     const orderTest = [
@@ -61,30 +60,7 @@ const OrderQueue = () => {
              User : null
     
     },
-    {
-    
-        id :  'c3d52efa-84b1-44c3-8bf6-413fcc19f84d' ,
-        timestamp : null,
-        items : [
-           "[{\"price\":16,\"name\":\"Bison Burger\",\"id\":\"05c28679-14c8-4a06-9261-c739f4f4f262\"},{\"price\":69.69,\"name\":\"Can of whoop ass\",\"id\":\"ca27fa30-54ac-4d0e-92a8-f5d216360289\"},{\"price\":23.5203409626507,\"name\":\"minim ex adipisici\",\"id\":\"5dde62ff-f2df-45fe-ae3c-0d3ff1d99bc1\"}]"
-       ],
-        completed : false,
-        userID : "7b91aced-aa0f-44f8-b436-9dbe35862c8e",
-        barID : null,
-        employeeID : null,
-        _version : 1,
-        _deleted : null,
-        _lastChangedAt : 1638242406472,
-        createdAt : "2021-11-30T03:20:06.447Z",
-        updatedAt : "2021-11-30T03:20:06.447Z",
-        User : null
-
-},
-
-
-    
-    ]
-
+]
 
 
 
@@ -136,7 +112,7 @@ const OrderQueue = () => {
         <View style={styles.container}>
             <Text style={styles.title}>Order Queue</Text>
             <View style={styles.orderQueueContainer}>
-                {!isLoading ? orderTest.map(order => {
+                {!isLoading ? orders.map(order => {
                         return <Order key={order.id} order={order} />
                 }) : null}
             </View>

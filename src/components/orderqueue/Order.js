@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Text, View } from '../../../components/Themed';
-import {Card, Title, Paragraph, Caption, Button, Subheading, Divider} from 'react-native-paper';
+import {Card, Snackbar, Caption, Button, Subheading, Divider} from 'react-native-paper';
 import { getUser } from '../../graphql/queries';
 import {API, graphqlOperation} from 'aws-amplify';
 import { List, Colors } from 'react-native-paper';
@@ -13,23 +13,11 @@ const Order = ({ order }) => {
     const [user, setUser] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const [expanded, setExpanded] = useState(false)
+    const [visible, setVisable] = useState(false)
 
-    
+    const onToggleSnackBar = () => setVisable(!visible);
 
-    const updateCurrentOrder = async () => {
-
-
-        try {
-            const update = API.graphql(graphqlOperation(updateOrder, {
-                input: payload
-            }))
-            const updateResponse = await update
-            console.log(updateResponse)
-        } catch (err) {
-            console.log(err)
-        }
-        
-    }
+    const onDismissSnackBar = () => setVisable(false);
 
     const startOrder = async () => {
         const payload = {
@@ -45,6 +33,7 @@ const Order = ({ order }) => {
             }))
             const updateResponse = await update
             console.log(updateResponse)
+            onToggleSnackBar()
         } catch (err) {
             console.log(err)
         }
@@ -95,31 +84,6 @@ const Order = ({ order }) => {
         
     }, [])
 
-    const handlePress = () => {
-        setExpanded(!expanded)
-    }
-
-     const renderOrder = () => {
-        <List.Section>
-        <List.Accordion
-           title={user.name + "'s Order"}
-           expanded={expanded}
-           onPress={handlePress}
-       >
-           {orderItems.map(item => {
-              return <List.Item key={item.id} 
-                title={item.name} 
-                description={item.id} 
-                left={props => {<List.Icon color={Colors.blue500} icon='check'/>}}
-                right={props => {<List.Icon icon='check'/>}}
-                >
-              </List.Item>
-             
-           })
-           }
-       </List.Accordion>
-    </List.Section>
-     }
 
     const getTime = () => {
         const orderDate = new Date(order.createdAt);
@@ -135,7 +99,7 @@ const Order = ({ order }) => {
         flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          display: 'felx',
+          display: 'flex',
           flexDirection: 'row'
         },
         title: {
@@ -155,7 +119,9 @@ const Order = ({ order }) => {
 
         divider: {
             margin: 5
-        }
+        },
+
+        
 
       });
     
@@ -163,7 +129,8 @@ const Order = ({ order }) => {
 
         <View style={styles.orderContainer}>
             {!isLoading ? (
-                   <Card key={order.id}>
+                <>
+                <Card key={order.id}>
                        <Card.Title title={user.name.charAt(0).toUpperCase() + user.name.slice(1) + "'s Order"} />
                        <Caption style={styles.time} > Placed: {getTime()}</Caption>
                        <Divider style={styles.divider} />
@@ -182,8 +149,25 @@ const Order = ({ order }) => {
                            <Button onPress={startOrder}>Start</Button>
                            <Button onPress={completeOrder}>Complete</Button>
                        </Card.Actions>
-
+                    
                    </Card>
+                    <View style={styles.snackbar}>
+                        <Snackbar
+                            visible={visible}
+                            onDismiss={onDismissSnackBar}
+                            action={{
+                            label: 'Undo',
+                            onPress: () => {
+                                // Do something
+                            },
+                            }}>
+                            Click to Undo
+                        </Snackbar>
+                    </View>
+                   
+                </>
+                   
+        
             
             ) : null}
             
