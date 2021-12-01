@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Text, View } from '../../../components/Themed';
-import {Card, Title, Paragraph, Button} from 'react-native-paper';
+import {Card, Title, Paragraph, Caption, Button, Subheading, Divider} from 'react-native-paper';
 import { getUser } from '../../graphql/queries';
 import {API, graphqlOperation} from 'aws-amplify';
 import { List, Colors } from 'react-native-paper';
@@ -15,16 +15,52 @@ const Order = ({ order }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [expanded, setExpanded] = useState(false)
 
-    const payload = {
-        id: order.id,
-        completed: !order.completed,
-        items: order.items,
-        userID: order.userID
-
-    }
+    
 
     const updateCurrentOrder = async () => {
 
+
+        try {
+            const update = API.graphql(graphqlOperation(updateOrder, {
+                input: payload
+            }))
+            const updateResponse = await update
+            console.log(updateResponse)
+        } catch (err) {
+            console.log(err)
+        }
+        
+    }
+
+    const startOrder = async () => {
+        const payload = {
+            id: order.id,
+            items: order.items,
+            userID: order.userID,
+            orderStatus: "progress",
+    
+        }
+
+        try {
+            const update = API.graphql(graphqlOperation(updateOrder, {
+                input: payload
+            }))
+            const updateResponse = await update
+            console.log(updateResponse)
+        } catch (err) {
+            console.log(err)
+        }
+        
+    }
+
+    const completeOrder = async () => {
+        const payload = {
+            id: order.id,
+            items: order.items,
+            userID: order.userID,
+            orderStatus: "complete",
+    
+        }
 
         try {
             const update = API.graphql(graphqlOperation(updateOrder, {
@@ -89,27 +125,39 @@ const Order = ({ order }) => {
     </List.Section>
      }
 
-
-
+    const getTime = () => {
+        const orderDate = new Date(order.createdAt);
+        const time = orderDate.getHours() + ':' +  orderDate.getMinutes() + ':' + orderDate.getSeconds();
+        return time
+    }
+    
     return (
 
         <View>
-            {!isLoading ? orderItems.map(item => {
-               return  (
-                   <Card key={item.id}>
-                       <Card.Title title={item.name} />
+            {!isLoading ? (
+                   <Card key={order.id}>
+                       <Card.Title title={user.name.charAt(0).toUpperCase() + user.name.slice(1) + "'s Order"} />
+                       <Caption>Placed: {getTime()}</Caption>
+                       <Divider />
+                       
                        <Card.Content>
-                           <Paragraph>{user.name}</Paragraph>
+                           {orderItems.map(item => {
+                              return (
+                                <Subheading key={item.id}>
+                                    {item.name}
+                               </Subheading>
+                              ) 
+                           })}
                         
                        </Card.Content>
                        <Card.Actions>
-                           <Button onPress={updateCurrentOrder}>Start</Button>
-                           <Button onPress={updateCurrentOrder}>Complete</Button>
+                           <Button onPress={startOrder}>Start</Button>
+                           <Button onPress={completeOrder}>Complete</Button>
                        </Card.Actions>
 
                    </Card>
-               )
-            }) : null}
+            
+            ) : null}
             
             
 

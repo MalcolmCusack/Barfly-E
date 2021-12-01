@@ -4,6 +4,25 @@ import {onCreateOrder} from '../../graphql/subscriptions';
 import { listOrders } from '../../graphql/queries';
 import { Text, View } from '../../../components/Themed';
 import Order from './Order';
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      
+    },
+    separator: {
+      marginVertical: 30,
+      height: 1,
+      width: '80%',
+    },
+  });
 
 const OrderQueue = () => {
 
@@ -55,8 +74,10 @@ const OrderQueue = () => {
                     const items = JSON.parse(orderData.value.data.onCreateOrder.items)
                     setOrderItems(orderItems => [...orderItems, items])
                     setOrders(orders => [...orders, orderData.value.data.onCreateOrder])
+
                 }
             })
+
   
             setIsLoading(false)
 
@@ -78,13 +99,15 @@ const OrderQueue = () => {
     })
   
     return (
-        <View >
+        <View style={styles.container}>
 
-            {!isLoading ? orders.map(order => {
+            {!isLoading ? orderTest.map(order => {
                     return <Order key={order.id} order={order} />
             }) : null}
         </View>
     )
 }
+
+
 
 export default OrderQueue

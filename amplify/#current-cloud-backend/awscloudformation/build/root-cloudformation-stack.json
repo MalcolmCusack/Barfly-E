@@ -168,7 +168,7 @@
             ]
           },
           "S3DeploymentBucket": "amplify-barfly-staging-35333-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/59062661c400d486722c79ea4eab576a2df9e878",
+          "S3DeploymentRootKey": "amplify-appsync-files/856993a44eebdcfb51076f9523d0caa214842884",
           "env": "staging"
         }
       }

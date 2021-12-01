@@ -1097,6 +1097,7 @@ export const updateOrder = /* GraphQL */ `
       userID
       barID
       employeeID
+      orderStatus
       _version
       _deleted
       _lastChangedAt

@@ -188,12 +188,12 @@ type Bar @aws_iam @aws_api_key {
 
 type Order @aws_iam @aws_api_key {
   id: ID!
-  timestamp: AWSDateTime
   items: [AWSJSON!]
   completed: Boolean!
   userID: ID
   barID: ID
   employeeID: ID
+  orderStatus: String
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -1168,12 +1168,12 @@ type ModelOrderConnection @aws_api_key @aws_iam {
 
 input ModelOrderFilterInput {
   id: ModelIDInput
-  timestamp: ModelStringInput
   items: ModelStringInput
   completed: ModelBooleanInput
   userID: ModelIDInput
   barID: ModelIDInput
   employeeID: ModelIDInput
+  orderStatus: ModelStringInput
   and: [ModelOrderFilterInput]
   or: [ModelOrderFilterInput]
   not: ModelOrderFilterInput
@@ -1181,24 +1181,24 @@ input ModelOrderFilterInput {
 
 input CreateOrderInput {
   id: ID
-  timestamp: AWSDateTime
   items: [AWSJSON!]
   completed: Boolean!
   userID: ID
   barID: ID
   employeeID: ID
+  orderStatus: String
   _version: Int
   orderUserId: ID
 }
 
 input UpdateOrderInput {
   id: ID!
-  timestamp: AWSDateTime
   items: [AWSJSON!]
   completed: Boolean
   userID: ID
   barID: ID
   employeeID: ID
+  orderStatus: String
   _version: Int
   orderUserId: ID
 }
@@ -1209,12 +1209,12 @@ input DeleteOrderInput {
 }
 
 input ModelOrderConditionInput {
-  timestamp: ModelStringInput
   items: ModelStringInput
   completed: ModelBooleanInput
   userID: ModelIDInput
   barID: ModelIDInput
   employeeID: ModelIDInput
+  orderStatus: ModelStringInput
   and: [ModelOrderConditionInput]
   or: [ModelOrderConditionInput]
   not: ModelOrderConditionInput

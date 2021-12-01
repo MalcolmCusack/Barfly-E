@@ -953,7 +953,7 @@ export const onCreateOrder = /* GraphQL */ `
   subscription OnCreateOrder {
     onCreateOrder {
       id
-      timestamp
+      orderStatus
       items
       completed
       userID
