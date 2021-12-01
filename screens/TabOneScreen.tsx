@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView,  } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import OrderQueue from '../src/components/orderqueue/OrderQueue';
@@ -7,16 +7,12 @@ import OrderQueue from '../src/components/orderqueue/OrderQueue';
 export default function TabOneScreen({ navigation }) {
 
   return (
-    <View style={styles.container}>
-      
-      <Text style={styles.title}>Order Queue</Text>
-      
-
-      <OrderQueue />
-      
-  
-      
-    </View>
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.container}>
+        <OrderQueue />
+      </View> 
+    </ScrollView>
+    
   );
 }
 
@@ -36,4 +32,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  scrollView: {
+    marginHorizontal: 10,
+  }
 });

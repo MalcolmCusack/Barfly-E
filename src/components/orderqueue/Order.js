@@ -5,8 +5,7 @@ import { getUser } from '../../graphql/queries';
 import {API, graphqlOperation} from 'aws-amplify';
 import { List, Colors } from 'react-native-paper';
 import {updateOrder} from '../../graphql/mutations';
-
-
+import { StyleSheet } from 'react-native';
 
 const Order = ({ order }) => {
 
@@ -35,7 +34,7 @@ const Order = ({ order }) => {
     const startOrder = async () => {
         const payload = {
             id: order.id,
-            orderStatus: "progress",
+            orderStatus: "in-progress",
             _version: order._version
     
         }
@@ -55,10 +54,8 @@ const Order = ({ order }) => {
     const completeOrder = async () => {
         const payload = {
             id: order.id,
-            completed: !order.completed,
             orderStatus: "complete",
             _version: order._version
-
         }
 
         try {
@@ -129,15 +126,47 @@ const Order = ({ order }) => {
         const time = orderDate.getHours() + ':' +  orderDate.getMinutes() + ':' + orderDate.getSeconds();
         return time
     }
+
+    const styles = StyleSheet.create({
+        orderContainer: {
+          margin: 10,
+        },
+        orderQueueContainer: {
+        flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          display: 'felx',
+          flexDirection: 'row'
+        },
+        title: {
+          fontSize: 20,
+          fontWeight: 'bold',
+          
+        },
+        separator: {
+          marginVertical: 30,
+          height: 1,
+          width: '80%',
+        },
+
+        time: {
+            marginLeft: 15,
+        },
+
+        divider: {
+            margin: 5
+        }
+
+      });
     
     return (
 
-        <View>
+        <View style={styles.orderContainer}>
             {!isLoading ? (
                    <Card key={order.id}>
                        <Card.Title title={user.name.charAt(0).toUpperCase() + user.name.slice(1) + "'s Order"} />
-                       <Caption>Placed: {getTime()}</Caption>
-                       <Divider />
+                       <Caption style={styles.time} > Placed: {getTime()}</Caption>
+                       <Divider style={styles.divider} />
                        
                        <Card.Content>
                            {orderItems.map(item => {
