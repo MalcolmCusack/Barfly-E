@@ -990,8 +990,8 @@ export const listOrders = /* GraphQL */ `
     listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        timestamp
         items
+        orderStatus
         completed
         userID
         barID

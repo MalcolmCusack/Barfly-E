@@ -100,8 +100,8 @@ const OrderQueue = () => {
   
     return (
         <View style={styles.container}>
-
-            {!isLoading ? orderTest.map(order => {
+            <Text>Order Queue</Text>
+            {!isLoading ? orders.map(order => {
                     return <Order key={order.id} order={order} />
             }) : null}
         </View>

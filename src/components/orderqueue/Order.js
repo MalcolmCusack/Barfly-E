@@ -35,9 +35,8 @@ const Order = ({ order }) => {
     const startOrder = async () => {
         const payload = {
             id: order.id,
-            items: order.items,
-            userID: order.userID,
             orderStatus: "progress",
+            _version: order._version
     
         }
 
@@ -56,16 +55,16 @@ const Order = ({ order }) => {
     const completeOrder = async () => {
         const payload = {
             id: order.id,
-            items: order.items,
-            userID: order.userID,
+            completed: !order.completed,
             orderStatus: "complete",
-    
+            _version: order._version
+
         }
 
         try {
-            const update = API.graphql(graphqlOperation(updateOrder, {
+            const update = API.graphql({query: updateOrder, variables: {
                 input: payload
-            }))
+            }});
             const updateResponse = await update
             console.log(updateResponse)
         } catch (err) {
