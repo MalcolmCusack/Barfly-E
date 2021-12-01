@@ -80,7 +80,7 @@ const OrderQueue = () => {
             const orderResponse = API.graphql(graphqlOperation(onCreateOrder)
             ).subscribe({
                 next: (orderData) => {
-                    console.log('full order data: ', orderData.value.data.onCreateOrder)
+                   // console.log('full order data: ', orderData.value.data.onCreateOrder)
                     const items = JSON.parse(orderData.value.data.onCreateOrder.items)
                     setOrderItems(orderItems => [...orderItems, items])
                     setOrders(orders => [...orders, orderData.value.data.onCreateOrder])
@@ -101,12 +101,6 @@ const OrderQueue = () => {
       
   }, [])
 
-    console.log(orderItems)
-    console.log(orders)
-
-    orders.map(order => {
-        console.log('order: ', order)
-    })
   
     return (
         <View style={styles.container}>

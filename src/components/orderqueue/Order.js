@@ -19,6 +19,7 @@ const Order = ({ order }) => {
 
     const onDismissSnackBar = () => setVisable(false);
 
+
     const startOrder = async () => {
         const payload = {
             id: order.id,
@@ -32,8 +33,8 @@ const Order = ({ order }) => {
                 input: payload
             }))
             const updateResponse = await update
-            console.log(updateResponse)
-            onToggleSnackBar()
+            //console.log(updateResponse)
+            //onToggleSnackBar()
         } catch (err) {
             console.log(err)
         }
@@ -52,7 +53,7 @@ const Order = ({ order }) => {
                 input: payload
             }});
             const updateResponse = await update
-            console.log(updateResponse)
+            //console.log(updateResponse)
         } catch (err) {
             console.log(err)
         }
@@ -63,14 +64,14 @@ const Order = ({ order }) => {
 
         const gatherUser = async () => {
             try { 
-                console.log(order)
+                //console.log(order)
                 const data = API.graphql( {query: getUser, 
                     variables: {
                         id: order.userID
                     }
                 })
                 const response =  await data
-                console.log(response)
+                //console.log(response)
                 setUser(response.data.getUser)
                 setIsLoading(false)
     
