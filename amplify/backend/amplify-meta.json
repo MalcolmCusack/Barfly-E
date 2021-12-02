@@ -41,12 +41,12 @@
         "GraphQLAPIEndpointOutput": "https://pyijvt4mnbdftadmc5wp7wslue.appsync-api.us-west-2.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-euxm4iwkd5aftgkgovvfms6vee"
       },
-      "lastPushTimeStamp": "2021-11-24T00:48:10.341Z",
+      "lastPushTimeStamp": "2021-12-01T06:55:16.740Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-barfly-staging-35333-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiBarfly"
       },
-      "lastPushDirHash": "oW4j5Q/Xr0igsRDMW5K/coqA53I="
+      "lastPushDirHash": "OyN5v4xGnzuYzAaa8RjbwQhHvxA="
     }
   },
   "auth": {
@@ -85,12 +85,11 @@
         "IdentityPoolName": "barfly2b04a7f4_identitypool_2b04a7f4__staging",
         "UserPoolName": "barfly2b04a7f4_userpool_2b04a7f4"
       },
-      "lastPushTimeStamp": "2021-11-24T00:48:10.343Z",
+      "lastPushTimeStamp": "2021-12-01T06:55:16.742Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-barfly-staging-35333-deployment/amplify-cfn-templates/auth/barfly2b04a7f4-cloudformation-template.yml",
         "logicalId": "authbarfly2b04a7f4"
-      },
-      "lastPushDirHash": "QtgBqwGNbMIbNMSjGQW4jWylSjw="
+      }
     }
   },
   "storage": {
@@ -101,12 +100,12 @@
         "BucketName": "barfly94785142da6b4040965c0807e122901a35333-staging",
         "Region": "us-west-2"
       },
-      "lastPushTimeStamp": "2021-11-24T00:48:10.344Z",
+      "lastPushTimeStamp": "2021-12-01T06:55:16.743Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-barfly-staging-35333-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
         "logicalId": "storagebarflystorage"
-      },
-      "lastPushDirHash": "zUwqE/+aewLqA7lD5zPvXAxhGGU="
+      }
     }
-  }
+  },
+  "function": {}
 }

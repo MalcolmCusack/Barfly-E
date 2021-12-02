@@ -1900,13 +1900,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "timestamp": {
-                    "name": "timestamp",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "items": {
                     "name": "items",
                     "isArray": true,
@@ -1953,6 +1946,13 @@ export const schema = {
                     "name": "employeeID",
                     "isArray": false,
                     "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "orderStatus": {
+                    "name": "orderStatus",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -2038,14 +2038,14 @@ export const schema = {
                 "email": {
                     "name": "email",
                     "isArray": false,
-                    "type": "AWSEmail",
+                    "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
                 "phone": {
                     "name": "phone",
                     "isArray": false,
-                    "type": "AWSPhone",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -2088,13 +2088,6 @@ export const schema = {
                     "name": "address",
                     "isArray": false,
                     "type": "AWSJSON",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "order": {
-                    "name": "order",
-                    "isArray": false,
-                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -2313,5 +2306,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "6a5e43d09be3c33a4b8f12c570c4523d"
+    "version": "dd2c4f564a6a147a4e79239b2b3c31ee"
 };

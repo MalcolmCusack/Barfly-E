@@ -953,7 +953,7 @@ export const onCreateOrder = /* GraphQL */ `
   subscription OnCreateOrder {
     onCreateOrder {
       id
-      timestamp
+      orderStatus
       items
       completed
       userID
@@ -974,7 +974,6 @@ export const onCreateOrder = /* GraphQL */ `
         createdAt
         name
         address
-        order
         _version
         _deleted
         _lastChangedAt
