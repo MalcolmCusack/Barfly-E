@@ -97,10 +97,10 @@ const OrderQueue = () => {
 
     }
       
-    return subscribe()
+    subscribe()
       
   }, [])
-    console.log(orders)
+
   
     return (
         <View style={styles.container}>
