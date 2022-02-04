@@ -9,7 +9,9 @@ import { StyleSheet } from 'react-native';
 
 const Order = ({ order }) => {
 
+    console.debug(order)
     const [orderItems, setOrderItems] = useState(JSON.parse(order.items))
+
     const [user, setUser] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const [expanded, setExpanded] = useState(false)
