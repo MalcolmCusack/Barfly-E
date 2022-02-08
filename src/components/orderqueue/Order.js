@@ -9,7 +9,9 @@ import { StyleSheet } from 'react-native';
 
 const Order = ({ order }) => {
 
+    
     const [orderItems, setOrderItems] = useState(JSON.parse(order.items))
+
     const [user, setUser] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const [expanded, setExpanded] = useState(false)
@@ -139,7 +141,7 @@ const Order = ({ order }) => {
                        <Card.Content>
                            {orderItems.map(item => {
                               return (
-                                <Subheading key={item.id}>
+                                <Subheading key={item.id+Math.random()}>
                                     {item.name}
                                </Subheading>
                               ) 
