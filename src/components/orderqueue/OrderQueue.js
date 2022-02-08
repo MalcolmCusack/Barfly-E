@@ -107,7 +107,7 @@ const OrderQueue = () => {
             <Text style={styles.title}>Order Queue</Text>
             <View style={styles.orderQueueContainer}>
                 {!isLoading ? orders.map(order => {
-                        return <Order key={order.id} order={order} />
+                        return <Order key={order.id+Math.random()} order={order} />
                 }) : null}
             </View>
             
