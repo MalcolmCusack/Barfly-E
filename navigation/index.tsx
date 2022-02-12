@@ -18,6 +18,8 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import SignUp from '../components/auth/SignUp';
+import SignIn from '../components/auth/SignIn';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -88,7 +90,7 @@ function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
+          title: 'Financial',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

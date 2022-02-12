@@ -7,8 +7,10 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports'
-import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {Button, DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import SignUp from './components/auth/SignUp';
+import SignIn from './components/auth/SignIn';
+import AuthTabs from './components/auth/AuthTabs'
 
 Amplify.configure(config);
 
@@ -39,14 +41,20 @@ export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
-//   async function signOut() {
-//     try {
-//         await Auth.signOut();
-//         dispatch({ type: "RESET_USER_DATA" });
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
+
+  function authenticate() {
+    setIsAuthenticated(!isAuthenticated)
+  }
+
+   function signOut() {
+     Auth.signOut()
+     .then(res => console.log(res))
+     .catch(err => console.log(err));
+       // dispatch({ type: "RESET_USER_DATA" });
+   }
+
+   console.log(Auth)
 
   if (!isLoadingComplete) {
     return null;
@@ -56,9 +64,21 @@ export default function App() {
       <SafeAreaProvider>
         
         <PaperProvider >
-          <SignUp/>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
+
+          {isAuthenticated ? (
+            <>
+             <Navigation colorScheme={colorScheme} />
+             <Button  onPress={signOut}>Log Out</Button>
+
+             <StatusBar />
+            </>
+            
+          ) : (
+            <AuthTabs />
+          )}
+          
+         
+
       
         </PaperProvider>
          

@@ -6,8 +6,10 @@ import { Auth } from "aws-amplify";
 const SignIn = () => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+
+    // screen props
   
-    function signUp() {
+    function signIn() {
       const data = Auth.signIn(email, password)
         .then((res) => {
           console.log(res);
@@ -33,7 +35,7 @@ const SignIn = () => {
           onChangeText={(text) => setPassword(text)}
         />
         
-        <Button onPress={signUp}>Sign Up</Button>
+        <Button onPress={signIn}>Sign In</Button>
 
       </View>
   );
