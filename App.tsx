@@ -8,6 +8,7 @@ import Navigation from './navigation';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports'
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import SignUp from './components/auth/SignUp';
 
 Amplify.configure(config);
 
@@ -55,6 +56,7 @@ export default function App() {
       <SafeAreaProvider>
         
         <PaperProvider >
+          <SignUp/>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
       
