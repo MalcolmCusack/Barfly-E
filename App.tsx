@@ -1,15 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
-import useCachedResources from './hooks/useCachedResources';
+import { Auth } from 'aws-amplify';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports'
-import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {Button, DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 
-Amplify.configure(config)
+Amplify.configure(config);
 
 declare global {
   namespace ReactNativePaper {
@@ -32,25 +31,43 @@ const theme = {
   }
 }
 
+
 export default function App() {
-  const isLoadingComplete = useCachedResources();
+
+
   const colorScheme = useColorScheme();
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
+  //console.log(user)
+  async function signOut() {
+    try {
+        await Auth.signOut();
+        //dispatch({ type: "RESET_USER_DATA" });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+ 
+
   
     return (
-      <SafeAreaProvider>
-        
-        <PaperProvider >
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
+        <SafeAreaProvider>
+          
       
-        </PaperProvider>
-         
-        
-      </SafeAreaProvider>
-    );
+          <PaperProvider >
+              <>
+              <Navigation colorScheme={colorScheme} />
+              <Button  onPress={signOut}>Log Out</Button>
+
+              <StatusBar />
+              </>
+            </PaperProvider>
+
+      
+        </SafeAreaProvider>
+
+      );
   }
-}
+

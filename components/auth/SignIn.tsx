@@ -1,0 +1,54 @@
+import { View } from "react-native";
+import React from "react";
+import { Button, TextInput } from "react-native-paper";
+import { Auth } from "aws-amplify";
+
+const SignIn = () => {
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [nav, setNav] = React.useState()
+
+    // screen props
+  
+    function signIn() {
+      const data = Auth.signIn(email, password)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }
+
+    // React.useEffect(() => {
+    //     if (navigation) {
+    //         setNav(navigation)
+    //     }
+    // })
+  
+    
+  
+    return (
+     <View>
+        <TextInput
+          autoComplete={null}
+          label="Email"
+          placeholder="Email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
+        <TextInput
+          autoComplete={null}
+          secureTextEntry={true}
+          value={password}
+          label="Password"
+          placeholder="Password"
+          onChangeText={(text) => setPassword(text)}
+        />
+        
+        <Button onPress={signIn}>Sign In</Button>
+       
+
+      </View>
+  );
+};
+
+export default SignIn;

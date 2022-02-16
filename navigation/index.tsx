@@ -7,25 +7,34 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
-
+import * as React from 'react' ;
+import { ColorSchemeName, Pressable, View } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import { AuthTabParamList, RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import SignUp from '../components/auth/SignUp';
+import SignIn from '../components/auth/SignIn';
+import { Auth, Hub } from 'aws-amplify';
+import { ActivityIndicator } from 'react-native-paper';
+import { Drawer } from '@mui/material';
+
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+
   return (
+  
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
+
   );
 }
 
@@ -35,23 +44,92 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+
 function RootNavigator() {
+
+  const [user, setUser] = React.useState(undefined)
+
+
+
+  const checkUser = async () => {
+    try { 
+      const authUser = await Auth.currentAuthenticatedUser();
+      console.log(authUser)
+      setUser(authUser)
+    } catch(err) {
+      setUser(null)
+    }
+    
+  }
+
+  React.useEffect(() => {
+    checkUser();
+  }, [])
+
+  React.useEffect(() => {
+    const listener = (data) => {
+      if (data.payload.event === 'signIn' || data.payload.event === 'signOut' || data.payload.event === 'signUp') {
+        checkUser()
+      }
+    }
+
+    Hub.listen('auth', listener)
+
+    return () => {
+      Hub.remove('auth', listener)
+    }
+  }, [])
+
+  if (user === undefined) {
+      return (
+        <View>
+          <ActivityIndicator/>
+        </View>
+      )
+  } else {
   return (
+    
+
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+      { user ? (
+        <>
+          <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+          <Stack.Group screenOptions={{ presentation: 'modal' }}>
+            <Stack.Screen name="Modal" component={ModalScreen} />
+          </Stack.Group>
+        </>
+        
+      ) : (
+        <>
+        
+          <Stack.Screen name="SignIn" component={SignIn}  />
+          <Stack.Screen name="SignUp" component={SignUp}  />
+      
+          
+          
+          
+        </>
+        
+      )}
+      
     </Stack.Navigator>
   );
+}
 }
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
+
+
+
+
+
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const AuthBottomTab = createBottomTabNavigator<AuthTabParamList>();
+
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
@@ -88,7 +166,7 @@ function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
+          title: 'Financial',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
@@ -105,3 +183,7 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
+function AuthContext(AuthContext: any): { state: any; } {
+  throw new Error('Function not implemented.');
+}
+

@@ -4,7 +4,7 @@ import { StyleSheet, ScrollView,  } from 'react-native';
 import { Text, View } from '../components/Themed';
 import OrderQueue from '../src/components/orderqueue/OrderQueue';
 
-export default function TabOneScreen({ navigation }) {
+export default function TabOneScreen({  }) {
 
   return (
     <ScrollView style={styles.scrollView}>
