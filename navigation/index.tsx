@@ -15,12 +15,14 @@ import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import { AuthTabParamList, RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import SignUp from '../components/auth/SignUp';
 import SignIn from '../components/auth/SignIn';
 import { Auth, Hub } from 'aws-amplify';
 import { ActivityIndicator } from 'react-native-paper';
+import { Drawer } from '@mui/material';
+
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -46,6 +48,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
 
   const [user, setUser] = React.useState(undefined)
+
+
 
   const checkUser = async () => {
     try { 
@@ -98,8 +102,13 @@ function RootNavigator() {
         
       ) : (
         <>
-          <Stack.Screen name="Sign In" component={SignIn}  />
-          <Stack.Screen name="Sign Up" component={SignUp}  />
+        
+          <Stack.Screen name="SignIn" component={SignIn}  />
+          <Stack.Screen name="SignUp" component={SignUp}  />
+      
+          
+          
+          
         </>
         
       )}
@@ -115,11 +124,12 @@ function RootNavigator() {
  */
 
 
-const AuthBottomTab = createBottomTabNavigator<RootTabParamList>();
 
 
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const AuthBottomTab = createBottomTabNavigator<AuthTabParamList>();
+
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();

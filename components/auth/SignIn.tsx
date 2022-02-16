@@ -6,6 +6,7 @@ import { Auth } from "aws-amplify";
 const SignIn = () => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [nav, setNav] = React.useState()
 
     // screen props
   
@@ -16,6 +17,12 @@ const SignIn = () => {
         })
         .catch((err) => console.log(err));
     }
+
+    // React.useEffect(() => {
+    //     if (navigation) {
+    //         setNav(navigation)
+    //     }
+    // })
   
     
   
@@ -38,6 +45,7 @@ const SignIn = () => {
         />
         
         <Button onPress={signIn}>Sign In</Button>
+       
 
       </View>
   );

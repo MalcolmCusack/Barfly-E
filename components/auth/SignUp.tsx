@@ -3,7 +3,7 @@ import React from "react";
 import { Button, TextInput } from "react-native-paper";
 import { Auth } from "aws-amplify";
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
@@ -29,6 +29,7 @@ const SignUp = () => {
       <TextInput
         autoComplete={null}
         label="Name"
+        value={name}
         placeholder="Name"
         onChangeText={(text) => setName(text)}
       />
@@ -36,6 +37,7 @@ const SignUp = () => {
         autoComplete={null}
         label="Email"
         placeholder="Email"
+        value={email}
         onChangeText={(text) => setEmail(text)}
       />
       <TextInput
@@ -43,12 +45,14 @@ const SignUp = () => {
         secureTextEntry={true}
         label="Password"
         placeholder="Password"
+        value={password}
         onChangeText={(text) => setPassword(text)}
       />
       <TextInput
         autoComplete={null}
         label="Phone"
         placeholder="Phone"
+        value={phone}
         onChangeText={(text) => setPhone(text)}
       />
 
@@ -58,6 +62,7 @@ const SignUp = () => {
         autoComplete={null}
         label="Code"
         placeholder="Code"
+        value={code}
         onChangeText={(text) => setCode(text)}
       />
 
