@@ -7,9 +7,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
-
+import * as React from 'react' ;
+import { ColorSchemeName, Pressable, View } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
@@ -20,17 +19,20 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import SignUp from '../components/auth/SignUp';
 import SignIn from '../components/auth/SignIn';
-import { Auth } from 'aws-amplify';
-import { useStateValue } from '../src/state/StateProvider';
+import { Auth, Hub } from 'aws-amplify';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+
   return (
+  
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
+
   );
 }
 
@@ -43,13 +45,49 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
 
-  const [{ state, user }, dispatch] = useStateValue();
+  const [user, setUser] = React.useState(undefined)
 
-  
+  const checkUser = async () => {
+    try { 
+      const authUser = await Auth.currentAuthenticatedUser();
+      console.log(authUser)
+      setUser(authUser)
+    } catch(err) {
+      setUser(null)
+    }
+    
+  }
+
+  React.useEffect(() => {
+    checkUser();
+  }, [])
+
+  React.useEffect(() => {
+    const listener = (data) => {
+      if (data.payload.event === 'signIn' || data.payload.event === 'signOut' || data.payload.event === 'signUp') {
+        checkUser()
+      }
+    }
+
+    Hub.listen('auth', listener)
+
+    return () => {
+      Hub.remove('auth', listener)
+    }
+  }, [])
+
+  if (user === undefined) {
+      return (
+        <View>
+          <ActivityIndicator/>
+        </View>
+      )
+  } else {
   return (
     
+
     <Stack.Navigator>
-      {(user == null) ? (
+      { user ? (
         <>
           <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
           <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
@@ -59,11 +97,16 @@ function RootNavigator() {
         </>
         
       ) : (
-        <Stack.Screen name="SignIn" component={SignIn}  />
+        <>
+          <Stack.Screen name="Sign In" component={SignIn}  />
+          <Stack.Screen name="Sign Up" component={SignUp}  />
+        </>
+        
       )}
       
     </Stack.Navigator>
   );
+}
 }
 
 /**
@@ -130,3 +173,7 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
+function AuthContext(AuthContext: any): { state: any; } {
+  throw new Error('Function not implemented.');
+}
+

@@ -25,11 +25,13 @@ const SignIn = () => {
           autoComplete={null}
           label="Email"
           placeholder="Email"
+          value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           autoComplete={null}
           secureTextEntry={true}
+          value={password}
           label="Password"
           placeholder="Password"
           onChangeText={(text) => setPassword(text)}
