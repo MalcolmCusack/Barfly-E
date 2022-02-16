@@ -20,6 +20,9 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import SignUp from '../components/auth/SignUp';
 import SignIn from '../components/auth/SignIn';
+import { Auth } from 'aws-amplify';
+import { useStateValue } from '../src/state/StateProvider';
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -37,14 +40,28 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+
 function RootNavigator() {
+
+  const [{ state, user }, dispatch] = useStateValue();
+
+  
   return (
+    
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+      {(user == null) ? (
+        <>
+          <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+          <Stack.Group screenOptions={{ presentation: 'modal' }}>
+            <Stack.Screen name="Modal" component={ModalScreen} />
+          </Stack.Group>
+        </>
+        
+      ) : (
+        <Stack.Screen name="SignIn" component={SignIn}  />
+      )}
+      
     </Stack.Navigator>
   );
 }
@@ -53,6 +70,12 @@ function RootNavigator() {
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
+
+
+const AuthBottomTab = createBottomTabNavigator<RootTabParamList>();
+
+
+
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
