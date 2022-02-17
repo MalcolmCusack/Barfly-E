@@ -37,21 +37,6 @@ export default function App() {
 
   const colorScheme = useColorScheme();
 
-  //console.log(user)
-  async function signOut() {
-    try {
-        await Auth.signOut();
-        //dispatch({ type: "RESET_USER_DATA" });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-
-
- 
-
-  
     return (
         <SafeAreaProvider>
           
@@ -59,7 +44,6 @@ export default function App() {
           <PaperProvider >
               <>
               <Navigation colorScheme={colorScheme} />
-              <Button  onPress={signOut}>Log Out</Button>
 
               <StatusBar />
               </>

@@ -1,18 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
+import { Button } from 'react-native-paper';
+import {Auth} from 'aws-amplify'
 import { Text, View } from '../components/Themed';
 
 export default function ModalScreen() {
+
+  async function signOut() {
+        try {
+            await Auth.signOut();
+        } catch (error) {
+            console.log(error);
+        }
+      } 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modal</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/ModalScreen.tsx" />
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <Button onPress={signOut}>Log Out</Button>
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
   );

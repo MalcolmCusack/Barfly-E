@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React from "react";
-import { Button, TextInput } from "react-native-paper";
+import { Button, TextInput, Headline, Divider} from "react-native-paper";
 import { Auth } from "aws-amplify";
 
 const SignUp = ({navigation}) => {
@@ -25,13 +25,16 @@ const SignUp = ({navigation}) => {
   }
 
   return (
-    <View>
+    <View style={{ display: 'flex', flexDirection:'column', alignItems:'center', width: '100%'}}>
+      <Headline style={{margin: '10px'}}>Sign Up</Headline>
+
       <TextInput
         autoComplete={null}
         label="Name"
         value={name}
         placeholder="Name"
         onChangeText={(text) => setName(text)}
+        style={{width: '50%', margin: '10px'}}
       />
       <TextInput
         autoComplete={null}
@@ -39,6 +42,7 @@ const SignUp = ({navigation}) => {
         placeholder="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
+        style={{width: '50%', margin: '10px'}}
       />
       <TextInput
         autoComplete={null}
@@ -47,6 +51,7 @@ const SignUp = ({navigation}) => {
         placeholder="Password"
         value={password}
         onChangeText={(text) => setPassword(text)}
+        style={{width: '50%', margin: '10px'}}
       />
       <TextInput
         autoComplete={null}
@@ -54,19 +59,21 @@ const SignUp = ({navigation}) => {
         placeholder="Phone"
         value={phone}
         onChangeText={(text) => setPhone(text)}
+        style={{width: '50%', margin: '10px'}}
       />
 
-      <Button onPress={signUp}>Sign Up</Button>
-
+      <Button  style={{width: '50%', margin: '20px'}} mode="contained" onPress={signUp}>Sign In</Button>
+      <Divider/>
       <TextInput
         autoComplete={null}
         label="Code"
         placeholder="Code"
         value={code}
         onChangeText={(text) => setCode(text)}
+        style={{width: '25%', margin: '10px'}}
       />
 
-      <Button onPress={confirmSignUp}>Confirm</Button>
+      <Button  style={{width: '25%', margin: '10px'}} mode="contained" onPress={confirmSignUp}>Confirm</Button>
     </View>
   );
 };

@@ -20,8 +20,8 @@ import LinkingConfiguration from './LinkingConfiguration';
 import SignUp from '../components/auth/SignUp';
 import SignIn from '../components/auth/SignIn';
 import { Auth, Hub } from 'aws-amplify';
-import { ActivityIndicator } from 'react-native-paper';
-import { Drawer } from '@mui/material';
+import { ActivityIndicator, Button } from 'react-native-paper';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 
 
@@ -98,13 +98,15 @@ function RootNavigator() {
           <Stack.Group screenOptions={{ presentation: 'modal' }}>
             <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
+          {/* <Stack.Screen name="Menu" component={Drawer} /> */}
         </>
         
       ) : (
         <>
-        
-          <Stack.Screen name="SignIn" component={SignIn}  />
-          <Stack.Screen name="SignUp" component={SignUp}  />
+
+          <Stack.Screen name="Auth" component={AuthTabNav} options={{ headerShown: false }}/>
+          
+          
       
           
           
@@ -129,6 +131,39 @@ function RootNavigator() {
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 const AuthBottomTab = createBottomTabNavigator<AuthTabParamList>();
+
+// the drawer import issn't working
+
+// const DrawerNav = createDrawerNavigator()
+
+// function Drawer() {
+
+//   const colorScheme = useColorScheme()
+//    async function signOut() {
+//     try {
+//         await Auth.signOut();
+//     } catch (error) {
+//         console.log(error);
+//     }
+//   } 
+
+//   return (
+//     <DrawerNav.Navigator>
+//       <Button  onPress={signOut}>Log Out</Button>
+//     </DrawerNav.Navigator>
+//   )
+// }
+
+function AuthTabNav() {
+  const colorScheme = useColorScheme()
+
+  return (
+    <AuthBottomTab.Navigator>
+            <AuthBottomTab.Screen name="SignIn" component={SignIn}  />
+            <AuthBottomTab.Screen name="SignUp" component={SignUp}  />
+    </AuthBottomTab.Navigator>
+  )
+}
 
 
 function BottomTabNavigator() {

@@ -19,6 +19,9 @@ export type RootStackParamList = {
   NotFound: undefined;
   SignIn: undefined;
   SignUp: undefined;
+  Auth: undefined;
+  Menu: undefined;
+  Drawer: undefined
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -35,6 +38,12 @@ export type RootTabParamList = {
 export type AuthTabParamList = {
   SignUp: undefined;
   SignIn: undefined;
+  ForgotPass: undefined
+};
+
+export type DrawerNav = {
+  ForgotPass: undefined;
+  Settings: undefined;
 
 };
 
