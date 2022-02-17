@@ -1,14 +1,12 @@
 import { View } from "react-native";
 import React from "react";
-import { Button, TextInput } from "react-native-paper";
+import { Button, Headline, TextInput } from "react-native-paper";
 import { Auth } from "aws-amplify";
+import { margin } from "@mui/system";
 
 const SignIn = () => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const [nav, setNav] = React.useState()
-
-    // screen props
   
     function signIn() {
       const data = Auth.signIn(email, password)
@@ -17,34 +15,30 @@ const SignIn = () => {
         })
         .catch((err) => console.log(err));
     }
-
-    // React.useEffect(() => {
-    //     if (navigation) {
-    //         setNav(navigation)
-    //     }
-    // })
-  
-    
   
     return (
-     <View>
+     <View style={{ display: 'flex', flexDirection:'column', alignItems:'center', width: '100%'}}>
+        <Headline style={{margin: '10px'}}>Sign In</Headline>
         <TextInput
           autoComplete={null}
           label="Email"
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
+          style={{width: '50%', margin: '10px'}}
         />
         <TextInput
+        
           autoComplete={null}
           secureTextEntry={true}
           value={password}
           label="Password"
           placeholder="Password"
+          style={{width: '50%'}}
           onChangeText={(text) => setPassword(text)}
         />
         
-        <Button onPress={signIn}>Sign In</Button>
+        <Button  style={{width: '50%', margin: '20px'}} mode="contained" onPress={signIn}>Sign In</Button>
        
 
       </View>
