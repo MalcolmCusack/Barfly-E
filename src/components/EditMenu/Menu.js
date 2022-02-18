@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      textAlign: 'left',
       display: 'flex',
       flexDirection: 'column',
      // flexWrap: 'wrap'
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
       fontSize: 23,
       fontWeight: 'bold',
       //margin: 10,
-      //textAlign: 'left'
+      justifyContent:'flex-end'
     },
     separator: {
       marginVertical: 30,
@@ -41,9 +42,9 @@ const styles = StyleSheet.create({
 
 const Menu = () => {
 
-    //const [orderItems, setOrderItems] = useState([])
     const [FoodItems, setFoodItems] = useState([])
     const [BeerItems, setBeerItems] = useState([])
+    const [ShotItems, setShotItems] = useState([])
     const [CocktailItems, setCocktailItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -63,6 +64,10 @@ const Menu = () => {
         response = await menuPromise
         setCocktailItems(response.data.listCocktails.items)
 
+        menuPromise = API.graphql(graphqlOperation(listShots))
+        response = await menuPromise
+        setShotItems(response.data.listShots.items)
+
         setIsLoading(false)
         } catch (err) {
         console.log(err)
@@ -77,31 +82,33 @@ const Menu = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Edit Menu</Text>
-            <View>
+            
             <Text style={styles.subtitle}>Beers</Text>
             <View style={styles.orderQueueContainer}>
                 {!isLoading ? BeerItems.map(item => {
                         return <MenuItem key={item.id+Math.random()} item={item} type="Beer" />
                 }) : null}
-            </View>
-            </View>
-
-            <View>
+            </View>            
+            
             <Text style={styles.subtitle}>Cocktails</Text>
             <View style={styles.orderQueueContainer}>
                 {!isLoading ? CocktailItems.map(item => {
                         return <MenuItem key={item.id+Math.random()} item={item} type="Cocktail"/>
                 }) : null}
-            </View>
-            </View>
-
-            <View>
+            </View>           
+            
             <Text style={styles.subtitle}>Food</Text>
             <View style={styles.orderQueueContainer}>
                 {!isLoading ? FoodItems.map(item => {
                         return <MenuItem key={item.id+Math.random()} item={item} type="Food" />
                 }) : null}
             </View>
+            
+            <Text style={styles.subtitle}>Shots</Text>
+            <View style={styles.orderQueueContainer}>
+                {!isLoading ? ShotItems.map(item => {
+                        return <MenuItem key={item.id+Math.random()} item={item} type="Shots" />
+                }) : null}
             </View>
             
         </View>

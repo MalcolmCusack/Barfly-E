@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { Text, View } from '../../../components/Themed';
-import {Card, Snackbar, Caption, Button, Subheading, Divider, TextInput} from 'react-native-paper';
-import { getUser } from '../../graphql/queries';
+import {Button,TextInput} from 'react-native-paper';
 import {API, graphqlOperation} from 'aws-amplify';
-import { List, Colors } from 'react-native-paper';
 import {updateFood, updateBeer, updateCocktail, updateShot} from '../../graphql/mutations';
-import { StyleSheet, TouchableHighlight } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const MenuItem = ({ item, type }) => {
     //console.log(item)
@@ -13,9 +11,9 @@ const MenuItem = ({ item, type }) => {
     const [itemPrice, SetPrice] = useState(item.price.toFixed(2))
     const [itemName, SetName] = useState(item.name)
     const [isLoading, setIsLoading] = useState(true)
-    const [visible, setVisable] = useState(false)
+    // [visible, setVisable] = useState(false)
 
-    const onToggleSnackBar = () => setVisable(!visible);
+   // const onToggleSnackBar = () => setVisable(!visible);
 
     const onDismissSnackBar = () => setVisable(false);
     
@@ -60,8 +58,14 @@ const MenuItem = ({ item, type }) => {
                 }))
                 updateResponse = await update
             }
+            else if(type=="Shot"){
+                update = API.graphql(graphqlOperation(updateShot, {
+                    input: payload
+                }))
+                updateResponse = await update
+            }
            // setIsLoading(false)
-            console.log(updateResponse)
+            //console.log(updateResponse)
             //onToggleSnackBar()
         } catch (err) {
             console.log(err)
@@ -117,6 +121,13 @@ const MenuItem = ({ item, type }) => {
             margin: 12,
             borderWidth: 1,
             padding: 10,
+            width:'50%'
+          },
+          inputNum: {
+            height: 40,
+            margin: 12,
+            borderWidth: 1,
+            padding: 10,
           },
 
       });
@@ -127,26 +138,19 @@ const MenuItem = ({ item, type }) => {
             
             <TextInput
                 style={styles.input}
-                onChange={(e) => OnChangeName(e.target.value)}
+                onChangeText={(e) => OnChangeName(e)}
                 value={itemName}
             />
 
             <TextInput
-                style={styles.input}
-                onChange={(e) => OnChangePrice(e.target.value)}
+                style={styles.inputNum}
+                onChangeText={(e) => OnChangePrice(e)}
                 value={itemPrice}
-                
+                keyboardType="numeric"
             />
             <Button onPress={updateItem}>Save</Button>
             
-            <View style={styles.snackbar}>
-                        <Snackbar
-                            visible={visible}
-                            onDismiss={onDismissSnackBar}
-                            >
-                            Item Updated
-                        </Snackbar>
-                    </View>
+            
             
             
 

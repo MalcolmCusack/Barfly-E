@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       display: 'flex',
-      width: '100%'
+      width: '100%',
     },
     summaryContainer: {
     flex: 1,
@@ -24,23 +24,24 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 30,
       fontWeight: 'bold',
-      margin: 20,
-      
+      margin: 20,  
     },
     summary: {
       marginVertical: 30,
-      height: 1,
-      width: '80%',
+      height: 50,
+      width: '100%',
       borderColor: '#fcba03',
       borderBottomWidth: 1,
     },
     content: {
-      fontSize: 20,
-      padding: 10
+      fontWeight: 'bold',
+      fontSize: 15,
+      padding: 10,
     },
     special: {
       fontStyle: 'italic',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      color:'white'
     }
   });
 
@@ -128,7 +129,6 @@ const IncomeSummary = () => {
             response = await response_promise
             setYearly(getOrderTotal(response.data.listOrders.items))
             setYearlyNum(response.data.listOrders.items.length)
-
 
             setIsLoading(false)
         } catch (err) {
