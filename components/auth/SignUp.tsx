@@ -26,7 +26,7 @@ const SignUp = ({navigation}) => {
 
   return (
     <View style={{ display: 'flex', flexDirection:'column', alignItems:'center', width: '100%'}}>
-      <Headline style={{margin: '10px'}}>Sign Up</Headline>
+      <Headline style={{margin: 10}}>Sign Up</Headline>
 
       <TextInput
         autoComplete={null}
@@ -34,7 +34,7 @@ const SignUp = ({navigation}) => {
         value={name}
         placeholder="Name"
         onChangeText={(text) => setName(text)}
-        style={{width: '50%', margin: '10px'}}
+        style={{width: '50%', margin: 10}}
       />
       <TextInput
         autoComplete={null}
@@ -42,7 +42,7 @@ const SignUp = ({navigation}) => {
         placeholder="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
-        style={{width: '50%', margin: '10px'}}
+        style={{width: '50%', margin: 10}}
       />
       <TextInput
         autoComplete={null}
@@ -51,7 +51,7 @@ const SignUp = ({navigation}) => {
         placeholder="Password"
         value={password}
         onChangeText={(text) => setPassword(text)}
-        style={{width: '50%', margin: '10px'}}
+        style={{width: '50%', margin: 10}}
       />
       <TextInput
         autoComplete={null}
@@ -59,10 +59,10 @@ const SignUp = ({navigation}) => {
         placeholder="Phone"
         value={phone}
         onChangeText={(text) => setPhone(text)}
-        style={{width: '50%', margin: '10px'}}
+        style={{width: '50%', margin: 10}}
       />
 
-      <Button  style={{width: '50%', margin: '20px'}} mode="contained" onPress={signUp}>Sign In</Button>
+      <Button  style={{width: '50%', margin: 20}} mode="contained" onPress={signUp}>Sign In</Button>
       <Divider/>
       <TextInput
         autoComplete={null}
@@ -70,10 +70,10 @@ const SignUp = ({navigation}) => {
         placeholder="Code"
         value={code}
         onChangeText={(text) => setCode(text)}
-        style={{width: '25%', margin: '10px'}}
+        style={{width: '25%', margin: 10}}
       />
 
-      <Button  style={{width: '25%', margin: '10px'}} mode="contained" onPress={confirmSignUp}>Confirm</Button>
+      <Button  style={{width: '25%', margin: 10}} mode="contained" onPress={confirmSignUp}>Confirm</Button>
     </View>
   );
 };

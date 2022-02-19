@@ -16,6 +16,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { AuthTabParamList, RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import TabThreeScreen from '../screens/TabThreeScreen';
 import LinkingConfiguration from './LinkingConfiguration';
 import SignUp from '../components/auth/SignUp';
 import SignIn from '../components/auth/SignIn';
@@ -204,8 +205,16 @@ function BottomTabNavigator() {
           title: 'Financial',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
-      />
-    </BottomTab.Navigator>
+      /> 
+    <BottomTab.Screen
+      name ="TabThree"
+      component={TabThreeScreen}
+      options={{
+      title: 'Menu',
+      tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+    }}
+  />
+</BottomTab.Navigator>
   );
 }
 
