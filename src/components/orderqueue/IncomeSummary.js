@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1,
     },
     content: {
-      fontSize: '20px',
-      padding: '10px'
+      fontSize: 20,
+      padding: 10
     },
     special: {
       fontStyle: 'italic',

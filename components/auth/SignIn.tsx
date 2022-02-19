@@ -18,14 +18,14 @@ const SignIn = () => {
   
     return (
      <View style={{ display: 'flex', flexDirection:'column', alignItems:'center', width: '100%'}}>
-        <Headline style={{margin: '10px'}}>Sign In</Headline>
+        <Headline style={{margin: 10}}>Sign In</Headline>
         <TextInput
           autoComplete={null}
           label="Email"
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
-          style={{width: '50%', margin: '10px'}}
+          style={{width: '50%', margin: 10}}
         />
         <TextInput
         
@@ -38,7 +38,7 @@ const SignIn = () => {
           onChangeText={(text) => setPassword(text)}
         />
         
-        <Button  style={{width: '50%', margin: '20px'}} mode="contained" onPress={signIn}>Sign In</Button>
+        <Button  style={{width: '50%', margin: 20}} mode="contained" onPress={signIn}>Sign In</Button>
        
 
       </View>
