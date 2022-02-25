@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CreateCommon() {
+function CreateCommon(props:any) {
   return <div></div>;
 }
 
