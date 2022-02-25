@@ -50,12 +50,9 @@ function RootNavigator() {
 
   const [user, setUser] = React.useState(undefined)
 
-
-
   const checkUser = async () => {
     try { 
       const authUser = await Auth.currentAuthenticatedUser();
-      console.log(authUser)
       setUser(authUser)
     } catch(err) {
       setUser(null)
@@ -107,11 +104,6 @@ function RootNavigator() {
 
           <Stack.Screen name="Auth" component={AuthTabNav} options={{ headerShown: false }}/>
           
-          
-      
-          
-          
-          
         </>
         
       )}
@@ -120,15 +112,6 @@ function RootNavigator() {
   );
 }
 }
-
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
-
-
-
-
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 const AuthBottomTab = createBottomTabNavigator<AuthTabParamList>();
