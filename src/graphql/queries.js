@@ -990,8 +990,8 @@ export const listOrders = /* GraphQL */ `
     listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        timestamp
         items
+        orderStatus
         completed
         userID
         barID
@@ -1051,7 +1051,6 @@ export const getUser = /* GraphQL */ `
       createdAt
       name
       address
-      order
       _version
       _deleted
       _lastChangedAt
