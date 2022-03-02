@@ -3,6 +3,7 @@ import { Text, View } from "../../../components/Themed";
 import { Button, TextInput, Headline } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
 import { createBar } from "../../graphql/mutations";
+import { useStateValue } from "../../state/StateProvider"
 
 function CreateCommon(props: any) {
   const [name, setName] = React.useState("");
@@ -10,7 +11,7 @@ function CreateCommon(props: any) {
   const [phone, setPhone] = React.useState("");
   const [bio, setBio] = React.useState("");
 
-  const [currentBar, setCurrentBar] = React.useState({})
+  const [{ bar }, dispatch] = useStateValue();
 
   async function createOrder() {
     const payload = {
@@ -27,10 +28,12 @@ function CreateCommon(props: any) {
         })
       );
 
-      const promise = await res;
-      console.log(promise);
-      // needs to be a global bar
-      setCurrentBar(promise);
+      const barPromise = await res;
+
+      dispatch({
+          type: "SET_BAR",
+          bar : barPromise.data.createBar
+      })
       props.nextStep();
     } catch (err) {
       console.log(err);
