@@ -23,6 +23,7 @@ import SignIn from '../components/auth/SignIn';
 import { Auth, Hub } from 'aws-amplify';
 import { ActivityIndicator, Button } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import MultiStepForm from '../src/components/BarInitiation/MultiStepForm';
 
 
 
@@ -143,8 +144,10 @@ function AuthTabNav() {
 
   return (
     <AuthBottomTab.Navigator>
+            <AuthBottomTab.Screen name="BarInitiation" component={MultiStepForm} />
             <AuthBottomTab.Screen name="SignIn" component={SignIn}  />
             <AuthBottomTab.Screen name="SignUp" component={SignUp}  />
+            
     </AuthBottomTab.Navigator>
   )
 }

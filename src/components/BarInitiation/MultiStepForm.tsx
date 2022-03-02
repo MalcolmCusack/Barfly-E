@@ -12,11 +12,21 @@ function MultiStepForm() {
         name: '',
         email: '',  // awsEmail
         phone: '',  // awsPhone 
-        location: {},   // json
-        payment: {},    // json
-        address: {}, //json
+        payment: {
+            routingNum: '',
+            accountNum: ''
+        },    // json
+        address: {
+            address: ''
+        }, //json
         bio: ''
     });
+
+    React.useEffect(() => {
+    
+        console.log(payload)
+    }, [payload]);
+    
 
     const nextStep = () => {
         setStep(step + 1);
@@ -26,20 +36,18 @@ function MultiStepForm() {
         setStep(step - 1);
     }
 
-    const handleInputData = input => e => {
-
-        const { value } = e.target
+    const handleInputData = (value, key) => {
 
         setPayload(prevState => ({
             ...prevState,
-            [input]: value
+            [key]: value
         }));
     }
 
     switch (step) {
         case 1:
             return (
-                <CreateCommon nextStep={nextStep} setPayload={setPayload} />
+                <CreateCommon nextStep={nextStep} handleInputData={handleInputData} payload={payload} />
             );
         case 2:
             return (
