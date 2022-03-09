@@ -40,6 +40,7 @@ export type AuthTabParamList = {
   SignUp: undefined;
   SignIn: undefined;
   ForgotPass: undefined
+  BarInitiation: undefined
 };
 
 export type DrawerNav = {

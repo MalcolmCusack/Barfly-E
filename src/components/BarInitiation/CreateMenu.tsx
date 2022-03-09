@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CreateMenu() {
+function CreateMenu(props:any) {
   return <div></div>;
 }
 

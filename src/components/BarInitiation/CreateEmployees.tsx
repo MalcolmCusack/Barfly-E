@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CreateEmployees() {
+function CreateEmployees(props:any) {
   return <div></div>;
 }
 
