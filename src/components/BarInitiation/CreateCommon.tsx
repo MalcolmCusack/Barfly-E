@@ -28,8 +28,8 @@ function CreateCommon(props: any) {
         })
       );
 
-      const barPromise = await res;
-
+      const barPromise:any = await res;
+      
       dispatch({
           type: "SET_BAR",
           bar : barPromise.data.createBar
