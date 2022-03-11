@@ -56,8 +56,6 @@ function CreateEmployees(props: any) {
     return deletePromise;
   }
 
-  function finish() {
-  }
 
   return (
     <View style={{
@@ -134,9 +132,9 @@ function CreateEmployees(props: any) {
       <Button
         style={{ width: "50%", margin: 10 }}
         mode="contained"
-        onPress={finish}
+        onPress={props.nextStep}
       >
-        Next
+        Finish
       </Button>
       <Button
         style={{ width: "50%", margin: 10 }}
