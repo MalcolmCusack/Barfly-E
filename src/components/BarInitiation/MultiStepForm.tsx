@@ -7,7 +7,7 @@ import { Text, View } from '../../../components/Themed';
 
 
 function MultiStepForm() {
-    const [step, setStep] = React.useState(2);
+    const [step, setStep] = React.useState(3);
     const [payload, setPayload] = React.useState({
         name: '',
         email: '',  // awsEmail
@@ -51,7 +51,7 @@ function MultiStepForm() {
             );
         case 2:
             return (
-                <CreateMenu nextStep={nextStep} prevStep={prevStep} setPayload={setPayload} />
+                <CreateMenu nextStep={nextStep} prevStep={prevStep} setPayload={setPayload}  />
             );
         case 3: 
             return (

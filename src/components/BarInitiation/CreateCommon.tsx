@@ -13,7 +13,7 @@ function CreateCommon(props: any) {
 
   const [{ bar }, dispatch] = useStateValue();
 
-  async function createOrder() {
+  async function createBar() {
     const payload = {
       name: name,
       email: email,
@@ -86,7 +86,7 @@ function CreateCommon(props: any) {
       <Button
         style={{ width: "50%", margin: 20 }}
         mode="contained"
-        onPress={createOrder}
+        onPress={createBar}
       >
         Next
       </Button>

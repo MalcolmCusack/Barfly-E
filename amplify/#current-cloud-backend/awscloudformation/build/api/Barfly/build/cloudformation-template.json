@@ -172,17 +172,6 @@
         "AdditionalAuthenticationProviders": [
           {
             "AuthenticationType": "AWS_IAM"
-          },
-          {
-            "AuthenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "UserPoolConfig": {
-              "UserPoolId": {
-                "Ref": "AuthCognitoUserPoolId"
-              },
-              "AwsRegion": {
-                "Ref": "AWS::Region"
-              }
-            }
           }
         ]
       }
@@ -203,7 +192,7 @@
             {
               "Ref": "APIKeyExpirationEpoch"
             },
-            1640846835
+            1649561961
           ]
         }
       },

@@ -161,14 +161,8 @@
           "AppSyncApiName": "Barfly",
           "DynamoDBBillingMode": "PAY_PER_REQUEST",
           "DynamoDBEnableServerSideEncryption": false,
-          "AuthCognitoUserPoolId": {
-            "Fn::GetAtt": [
-              "authbarfly2b04a7f4",
-              "Outputs.UserPoolId"
-            ]
-          },
           "S3DeploymentBucket": "amplify-barfly-staging-35333-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/856993a44eebdcfb51076f9523d0caa214842884",
+          "S3DeploymentRootKey": "amplify-appsync-files/08e38125651b6dffac3716ccf3363295a724c46f",
           "env": "staging"
         }
       }

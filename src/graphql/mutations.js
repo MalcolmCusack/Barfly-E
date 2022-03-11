@@ -829,6 +829,8 @@ export const createEmployee = /* GraphQL */ `
       id
       name
       barID
+      email
+      admin
       _version
       _deleted
       _lastChangedAt
