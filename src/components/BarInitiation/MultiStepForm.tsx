@@ -2,8 +2,6 @@ import React from 'react';
 import CreateCommon from './CreateCommon';
 import CreateEmployees from './CreateEmployees';
 import CreateMenu from './CreateMenu';
-import { Button, Headline, TextInput } from "react-native-paper";
-import { Text, View } from '../../../components/Themed';
 
 
 function MultiStepForm() {
@@ -21,11 +19,6 @@ function MultiStepForm() {
         }, //json
         bio: ''
     });
-
-    React.useEffect(() => {
-    
-        console.log(payload)
-    }, [payload]);
     
 
     const nextStep = () => {

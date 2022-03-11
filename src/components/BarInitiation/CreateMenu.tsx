@@ -31,7 +31,7 @@ export default function CreateMenu(props) {
       <Button
         style={{ width: "50%", margin: 20 }}
         mode="contained"
-        onPress={createMenu}
+        onPress={props.nextStep}
       >
         Next
       </Button>

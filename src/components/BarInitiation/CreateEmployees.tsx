@@ -4,6 +4,7 @@ import { Button, TextInput, Headline, Chip } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
 import { createEmployee, deleteEmployee } from "../../graphql/mutations";
 import { useStateValue } from "../../state/StateProvider";
+import Navigation from "../../../navigation";
 
 // Create emplyoees based on bar id
 function CreateEmployees(props: any) {
@@ -42,88 +43,109 @@ function CreateEmployees(props: any) {
 
   async function DeleteEmployee(employee: any) {
     const payload = {
-        id: employee.id,
-        _version: employee._version
-    }
+      id: employee.id,
+      _version: employee._version,
+    };
     const res = API.graphql({
       query: deleteEmployee,
-      variables: { input: payload }
+      variables: { input: payload },
     });
     const deletePromise: any = await res;
 
     setEmployees(employees.filter((item) => item.id !== employee.id));
-    return deletePromise
+    return deletePromise;
+  }
+
+  function finish() {
   }
 
   return (
-    <View
-      style={{
+    <View style={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         alignItems: "center",
         width: "100%",
-      }}
-    >
+      }}>
       <View
         style={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           alignItems: "center",
-          width: "20%",
+          width: "100%",
         }}
       >
-        {employees.map((employee) => {
-          return (
-            <Chip
-              style={{ margin: "0.5em" }}
-              icon="delete"
-              key={Math.random() + ""}
-              onPress={() => DeleteEmployee(employee)}
-            >
-              {employee.name}
-            </Chip>
-          );
-        })}
-      </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "80%",
-        }}
-      >
-        <Headline style={{ margin: 10 }}>Add Employees</Headline>
-
-        <TextInput
-          autoComplete={null}
-          label="Name"
-          value={name}
-          placeholder="Name"
-          onChangeText={(text) => setName(text)}
-          style={{ width: "50%", margin: 10 }}
-        />
-        <TextInput
-          autoComplete={null}
-          label="Email"
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          style={{ width: "50%", margin: 10 }}
-        />
-
-        <Button
-          style={{ width: "50%", margin: 20 }}
-          mode="contained"
-          onPress={addEmployee}
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "20%",
+          }}
         >
-          Add
-        </Button>
-        
+          {employees.map((employee) => {
+            return (
+              <Chip
+                style={{ margin: 10 }}
+                icon="delete"
+                key={Math.random() + ""}
+                onPress={() => DeleteEmployee(employee)}
+              >
+                {employee.name}
+              </Chip>
+            );
+          })}
+        </View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "80%",
+          }}
+        >
+          <Headline style={{ margin: 10 }}>Add Employees</Headline>
+
+          <TextInput
+            autoComplete={null}
+            label="Name"
+            value={name}
+            placeholder="Name"
+            onChangeText={(text) => setName(text)}
+            style={{ width: "50%", margin: 10 }}
+          />
+          <TextInput
+            autoComplete={null}
+            label="Email"
+            placeholder="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={{ width: "50%", margin: 10 }}
+          />
+
+          <Button
+            style={{ width: "50%", margin: 10 }}
+            mode="contained"
+            onPress={addEmployee}
+          >
+            Add
+          </Button>
+        </View>
       </View>
-      
+      <Button
+        style={{ width: "50%", margin: 10 }}
+        mode="contained"
+        onPress={finish}
+      >
+        Next
+      </Button>
+      <Button
+        style={{ width: "50%", margin: 10 }}
+        mode="contained"
+        onPress={props.prevStep}
+      >
+        Back
+      </Button>
     </View>
-    
   );
 }
 
