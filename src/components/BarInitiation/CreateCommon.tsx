@@ -13,7 +13,7 @@ function CreateCommon(props: any) {
 
   const [{ bar }, dispatch] = useStateValue();
 
-  async function createOrder() {
+  async function CreateBar() {
     const payload = {
       name: name,
       email: email,
@@ -28,16 +28,17 @@ function CreateCommon(props: any) {
         })
       );
 
-      const barPromise = await res;
-
+      const barPromise:any = await res;
+      
       dispatch({
           type: "SET_BAR",
           bar : barPromise.data.createBar
       })
-      props.nextStep();
+      
     } catch (err) {
       console.log(err);
     }
+    props.nextStep();
   }
   return (
     <View
@@ -86,7 +87,7 @@ function CreateCommon(props: any) {
       <Button
         style={{ width: "50%", margin: 20 }}
         mode="contained"
-        onPress={createOrder}
+        onPress={CreateBar}
       >
         Next
       </Button>

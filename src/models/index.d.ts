@@ -276,6 +276,9 @@ export declare class Employee {
   readonly Orders?: (Order | null)[];
   readonly barID?: string;
   readonly Bar?: Bar;
+  readonly email: string;
+  readonly admin: boolean;
+  readonly tips?: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Employee, EmployeeMetaData>);

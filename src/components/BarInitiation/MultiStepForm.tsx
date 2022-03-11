@@ -1,13 +1,12 @@
 import React from 'react';
+import SignIn from '../../../components/auth/SignIn';
 import CreateCommon from './CreateCommon';
 import CreateEmployees from './CreateEmployees';
 import CreateMenu from './CreateMenu';
-import { Button, Headline, TextInput } from "react-native-paper";
-import { Text, View } from '../../../components/Themed';
 
 
-function MultiStepForm() {
-    const [step, setStep] = React.useState(1);
+function MultiStepForm({navigation}) {
+    const [step, setStep] = React.useState(3);
     const [payload, setPayload] = React.useState({
         name: '',
         email: '',  // awsEmail
@@ -21,12 +20,6 @@ function MultiStepForm() {
         }, //json
         bio: ''
     });
-
-    React.useEffect(() => {
-    
-        console.log(payload)
-    }, [payload]);
-    
 
     const nextStep = () => {
         setStep(step + 1);
@@ -51,12 +44,14 @@ function MultiStepForm() {
             );
         case 2:
             return (
-                <CreateMenu nextStep={nextStep} prevStep={prevStep} setPayload={setPayload} />
+                <CreateMenu nextStep={nextStep} prevStep={prevStep} setPayload={setPayload}  />
             );
         case 3: 
             return (
                 <CreateEmployees nextStep={nextStep} prevStep={prevStep} setPayload={setPayload} />
             );
+        case 4:
+            return <SignIn />
         default:
             return <></>
     }

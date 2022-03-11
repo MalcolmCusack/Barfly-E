@@ -155,6 +155,9 @@ type Employee @aws_iam @aws_api_key {
   id: ID!
   name: String!
   barID: ID
+  email: String!
+  admin: Boolean!
+  tips: Float
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -290,7 +293,7 @@ enum ModelSortDirection {
 }
 
 type ModelMixerConnection @aws_api_key @aws_iam {
-  items: [Mixer!]!
+  items: [Mixer]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -599,7 +602,7 @@ type Subscription {
 }
 
 type ModelLiquorTypeConnection @aws_api_key @aws_iam {
-  items: [LiquorType!]!
+  items: [LiquorType]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -665,7 +668,7 @@ input ModelLiquorTypeConditionInput {
 }
 
 type ModelSpecialConnection @aws_api_key @aws_iam {
-  items: [Special!]!
+  items: [Special]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -719,7 +722,7 @@ input ModelSpecialConditionInput {
 }
 
 type ModelWineConnection @aws_api_key @aws_iam {
-  items: [Wine!]!
+  items: [Wine]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -777,7 +780,7 @@ input ModelWineConditionInput {
 }
 
 type ModelBeerConnection @aws_api_key @aws_iam {
-  items: [Beer!]!
+  items: [Beer]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -839,7 +842,7 @@ input ModelBeerConditionInput {
 }
 
 type ModelCocktailConnection @aws_api_key @aws_iam {
-  items: [Cocktail!]!
+  items: [Cocktail]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -893,7 +896,7 @@ input ModelCocktailConditionInput {
 }
 
 type ModelShotConnection @aws_api_key @aws_iam {
-  items: [Shot!]!
+  items: [Shot]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -947,7 +950,7 @@ input ModelShotConditionInput {
 }
 
 type ModelFoodConnection @aws_api_key @aws_iam {
-  items: [Food!]!
+  items: [Food]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1005,7 +1008,7 @@ input ModelFoodConditionInput {
 }
 
 type ModelMenuConnection @aws_api_key @aws_iam {
-  items: [Menu!]!
+  items: [Menu]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1043,7 +1046,7 @@ input ModelMenuConditionInput {
 }
 
 type ModelEmployeeConnection @aws_api_key @aws_iam {
-  items: [Employee!]!
+  items: [Employee]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1052,6 +1055,9 @@ input ModelEmployeeFilterInput {
   id: ModelIDInput
   name: ModelStringInput
   barID: ModelIDInput
+  email: ModelStringInput
+  admin: ModelBooleanInput
+  tips: ModelFloatInput
   and: [ModelEmployeeFilterInput]
   or: [ModelEmployeeFilterInput]
   not: ModelEmployeeFilterInput
@@ -1061,6 +1067,9 @@ input CreateEmployeeInput {
   id: ID
   name: String!
   barID: ID
+  email: String!
+  admin: Boolean!
+  tips: Float
   _version: Int
   employeeBarId: ID
 }
@@ -1069,6 +1078,9 @@ input UpdateEmployeeInput {
   id: ID!
   name: String
   barID: ID
+  email: String
+  admin: Boolean
+  tips: Float
   _version: Int
   employeeBarId: ID
 }
@@ -1081,13 +1093,16 @@ input DeleteEmployeeInput {
 input ModelEmployeeConditionInput {
   name: ModelStringInput
   barID: ModelIDInput
+  email: ModelStringInput
+  admin: ModelBooleanInput
+  tips: ModelFloatInput
   and: [ModelEmployeeConditionInput]
   or: [ModelEmployeeConditionInput]
   not: ModelEmployeeConditionInput
 }
 
 type ModelBarConnection @aws_api_key @aws_iam {
-  items: [Bar!]!
+  items: [Bar]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1161,7 +1176,7 @@ input ModelBarConditionInput {
 }
 
 type ModelOrderConnection @aws_api_key @aws_iam {
-  items: [Order!]!
+  items: [Order]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1221,7 +1236,7 @@ input ModelOrderConditionInput {
 }
 
 type ModelUserConnection @aws_api_key @aws_iam {
-  items: [User!]!
+  items: [User]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1287,7 +1302,7 @@ input ModelUserConditionInput {
 }
 
 type ModelLiquorTypeShotConnection @aws_iam @aws_api_key {
-  items: [LiquorTypeShot!]!
+  items: [LiquorTypeShot]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1329,7 +1344,7 @@ input ModelLiquorTypeShotConditionInput {
 }
 
 type ModelLiquorTypeCocktailConnection @aws_iam @aws_api_key {
-  items: [LiquorTypeCocktail!]!
+  items: [LiquorTypeCocktail]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1371,7 +1386,7 @@ input ModelLiquorTypeCocktailConditionInput {
 }
 
 type ModelLiquorTypeSpecialConnection @aws_iam @aws_api_key {
-  items: [LiquorTypeSpecial!]!
+  items: [LiquorTypeSpecial]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1413,7 +1428,7 @@ input ModelLiquorTypeSpecialConditionInput {
 }
 
 type ModelMixerCocktailConnection @aws_iam @aws_api_key {
-  items: [MixerCocktail!]!
+  items: [MixerCocktail]!
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -1455,7 +1470,7 @@ input ModelMixerCocktailConditionInput {
 }
 
 type ModelMixerSpecialConnection @aws_iam @aws_api_key {
-  items: [MixerSpecial!]!
+  items: [MixerSpecial]!
   nextToken: String
   startedAt: AWSTimestamp
 }
