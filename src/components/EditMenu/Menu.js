@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {API, graphqlOperation} from 'aws-amplify';
-import { listFoods, listBeers, listCocktails, listShots } from '../../graphql/queries';
+import { listFoods, listBeers, listCocktails, listShots, listMenus } from '../../graphql/queries';
 import { Text, View } from '../../../components/Themed';
 import MenuItem from './MenuItem';
 import { StyleSheet } from 'react-native';
+import { useStateValue } from "../../state/StateProvider"
 
 const styles = StyleSheet.create({
     container: {
@@ -43,30 +44,35 @@ const styles = StyleSheet.create({
   });
 
 const Menu = () => {
-
+    const [menuID, setMenuID] = useState("")
     const [FoodItems, setFoodItems] = useState([])
     const [BeerItems, setBeerItems] = useState([])
     const [ShotItems, setShotItems] = useState([])
     const [CocktailItems, setCocktailItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [{ bar }] = useStateValue();
 
   useEffect(() => {
     const listMenu = async () => {
 
         try {
-        var menuPromise = API.graphql(graphqlOperation(listFoods))
+        var menuPromise = API.graphql(graphqlOperation(listMenus, {filter: {barID: {eq: bar.id}}}))
         var response = await menuPromise
+        setMenuID(response.data.listMenus.items[0].id)
+
+        menuPromise = API.graphql(graphqlOperation(listFoods, {filter: {menuID: {eq: menuID}}}))
+        response = await menuPromise
         setFoodItems(response.data.listFoods.items)
 
-        menuPromise = API.graphql(graphqlOperation(listBeers))
+        menuPromise = API.graphql(graphqlOperation(listBeers, {filter: {menuID: {eq: menuID}}}))
         response = await menuPromise
         setBeerItems(response.data.listBeers.items)
 
-        menuPromise = API.graphql(graphqlOperation(listCocktails))
+        menuPromise = API.graphql(graphqlOperation(listCocktails, {filter: {menuID: {eq: menuID}}}))
         response = await menuPromise
         setCocktailItems(response.data.listCocktails.items)
 
-        menuPromise = API.graphql(graphqlOperation(listShots))
+        menuPromise = API.graphql(graphqlOperation(listShots, {filter: {menuID: {eq: menuID}}}))
         response = await menuPromise
         setShotItems(response.data.listShots.items)
 

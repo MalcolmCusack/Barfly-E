@@ -6,7 +6,7 @@ import {API, graphqlOperation} from 'aws-amplify';
 import {updateOrder} from '../../graphql/mutations';
 import { StyleSheet } from 'react-native';
 
-const Order = ({ order, employee }) => {
+const Order = ({ order, employee, setPressed, pressed}) => {
 
     
     const [orderItems, setOrderItems] = useState(JSON.parse(order.items))
@@ -36,6 +36,7 @@ const Order = ({ order, employee }) => {
             console.log(updateResponse)
             setIsInProgress(true)
             //onToggleSnackBar()
+            setPressed(!pressed)
         } catch (err) {
             console.log(err)
         }

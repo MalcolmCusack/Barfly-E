@@ -6,6 +6,7 @@ import { Text, View } from "../../../components/Themed";
 import Order from "./Order";
 import { StyleSheet } from "react-native";
 import { Auth } from "aws-amplify";
+import { useStateValue } from "../../state/StateProvider"
 
 const styles = StyleSheet.create({
   container: {
@@ -13,19 +14,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     display: "flex",
+    width:"100%"
+  },
+  Innercontainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+    flexDirection: "row",
+    width:"100%"
   },
   orderQueueContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     display: "flex",
-    flexDirection: "row",
+    
     flexWrap: "wrap",
+    width : "30%"
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
     margin: 20,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    margin: 5,
   },
   separator: {
     marginVertical: 30,
@@ -37,8 +53,13 @@ const styles = StyleSheet.create({
 const OrderQueue = () => {
   const [orderItems, setOrderItems] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [received, setReceived] = useState([]);
+  const [inprogress, setInprogress] = useState([]);
+  const [completed, setCompleted] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pressed, setPressed] = useState(false);
   const [employee, setEmployee] = useState();
+  const [{ bar }] = useStateValue();
 
   const orderTest = [
     {
@@ -61,7 +82,7 @@ const OrderQueue = () => {
   ];
 
   const getEmployee = async () => {
-  
+      console.log(bar)
       const authEmployee = await Auth.currentUserInfo()
       .then((auth) => setEmployee(auth))
       .catch(err => console.log(err));
@@ -70,15 +91,17 @@ const OrderQueue = () => {
   
 
   useEffect(() => {
-
+    let isMounted = true
     getEmployee();
     
     const subscribe = async () => {
+      setReceived([])
+      setInprogress([])
+   //   setOrders([])
       try {
-        const ordersPromise = API.graphql(graphqlOperation(listOrders));
+        const ordersPromise = API.graphql(graphqlOperation(listOrders, {filter: {barID: {eq: "a0381d31-0b50-494c-9a9d-7b2115679893"}}}))// bar.id}}}))
         const response = await ordersPromise;
-        //setAllOrders([...allOrders, response.data.listOrders.items])
-        //console.log(response.data.listOrders.items)
+        setOrders(response.data.listOrders.items);
       } catch (err) {
         console.log(err);
       }
@@ -97,29 +120,65 @@ const OrderQueue = () => {
             ]);
           },
         });
-
-        setIsLoading(false);
+        console.log("out")
+        if(isMounted){
+          console.log("in")
+          orders.map((order) => {
+            console.log(order)
+            if(order.orderStatus === "received"){
+              setReceived((received) => [...received, order]);
+            }
+            else if(order.orderStatus === "in-progress"){
+              setInprogress((inprogress) => [...inprogress, order]);
+            }
+            else if(order.orderStatus === "completed"){
+              setInprogress((completed) => [...completed, order]);
+            }
+          })
+          }
+        
       } catch (err) {
         console.log(err);
       }
     };
-
-    return subscribe();
-  }, []);
+  
+    setIsLoading(false);
+    subscribe();
+    return () => { isMounted = false };
+  }, [isLoading, pressed]);
 
   console.log(orders);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Order Queue</Text>
+      <View style={styles.Innercontainer}>
       <View style={styles.orderQueueContainer}>
+       <Text style={styles.subtitle}>Recieved</Text>
         {!isLoading
-          ? orders.map((order) => {
-              return <Order key={order.id + Math.random()} order={order} employee={employee}/>;
+          ? received.map((order) => {
+              return <Order key={order.id + Math.random()} order={order} employee={employee} setPressed={setPressed} pressed={pressed}/>;
             })
           : null}
       </View>
-    </View>
+      <View style={styles.orderQueueContainer}>
+      <Text style={styles.subtitle}>In-Progress</Text>
+        {!isLoading
+          ? inprogress.map((order) => {
+              return <Order key={order.id + Math.random()} order={order} employee={employee} setPressed={setPressed} pressed={pressed}/>;
+            })
+          : null}
+      </View>
+      <View style={styles.orderQueueContainer}>
+      <Text style={styles.subtitle}>Completed</Text>
+        {!isLoading
+          ? completed.map((order) => {
+              return <Order key={order.id + Math.random()} order={order} employee={employee} setPressed={setPressed} pressed={pressed}/>;
+            })
+          : null}
+      </View>
+      </View>
+      </View>
   );
 };
 
