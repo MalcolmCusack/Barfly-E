@@ -6,7 +6,7 @@ import {API, graphqlOperation} from 'aws-amplify';
 import {updateOrder} from '../../graphql/mutations';
 import { StyleSheet } from 'react-native';
 
-const Order = ({ order, employee, setPressed, pressed}) => {
+const Order = ({ order, index, employee, setPressed, pressed, setOrders, orders}) => {
 
     
     const [orderItems, setOrderItems] = useState(JSON.parse(order.items))
@@ -36,7 +36,10 @@ const Order = ({ order, employee, setPressed, pressed}) => {
             console.log(updateResponse)
             setIsInProgress(true)
             //onToggleSnackBar()
-            setPressed(!pressed)
+            //setPressed(!pressed)
+            let newOrders = [...orders]
+            newOrders[index] = updateResponse.data.updateOrder
+            setOrders(newOrders)
         } catch (err) {
             console.log(err)
         }
@@ -49,7 +52,7 @@ const Order = ({ order, employee, setPressed, pressed}) => {
             orderStatus: "complete",
             completed: true,
             employeeID: employee.attributes.sub,
-            _version: order._version + 1
+            _version: order._version
         }
 
         try {
@@ -58,6 +61,9 @@ const Order = ({ order, employee, setPressed, pressed}) => {
             }});
             const updateResponse = await update
             console.log(updateResponse)
+            let newOrders = [...orders]
+            newOrders[index] = updateResponse.data.updateOrder
+            setOrders(newOrders)
         } catch (err) {
             console.log(err)
         }
@@ -84,6 +90,10 @@ const Order = ({ order, employee, setPressed, pressed}) => {
         }
 
         gatherCustomer()
+
+        return () => {
+            setcustomer();
+          };        
 
         
     }, [])
@@ -150,8 +160,8 @@ const Order = ({ order, employee, setPressed, pressed}) => {
                         
                        </Card.Content>
                        <Card.Actions>
-                           <Button onPress={startOrder}>Start</Button>
-                           <Button  disabled={!isInProgress} onPress={completeOrder}>Complete</Button>
+                           <Button disabled={order.orderStatus === "complete"} onPress={startOrder}>Start</Button>
+                           <Button  disabled={!(order.orderStatus === "in-progress")} onPress={completeOrder}>Complete</Button>
                        </Card.Actions>
                     
                    </Card>
