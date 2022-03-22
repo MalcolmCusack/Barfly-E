@@ -36,13 +36,10 @@ const styles = StyleSheet.create({
         margin: 5
     },
 
-    
-
   });
 
 const Order = ({ order, index, employee, setOrders, orders}) => {
-
-    
+   
     const [orderItems, setOrderItems] = useState(JSON.parse(order.items))
     const [customer, setcustomer] = useState()
     const [isLoading, setIsLoading] = useState(true)
@@ -172,13 +169,9 @@ const Order = ({ order, index, employee, setOrders, orders}) => {
                     </View>
                    
                 </>
-                   
-        
-            
+                           
             ) : null}
             
-            
-
         </View>
     )
 }

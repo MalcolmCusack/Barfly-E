@@ -25,8 +25,6 @@ import { ActivityIndicator, Button } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MultiStepForm from '../src/components/BarInitiation/MultiStepForm';
 
-
-
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
 
   return (
@@ -50,7 +48,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
 
   const [user, setUser] = React.useState(undefined)
-
+  
   const checkUser = async () => {
     try { 
       const authUser = await Auth.currentAuthenticatedUser();
@@ -192,14 +190,14 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       /> 
-    <BottomTab.Screen
-      name ="TabThree"
-      component={TabThreeScreen}
-      options={{
-      title: 'Menu',
-      tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-    }}
-  />
+      <BottomTab.Screen
+        name ="TabThree"
+        component={TabThreeScreen}
+        options={{
+        title: 'Menu',
+        tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+      }}
+    />
 </BottomTab.Navigator>
   );
 }

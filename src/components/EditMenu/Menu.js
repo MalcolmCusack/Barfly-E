@@ -4,7 +4,6 @@ import { listFoods, listBeers, listCocktails, listShots, listMenus } from '../..
 import { Text, View } from '../../../components/Themed';
 import MenuItem from './MenuItem';
 import { StyleSheet } from 'react-native';
-import { useStateValue } from "../../state/StateProvider"
 
 const styles = StyleSheet.create({
     container: {
@@ -50,10 +49,27 @@ const Menu = () => {
     const [ShotItems, setShotItems] = useState([])
     const [CocktailItems, setCocktailItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [{ bar }] = useStateValue();
+
+    const getBar = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem("bar");
+    
+        if (jsonValue !== null) {
+            return JSON.parse(jsonValue)
+        } else {
+            console.log("bar not found")
+            return null
+        }
+      } catch (e) {
+        // error reading value
+      }
+    };
 
   useEffect(() => {
     const listMenu = async () => {
+
+        const bar = await getBar()
+        console.log(bar)
 
         try {
         var menuPromise = API.graphql(graphqlOperation(listMenus, {filter: {barID: {eq: bar.id}}}))

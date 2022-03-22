@@ -3,8 +3,7 @@ import {API, graphqlOperation} from 'aws-amplify';
 import { listOrders } from '../../graphql/queries';
 import { Text, View } from '../../../components/Themed';
 import { StyleSheet } from 'react-native';
-import { useStateValue } from "../../state/StateProvider"
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const styles = StyleSheet.create({
@@ -95,8 +94,6 @@ const getOrderTotal = (orders) => {
 
 
 const IncomeSummary = () => {
-
-    const [orderItems, setOrderItems] = useState([])
     const [daily, setDaily] = useState([])
     const [dailyNum, setDailyNum] = useState([])
     const [weekly, setWeekly] = useState([])
@@ -106,11 +103,28 @@ const IncomeSummary = () => {
     const [yearly, setYearly] = useState([])
     const [yearlyNum, setYearlyNum] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [{ bar }] = useStateValue();
+    const [bar, setBar] = useState()
+
+    const getBar = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem("bar");
+    
+        if (jsonValue !== null) {
+            return JSON.parse(jsonValue)
+        } else {
+            console.log("bar not found")
+            return null
+        }
+      } catch (e) {
+        // error reading value
+      }
+    };
 
   useEffect(() => {
 
     const listSummaries = async () => {
+
+      const bar = await getBar()
         try {
             var response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("daily")}, barID: {eq: bar.id} }}))
             var response = await response_promise
@@ -126,7 +140,6 @@ const IncomeSummary = () => {
             response = await response_promise
             setMonthly(getOrderTotal(response.data.listOrders.items))
             setMonthlyNum(response.data.listOrders.items.length)
-            console.log(response)
 
             response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("yearly")}, barID: {eq: bar.id} }}))
             response = await response_promise
@@ -142,7 +155,7 @@ const IncomeSummary = () => {
     
     listSummaries()
     
-    },[])
+    },[bar])
   
     return (
         <View style={styles.container}>
