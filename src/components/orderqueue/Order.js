@@ -1,21 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import { Text, View } from '../../../components/Themed';
+import { View } from '../../../components/Themed';
 import {Card, Snackbar, Caption, Button, Subheading, Divider} from 'react-native-paper';
 import { getUser } from '../../graphql/queries';
 import {API, graphqlOperation} from 'aws-amplify';
 import {updateOrder} from '../../graphql/mutations';
 import { StyleSheet } from 'react-native';
 
-const Order = ({ order, index, employee, setPressed, pressed, setOrders, orders}) => {
+const Order = ({ order, index, employee, setOrders, orders}) => {
 
     
-    const [orderItems, setOrderItems] = useState(JSON.parse(order.items))
+    const [orderItems] = useState(JSON.parse(order.items))
     const [customer, setcustomer] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const [visible, setVisable] = useState(false)
-    const [isInProgress, setIsInProgress] = useState(false)
-
-    const onToggleSnackBar = () => setVisable(!visible);
 
     const onDismissSnackBar = () => setVisable(false);
 
@@ -33,10 +30,7 @@ const Order = ({ order, index, employee, setPressed, pressed, setOrders, orders}
                 input: payload
             }))
             const updateResponse = await update
-            console.log(updateResponse)
-            setIsInProgress(true)
-            //onToggleSnackBar()
-            //setPressed(!pressed)
+     
             let newOrders = [...orders]
             newOrders[index] = updateResponse.data.updateOrder
             setOrders(newOrders)
@@ -60,7 +54,6 @@ const Order = ({ order, index, employee, setPressed, pressed, setOrders, orders}
                 input: payload
             }});
             const updateResponse = await update
-            console.log(updateResponse)
             let newOrders = [...orders]
             newOrders[index] = updateResponse.data.updateOrder
             setOrders(newOrders)
@@ -80,7 +73,7 @@ const Order = ({ order, index, employee, setPressed, pressed, setOrders, orders}
                     }
                 })
                 const response =  await data
-                //console.log(response)
+
                 setcustomer(response.data.getUser)
                 setIsLoading(false)
     
@@ -160,7 +153,7 @@ const Order = ({ order, index, employee, setPressed, pressed, setOrders, orders}
                         
                        </Card.Content>
                        <Card.Actions>
-                           <Button disabled={order.orderStatus === "complete"} onPress={startOrder}>Start</Button>
+                           <Button disabled={order.orderStatus === "complete" || order.orderStatus === "in-progress"} onPress={startOrder}>Start</Button>
                            <Button  disabled={!(order.orderStatus === "in-progress")} onPress={completeOrder}>Complete</Button>
                        </Card.Actions>
                     
