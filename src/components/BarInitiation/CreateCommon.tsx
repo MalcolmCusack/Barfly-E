@@ -3,7 +3,8 @@ import { Text, View } from "../../../components/Themed";
 import { Button, TextInput, Headline } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
 import { createBar, createMenu } from "../../graphql/mutations";
-import { useStateValue } from "../../state/StateProvider"
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 function CreateCommon(props: any) {
   const [name, setName] = React.useState("");
@@ -11,7 +12,14 @@ function CreateCommon(props: any) {
   const [phone, setPhone] = React.useState("");
   const [bio, setBio] = React.useState("");
 
-  const [{ bar }, dispatch] = useStateValue();
+  const storeBar = async (value: any) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("bar", jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   async function CreateBar() {
     const payload = {
@@ -29,11 +37,8 @@ function CreateCommon(props: any) {
       );
 
       const barPromise:any = await res;
-      
-      dispatch({
-          type: "SET_BAR",
-          bar : barPromise.data.createBar
-      })
+
+      storeBar(barPromise.data.createBar)
 
       var payload2 = {
         barID: barPromise.data.createBar.id
@@ -105,6 +110,7 @@ function CreateCommon(props: any) {
         style={{ width: "50%", margin: 20 }}
         mode="contained"
         onPress={CreateBar}
+        disabled={name === "" || email === "" || phone === "" || bio === ""}
       >
         Next
       </Button>

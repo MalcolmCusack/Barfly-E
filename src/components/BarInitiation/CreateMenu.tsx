@@ -1,10 +1,9 @@
 
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import { View } from "../../../components/Themed";
 import { Button, TextInput, Chip } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
 import { createFood, createCocktail, createBeer, createShot } from "../../graphql/mutations";
-import { useStateValue } from "../../state/StateProvider"
 
 function CreateMenu(props:any) {
   const [itemPrice, SetPrice] = useState("")
@@ -12,8 +11,6 @@ function CreateMenu(props:any) {
   const [type, SetType] = useState("")
   const [items, SetItems] = React.useState([]);
   
-  const [{ bar }, dispatch] = useStateValue();
-
   const createItem = async () => {
     
       var payload = {

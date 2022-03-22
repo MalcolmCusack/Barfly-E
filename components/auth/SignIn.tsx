@@ -1,11 +1,9 @@
-import { View } from "react-native";
 import React from "react";
+import { View, Text } from "../Themed";
 import { Button, Headline, TextInput } from "react-native-paper";
 import { Auth, graphqlOperation, API } from "aws-amplify";
 import { listEmployees, getBar } from "../../src/graphql/queries";
 import { useStateValue } from "../../src/state/StateProvider";
-import { margin } from "@mui/system";
-import { Typography } from "@mui/material";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignIn = () => {
@@ -40,12 +38,8 @@ const SignIn = () => {
         );
         const barPromise = await res;
 
-        storeBar(barPromise.data.getBar);
+        storeBar(barPromise.data.getBar)
 
-        dispatch({
-          type: "SET_BAR",
-          bar: barPromise.data.getBar,
-        });
       } catch (e) {
         console.log(e);
       }
@@ -89,14 +83,15 @@ const SignIn = () => {
         onChangeText={(text) => setPassword(text)}
       />
       {notAdded ? (
-        <Typography>
+        <Text>
           {" "}
           You have not been added as an employee with Barfly
-        </Typography>
+        </Text>
       ) : null}
       <Button
         style={{ width: "50%", margin: 20 }}
         mode="contained"
+        disabled={password === "" || email === ""}
         onPress={signIn}
       >
         Sign In
