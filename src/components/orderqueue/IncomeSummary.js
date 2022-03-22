@@ -3,6 +3,8 @@ import {API, graphqlOperation} from 'aws-amplify';
 import { listOrders } from '../../graphql/queries';
 import { Text, View } from '../../../components/Themed';
 import { StyleSheet } from 'react-native';
+import { useStateValue } from "../../state/StateProvider"
+
 
 
 const styles = StyleSheet.create({
@@ -104,27 +106,29 @@ const IncomeSummary = () => {
     const [yearly, setYearly] = useState([])
     const [yearlyNum, setYearlyNum] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [{ bar }] = useStateValue();
 
   useEffect(() => {
 
     const listSummaries = async () => {
         try {
-            var response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("daily")}}}))
+            var response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("daily")}, barID: {eq: bar.id} }}))
             var response = await response_promise
             setDaily(getOrderTotal(response.data.listOrders.items))
             setDailyNum(response.data.listOrders.items.length)
 
-            response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("weekly")}}}))
+            response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("weekly")}, barID: {eq: bar.id} }}))
             response = await response_promise
             setWeekly(getOrderTotal(response.data.listOrders.items))
             setWeeklyNum(response.data.listOrders.items.length)
 
-            response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("monthly")}}}))
+            response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("monthly")}, barID: {eq: bar.id} }}))
             response = await response_promise
             setMonthly(getOrderTotal(response.data.listOrders.items))
             setMonthlyNum(response.data.listOrders.items.length)
+            console.log(response)
 
-            response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("yearly")}}}))
+            response_promise = API.graphql(graphqlOperation(listOrders, {filter: {createdAt: {ge: getFilterTime("yearly")}, barID: {eq: bar.id} }}))
             response = await response_promise
             setYearly(getOrderTotal(response.data.listOrders.items))
             setYearlyNum(response.data.listOrders.items.length)

@@ -1,7 +1,10 @@
 import { View } from "react-native";
 import React from "react";
 import { Button, TextInput, Headline, Divider} from "react-native-paper";
-import { Auth } from "aws-amplify";
+import { Auth, graphqlOperation, API} from "aws-amplify";
+import { listEmployees, getBar} from '../../src/graphql/queries';
+import { useStateValue } from "../../src/state/StateProvider"
+import { Typography } from "@mui/material";
 
 const SignUp = ({navigation}) => {
   const [name, setName] = React.useState("");
@@ -9,13 +12,42 @@ const SignUp = ({navigation}) => {
   const [phone, setPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [code, setCode] = React.useState("");
+  const [notAdded, setNotAdded] = React.useState(false);
+  const [{ bar }, dispatch] = useStateValue();
 
-  function signUp() {
-    const data = Auth.signUp(name.replace(" ", ""), password, email)
-      .then((res) => {
-        console.log(res);
+  async function signUp() {
+    const response_promise = API.graphql(
+      graphqlOperation(listEmployees, {
+          filter: { email: { eq: email } },
       })
-      .catch((err) => console.log(err));
+    );
+
+    const response = await response_promise;
+    if(response.data.listEmployees.items[0]){
+      try{const res = API.graphql(
+        graphqlOperation(getBar, {
+          id: String(response.data.listEmployees.items[0].barID)
+        })
+      );
+      const barPromise = await res;
+      
+      dispatch({
+        type: "SET_BAR",
+        bar : barPromise.data.getBar
+    })
+    }
+      catch(e){
+        console.log(e)
+      }
+      const data = Auth.signUp(name.replace(" ", ""), password, email)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+      }
+      else{
+        setNotAdded(true);
+      }
   }
 
   function confirmSignUp() {
@@ -61,8 +93,8 @@ const SignUp = ({navigation}) => {
         onChangeText={(text) => setPhone(text)}
         style={{width: '50%', margin: 10}}
       />
-
-      <Button  style={{width: '50%', margin: 20}} mode="contained" onPress={signUp}>Sign In</Button>
+      {notAdded ? <Typography> You have not been added as an employee with Barfly</Typography> : null}
+      <Button  style={{width: '50%', margin: 20}} mode="contained" onPress={signUp}>Sign Up</Button>
       <Divider/>
       <TextInput
         autoComplete={null}

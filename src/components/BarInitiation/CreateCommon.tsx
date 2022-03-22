@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "../../../components/Themed";
 import { Button, TextInput, Headline } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
-import { createBar } from "../../graphql/mutations";
+import { createBar, createMenu } from "../../graphql/mutations";
 import { useStateValue } from "../../state/StateProvider"
 
 function CreateCommon(props: any) {
@@ -34,6 +34,23 @@ function CreateCommon(props: any) {
           type: "SET_BAR",
           bar : barPromise.data.createBar
       })
+
+      var payload2 = {
+        barID: barPromise.data.createBar.id
+      }
+  
+      try {
+        const res = API.graphql(
+          graphqlOperation(createMenu, {
+            input: payload2,
+          })
+        );
+       const menuPromise =  await res;
+       console.log(menuPromise)
+       props.SetMenu(menuPromise.data.createMenu.id)
+      } catch (err) {
+        console.log(err);
+      }
       
     } catch (err) {
       console.log(err);

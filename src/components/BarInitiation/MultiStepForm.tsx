@@ -6,7 +6,8 @@ import CreateMenu from './CreateMenu';
 
 
 function MultiStepForm({navigation}) {
-    const [step, setStep] = React.useState(3);
+    const [step, setStep] = React.useState(1);
+    const [menu, SetMenu] = React.useState();
     const [payload, setPayload] = React.useState({
         name: '',
         email: '',  // awsEmail
@@ -40,11 +41,11 @@ function MultiStepForm({navigation}) {
     switch (step) {
         case 1:
             return (
-                <CreateCommon nextStep={nextStep} handleInputData={handleInputData} payload={payload} />
+                <CreateCommon SetMenu={SetMenu} nextStep={nextStep} handleInputData={handleInputData} payload={payload} />
             );
         case 2:
             return (
-                <CreateMenu nextStep={nextStep} prevStep={prevStep} setPayload={setPayload}  />
+                <CreateMenu menu={menu} nextStep={nextStep} prevStep={prevStep} setPayload={setPayload} />
             );
         case 3: 
             return (
