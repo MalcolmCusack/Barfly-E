@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   },
   Innercontainer: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
     display: "flex",
     flexDirection: "row",
@@ -27,9 +26,9 @@ const styles = StyleSheet.create({
   orderQueueContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     display: "flex",
-
+    flexDirection: 'column',
     flexWrap: "wrap",
     width: "30%",
   },
@@ -39,6 +38,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   subtitle: {
+    justifySelf: 'flex-start',
     fontSize: 20,
     fontWeight: "bold",
     margin: 5,
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
 
 const OrderQueue = () => {
   const [orders, setOrders] = useState([]);
+  //const [orderItems, setOrderItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pressed, setPressed] = useState(false);
   const [employee, setEmployee] = useState();
@@ -86,7 +87,7 @@ const OrderQueue = () => {
         ).subscribe({
           next: (orderData) => {
             const items = JSON.parse(orderData.value.data.onCreateOrder.items);
-            setOrderItems((orderItems) => [...orderItems, items]);
+            //setOrderItems((orderItems) => [...orderItems, items]);
             setOrders((orders) => [
               ...orders,
               orderData.value.data.onCreateOrder,

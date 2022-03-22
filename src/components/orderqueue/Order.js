@@ -6,10 +6,44 @@ import {API, graphqlOperation} from 'aws-amplify';
 import {updateOrder} from '../../graphql/mutations';
 import { StyleSheet } from 'react-native';
 
+const styles = StyleSheet.create({
+    orderContainer: {
+      margin: 10,
+    },
+    orderQueueContainer: {
+    flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      display: 'flex',
+      flexDirection: 'row'
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      
+    },
+    separator: {
+      marginVertical: 30,
+      height: 1,
+      width: '80%',
+    },
+
+    time: {
+        marginLeft: 15,
+    },
+
+    divider: {
+        margin: 5
+    },
+
+    
+
+  });
+
 const Order = ({ order, index, employee, setOrders, orders}) => {
 
     
-    const [orderItems] = useState(JSON.parse(order.items))
+    const [orderItems, setOrderItems] = useState(JSON.parse(order.items))
     const [customer, setcustomer] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const [visible, setVisable] = useState(false)
@@ -66,7 +100,6 @@ const Order = ({ order, index, employee, setOrders, orders}) => {
 
         const gatherCustomer = async () => {
             try { 
-                //console.log(order)
                 const data = API.graphql( {query: getUser, 
                     variables: {
                         id: order.userID
@@ -97,40 +130,6 @@ const Order = ({ order, index, employee, setOrders, orders}) => {
         const time = orderDate.getHours() + ':' +  orderDate.getMinutes() + ':' + orderDate.getSeconds();
         return time
     }
-
-    const styles = StyleSheet.create({
-        orderContainer: {
-          margin: 10,
-        },
-        orderQueueContainer: {
-        flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          display: 'flex',
-          flexDirection: 'row'
-        },
-        title: {
-          fontSize: 20,
-          fontWeight: 'bold',
-          
-        },
-        separator: {
-          marginVertical: 30,
-          height: 1,
-          width: '80%',
-        },
-
-        time: {
-            marginLeft: 15,
-        },
-
-        divider: {
-            margin: 5
-        },
-
-        
-
-      });
     
     return (
 
