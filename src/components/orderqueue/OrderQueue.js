@@ -6,7 +6,8 @@ import { Text, View } from "../../../components/Themed";
 import Order from "./Order";
 import { StyleSheet } from "react-native";
 import { Auth } from "aws-amplify";
-import { useStateValue } from "../../state/StateProvider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const styles = StyleSheet.create({
   container: {
@@ -52,11 +53,9 @@ const styles = StyleSheet.create({
 
 const OrderQueue = () => {
   const [orders, setOrders] = useState([]);
-  //const [orderItems, setOrderItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pressed, setPressed] = useState(false);
   const [employee, setEmployee] = useState();
-  const [{ bar }] = useStateValue();
 
   const getEmployee = async () => {
     const authEmployee = await Auth.currentUserInfo()
@@ -64,16 +63,37 @@ const OrderQueue = () => {
       .catch((err) => console.log(err));
   };
 
+  const getBar = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("bar");
+  
+      if (jsonValue !== null) {
+          return JSON.parse(jsonValue)
+      } else {
+          console.log("bar not found")
+          return null
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
+  useEffect(() => {
+    getBar()
+  }, [])
+
   useEffect(() => {
     let isMounted = true;
     getEmployee();
+    
 
     const subscribe = async () => {
-  
+      const barr = await getBar()
+
       try {
         const ordersPromise = API.graphql(
           graphqlOperation(listOrders, {
-            filter: { barID: { eq: "a0381d31-0b50-494c-9a9d-7b2115679893" } },
+            filter: { barID: { eq: barr.id } },
           })
         );
         const response = await ordersPromise;
@@ -87,7 +107,6 @@ const OrderQueue = () => {
         ).subscribe({
           next: (orderData) => {
             const items = JSON.parse(orderData.value.data.onCreateOrder.items);
-            //setOrderItems((orderItems) => [...orderItems, items]);
             setOrders((orders) => [
               ...orders,
               orderData.value.data.onCreateOrder,

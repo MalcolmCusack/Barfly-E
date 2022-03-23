@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-
 import { Text, View} from '../components/Themed';
 import Menu from '../src/components/EditMenu/Menu';
 
 
-export default function TabThreeScreen({  }) {
+export default function TabThreeScreen() {
 
   return (
     <ScrollView style={styles.scrollView}>

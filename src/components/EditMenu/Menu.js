@@ -4,7 +4,7 @@ import { listFoods, listBeers, listCocktails, listShots, listMenus } from '../..
 import { Text, View } from '../../../components/Themed';
 import MenuItem from './MenuItem';
 import { StyleSheet } from 'react-native';
-import { useStateValue } from "../../state/StateProvider"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const styles = StyleSheet.create({
     container: {
@@ -50,18 +50,30 @@ const Menu = () => {
     const [ShotItems, setShotItems] = useState([])
     const [CocktailItems, setCocktailItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [{ bar }] = useStateValue();
+
+    const getBar = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem("bar");
+    
+        if (jsonValue !== null) {
+            return JSON.parse(jsonValue)
+        } else {
+            console.log("bar not found")
+            return null
+        }
+      } catch (e) {
+        // error reading value
+      }
+    };
 
   useEffect(() => {
     const listMenu = async () => {
 
-        try {
-        var menuPromise = API.graphql(graphqlOperation(listMenus, {filter: {barID: {eq: bar.id}}}))
-        var response = await menuPromise
-        setMenuID(response.data.listMenus.items[0].id)
 
-        menuPromise = API.graphql(graphqlOperation(listFoods, {filter: {menuID: {eq: menuID}}}))
-        response = await menuPromise
+      try {
+
+        var menuPromise = API.graphql(graphqlOperation(listFoods, {filter: {menuID: {eq: menuID}}}))
+        var response = await menuPromise
         setFoodItems(response.data.listFoods.items)
 
         menuPromise = API.graphql(graphqlOperation(listBeers, {filter: {menuID: {eq: menuID}}}))
@@ -77,14 +89,31 @@ const Menu = () => {
         setShotItems(response.data.listShots.items)
 
         setIsLoading(false)
-        } catch (err) {
+      } catch (err) {
         console.log(err)
-        }
+      }
+  }
+    
+  return listMenu()
+  }, [menuID])
+
+  useEffect(() => {
+    
+      const getMenuID = async () => {
+      const bar = await getBar()
+
+      try {
+        var menuPromise = API.graphql(graphqlOperation(listMenus, {filter: {barID: {eq: bar.id}}}))
+        var response = await menuPromise
+        setMenuID(response.data.listMenus.items[0].id)
+
+      } catch (err) {
+        console.log(err)
     }
+  }
+    getMenuID()
       
-    return listMenu()
-      
-  }, [])
+  }, [] )
 
   
     return (

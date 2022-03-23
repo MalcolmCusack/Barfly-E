@@ -1,19 +1,32 @@
 
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import { View } from "../../../components/Themed";
 import { Button, TextInput, Chip } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
 import { createFood, createCocktail, createBeer, createShot } from "../../graphql/mutations";
-import { useStateValue } from "../../state/StateProvider"
 
 function CreateMenu(props:any) {
   const [itemPrice, SetPrice] = useState("")
   const [itemName, SetName] = useState("")
   const [type, SetType] = useState("")
   const [items, SetItems] = React.useState([]);
-  
-  const [{ bar }, dispatch] = useStateValue();
 
+  // TODO Delete 
+  // async function DeleteMenuItem(item: any) {
+  //   const payload = {
+  //     id: item.id,
+  //     _version: item._version,
+  //   };
+  //   const res = API.graphql({
+  //     query: ,
+  //     variables: { input: payload },
+  //   });
+  //   const deletePromise: any = await res;
+
+  //   setEmployees(employees.filter((item) => item.id !== employee.id));
+  //   return deletePromise;
+  // }
+  
   const createItem = async () => {
     
       var payload = {
@@ -124,6 +137,7 @@ function CreateMenu(props:any) {
       >
         <TextInput
           value={type}
+          label="Item Type"
           onChangeText={(e) => SetType(e)} 
           autoComplete={null} 
       />
@@ -131,14 +145,14 @@ function CreateMenu(props:any) {
       <TextInput
           value={itemName}
           onChangeText={(e) => SetName(e)} 
-          label="Menu Entry Name"
+          label="Item Name"
           autoComplete={null} 
       />
       <TextInput
         onChangeText={(e) => SetPrice(e)}
         value={itemPrice}
         keyboardType="numeric"
-        label="Menu Entry Type"
+        label="Item Price"
         autoComplete={null}
        />
       
@@ -149,6 +163,7 @@ function CreateMenu(props:any) {
       style={{ width: "50%", margin: 10 }}
       mode="contained"
       onPress={props.nextStep}
+      disabled={itemPrice === "" || itemName === "" || type === ""}
     >
       Finish
     </Button>

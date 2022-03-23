@@ -1,19 +1,26 @@
-import { View } from "react-native";
 import React from "react";
+import { Text, View } from "../Themed";
 import { Button, TextInput, Headline, Divider} from "react-native-paper";
 import { Auth, graphqlOperation, API} from "aws-amplify";
 import { listEmployees, getBar} from '../../src/graphql/queries';
-import { useStateValue } from "../../src/state/StateProvider"
-import { Typography } from "@mui/material";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SignUp = ({navigation}) => {
+const SignUp = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [code, setCode] = React.useState("");
   const [notAdded, setNotAdded] = React.useState(false);
-  const [{ bar }, dispatch] = useStateValue();
+
+  const storeBar = async (value: any) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("bar", jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   async function signUp() {
     const response_promise = API.graphql(
@@ -31,10 +38,8 @@ const SignUp = ({navigation}) => {
       );
       const barPromise = await res;
       
-      dispatch({
-        type: "SET_BAR",
-        bar : barPromise.data.getBar
-    })
+      storeBar(barPromise.data.getBar)
+
     }
       catch(e){
         console.log(e)
@@ -93,8 +98,8 @@ const SignUp = ({navigation}) => {
         onChangeText={(text) => setPhone(text)}
         style={{width: '50%', margin: 10}}
       />
-      {notAdded ? <Typography> You have not been added as an employee with Barfly</Typography> : null}
-      <Button  style={{width: '50%', margin: 20}} mode="contained" onPress={signUp}>Sign Up</Button>
+      {notAdded ? <Text> You have not been added as an employee with Barfly</Text> : null}
+      <Button  disabled={name === "" || email === "" || password === "" || phone === ""} style={{width: '50%', margin: 20}} mode="contained" onPress={signUp}>Sign Up</Button>
       <Divider/>
       <TextInput
         autoComplete={null}
@@ -105,7 +110,7 @@ const SignUp = ({navigation}) => {
         style={{width: '25%', margin: 10}}
       />
 
-      <Button  style={{width: '25%', margin: 10}} mode="contained" onPress={confirmSignUp}>Confirm</Button>
+      <Button disabled={code === ""} style={{width: '25%', margin: 10}} mode="contained" onPress={confirmSignUp}>Confirm</Button>
     </View>
   );
 };
