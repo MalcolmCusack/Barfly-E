@@ -3,7 +3,6 @@ import { View } from "react-native";
 import { Button, TextInput, Headline, Chip } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
 import { createEmployee, deleteEmployee } from "../../graphql/mutations";
-import { useStateValue } from "../../state/StateProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Create emplyoees based on bar id
@@ -45,7 +44,6 @@ function CreateEmployees(props: any) {
       );
 
       const employeePromise: any = await res;
-      console.log(employeePromise);
 
       if (employeePromise.data) {
         setEmployees([...employees, employeePromise.data.createEmployee]);
@@ -140,12 +138,11 @@ function CreateEmployees(props: any) {
             style={{ width: "50%", margin: 10 }}
             mode="contained"
             onPress={addEmployee}
+            disabled={email === "" || name === ""}
           >
             Add
           </Button>
-        </View>
-      </View>
-      <Button
+          <Button
         style={{ width: "50%", margin: 10 }}
         mode="contained"
         onPress={props.nextStep}
@@ -159,6 +156,9 @@ function CreateEmployees(props: any) {
       >
         Back
       </Button>
+        </View>
+      </View>
+      
     </View>
   );
 }

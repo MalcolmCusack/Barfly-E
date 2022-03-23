@@ -4,6 +4,7 @@ import { listFoods, listBeers, listCocktails, listShots, listMenus } from '../..
 import { Text, View } from '../../../components/Themed';
 import MenuItem from './MenuItem';
 import { StyleSheet } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const styles = StyleSheet.create({
     container: {
@@ -68,16 +69,11 @@ const Menu = () => {
   useEffect(() => {
     const listMenu = async () => {
 
-        const bar = await getBar()
-        console.log(bar)
 
-        try {
-        var menuPromise = API.graphql(graphqlOperation(listMenus, {filter: {barID: {eq: bar.id}}}))
+      try {
+
+        var menuPromise = API.graphql(graphqlOperation(listFoods, {filter: {menuID: {eq: menuID}}}))
         var response = await menuPromise
-        setMenuID(response.data.listMenus.items[0].id)
-
-        menuPromise = API.graphql(graphqlOperation(listFoods, {filter: {menuID: {eq: menuID}}}))
-        response = await menuPromise
         setFoodItems(response.data.listFoods.items)
 
         menuPromise = API.graphql(graphqlOperation(listBeers, {filter: {menuID: {eq: menuID}}}))
@@ -93,14 +89,31 @@ const Menu = () => {
         setShotItems(response.data.listShots.items)
 
         setIsLoading(false)
-        } catch (err) {
+      } catch (err) {
         console.log(err)
-        }
+      }
+  }
+    
+  return listMenu()
+  }, [menuID])
+
+  useEffect(() => {
+    
+      const getMenuID = async () => {
+      const bar = await getBar()
+
+      try {
+        var menuPromise = API.graphql(graphqlOperation(listMenus, {filter: {barID: {eq: bar.id}}}))
+        var response = await menuPromise
+        setMenuID(response.data.listMenus.items[0].id)
+
+      } catch (err) {
+        console.log(err)
     }
+  }
+    getMenuID()
       
-    return listMenu()
-      
-  }, [])
+  }, [] )
 
   
     return (

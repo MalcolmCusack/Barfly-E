@@ -10,6 +10,22 @@ function CreateMenu(props:any) {
   const [itemName, SetName] = useState("")
   const [type, SetType] = useState("")
   const [items, SetItems] = React.useState([]);
+
+  // TODO Delete 
+  // async function DeleteMenuItem(item: any) {
+  //   const payload = {
+  //     id: item.id,
+  //     _version: item._version,
+  //   };
+  //   const res = API.graphql({
+  //     query: ,
+  //     variables: { input: payload },
+  //   });
+  //   const deletePromise: any = await res;
+
+  //   setEmployees(employees.filter((item) => item.id !== employee.id));
+  //   return deletePromise;
+  // }
   
   const createItem = async () => {
     
@@ -121,6 +137,7 @@ function CreateMenu(props:any) {
       >
         <TextInput
           value={type}
+          label="Item Type"
           onChangeText={(e) => SetType(e)} 
           autoComplete={null} 
       />
@@ -128,14 +145,14 @@ function CreateMenu(props:any) {
       <TextInput
           value={itemName}
           onChangeText={(e) => SetName(e)} 
-          label="Menu Entry Name"
+          label="Item Name"
           autoComplete={null} 
       />
       <TextInput
         onChangeText={(e) => SetPrice(e)}
         value={itemPrice}
         keyboardType="numeric"
-        label="Menu Entry Type"
+        label="Item Price"
         autoComplete={null}
        />
       
@@ -146,6 +163,7 @@ function CreateMenu(props:any) {
       style={{ width: "50%", margin: 10 }}
       mode="contained"
       onPress={props.nextStep}
+      disabled={itemPrice === "" || itemName === "" || type === ""}
     >
       Finish
     </Button>
