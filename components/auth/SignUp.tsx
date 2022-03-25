@@ -12,6 +12,7 @@ const SignUp = () => {
   const [password, setPassword] = React.useState("");
   const [code, setCode] = React.useState("");
   const [notAdded, setNotAdded] = React.useState(false);
+  const [message, setMessage] = React.useState("");
 
   const storeBar = async (value: any) => {
     try {
@@ -48,7 +49,7 @@ const SignUp = () => {
         .then((res) => {
           console.log(res);
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>setMessage(err.message));
       }
       else{
         setNotAdded(true);
@@ -99,6 +100,7 @@ const SignUp = () => {
         style={{width: '50%', margin: 10}}
       />
       {notAdded ? <Text> You have not been added as an employee with Barfly</Text> : null}
+      <Text>{message}</Text>
       <Button  disabled={name === "" || email === "" || password === "" || phone === ""} style={{width: '50%', margin: 20}} mode="contained" onPress={signUp}>Sign Up</Button>
       <Divider/>
       <TextInput
