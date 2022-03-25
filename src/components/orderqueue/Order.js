@@ -136,6 +136,7 @@ const Order = ({ order, index, employee, setOrders, orders}) => {
                 <Card key={order.id}>
                        <Card.Title title={customer.name.charAt(0).toUpperCase() + customer.name.slice(1) + "'s Order"} />
                        <Caption style={styles.time} > Placed: {getTime()}</Caption>
+                       <Caption style={styles.time} > Code: {order.id.substring(0,5)}</Caption>
                        <Divider style={styles.divider} />
                        
                        <Card.Content>
