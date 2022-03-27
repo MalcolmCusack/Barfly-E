@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   subtitle: {
-    justifySelf: 'flex-start',
+ ///   justifySelf: 'flex-start',
     fontSize: 20,
     fontWeight: "bold",
     margin: 5,

@@ -2,6 +2,7 @@
 import React, { useState} from 'react';
 import { View } from "../../../components/Themed";
 import { Button, TextInput, Chip } from "react-native-paper";
+import DropDownPicker from "react-native-dropdown-picker";
 import { API, graphqlOperation } from "aws-amplify";
 import { createFood, createCocktail, createBeer, createShot } from "../../graphql/mutations";
 
@@ -9,8 +10,14 @@ function CreateMenu(props:any) {
   const [itemPrice, SetPrice] = useState("")
   const [itemName, SetName] = useState("")
   const [type, SetType] = useState("")
+  const [open, SetOpen] = React.useState(false)
   const [items, SetItems] = React.useState([]);
-
+  const [typelist, setTypeList] = React.useState([
+    {label: 'Beer', value: 'Beer'},
+    {label: 'Shot', value: 'Shot'},
+    {label: 'Cocktail', value: 'Cocktail'},
+    {label: 'Food', value: 'Food'},
+  ])
   // TODO Delete 
   // async function DeleteMenuItem(item: any) {
   //   const payload = {
@@ -28,7 +35,6 @@ function CreateMenu(props:any) {
   // }
   
   const createItem = async () => {
-    
       var payload = {
          name: itemName,
          price: itemPrice,
@@ -135,18 +141,23 @@ function CreateMenu(props:any) {
           width: "80%",
         }}
       >
-        <TextInput
+        <DropDownPicker 
+          placeholder='Select Item Type'
+          setValue={SetType}
+          setItems={setTypeList}
+          setOpen={SetOpen}
           value={type}
-          label="Item Type"
-          onChangeText={(e) => SetType(e)} 
-          autoComplete={null} 
-      />
+          items={typelist}
+          open={open}
+          style={{ width: "50%", margin: 10, alignSelf:"flex-end" }}
+          />
 
       <TextInput
           value={itemName}
           onChangeText={(e) => SetName(e)} 
           label="Item Name"
           autoComplete={null} 
+          style={{ width: "50%", margin: 10, alignSelf:"flex-end"  }}
       />
       <TextInput
         onChangeText={(e) => SetPrice(e)}
@@ -154,9 +165,10 @@ function CreateMenu(props:any) {
         keyboardType="numeric"
         label="Item Price"
         autoComplete={null}
+        style={{ width: "50%", margin: 10,  alignSelf:"flex-end" }}
        />
       
-      <Button onPress={createItem}>Create</Button>
+      <Button onPress={createItem} style={{alignSelf:"flex-end"}}>Create</Button>
       </View>
     </View>
     <Button
