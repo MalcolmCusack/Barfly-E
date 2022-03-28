@@ -35,7 +35,7 @@
         "GraphQLAPIEndpointOutput": "https://pyijvt4mnbdftadmc5wp7wslue.appsync-api.us-west-2.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-euxm4iwkd5aftgkgovvfms6vee"
       },
-      "lastPushTimeStamp": "2022-03-11T05:32:19.113Z",
+      "lastPushTimeStamp": "2022-03-24T05:30:52.212Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-barfly-staging-35333-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiBarfly"
@@ -79,7 +79,7 @@
         "IdentityPoolName": "barfly2b04a7f4_identitypool_2b04a7f4__staging",
         "UserPoolName": "barfly2b04a7f4_userpool_2b04a7f4"
       },
-      "lastPushTimeStamp": "2022-03-11T05:32:19.116Z",
+      "lastPushTimeStamp": "2022-03-24T05:30:52.222Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-barfly-staging-35333-deployment/amplify-cfn-templates/auth/barfly2b04a7f4-cloudformation-template.yml",
         "logicalId": "authbarfly2b04a7f4"
@@ -94,7 +94,7 @@
         "BucketName": "barfly94785142da6b4040965c0807e122901a35333-staging",
         "Region": "us-west-2"
       },
-      "lastPushTimeStamp": "2022-03-11T05:32:19.119Z",
+      "lastPushTimeStamp": "2022-03-24T05:30:52.228Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-barfly-staging-35333-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
         "logicalId": "storagebarflystorage"

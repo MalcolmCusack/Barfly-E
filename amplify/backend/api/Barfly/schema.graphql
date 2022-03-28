@@ -198,3 +198,4 @@ type MixerSpecial @model(queries: null) @key(name: "byMixer", fields: ["mixerID"
   special: Special! @connection(fields: ["specialID"])
 }
  
+ 

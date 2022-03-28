@@ -11,6 +11,7 @@ const SignIn = () => {
   const [password, setPassword] = React.useState("");
   const [notAdded, setNotAdded] = React.useState(false);
   const [{ bar }, dispatch] = useStateValue();
+  const [message, setMessage] = React.useState("");
 
   const storeBar = async (value: any) => {
     try {
@@ -49,7 +50,7 @@ const SignIn = () => {
         .then((res) => {
           console.log(res);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => setMessage(err.message));
     } else {
       setNotAdded(true);
     }
@@ -88,6 +89,7 @@ const SignIn = () => {
           You have not been added as an employee with Barfly
         </Text>
       ) : null}
+      <Text>{message}</Text>
       <Button
         style={{ width: "50%", margin: 20 }}
         mode="contained"
