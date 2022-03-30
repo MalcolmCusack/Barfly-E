@@ -5,9 +5,6 @@ import { Button, TextInput, Chip } from "react-native-paper";
 import DropDownPicker from "react-native-dropdown-picker";
 import { API, graphqlOperation } from "aws-amplify";
 import { createFood, createCocktail, createBeer, createShot } from "../../graphql/mutations";
-import { Bar } from '../../models';
-import { listMenus } from '../../graphql/queries';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function CreateMenu(props:any) {
   const [itemPrice, SetPrice] = useState("")
