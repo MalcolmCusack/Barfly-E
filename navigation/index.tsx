@@ -21,9 +21,9 @@ import TabThreeScreen from '../screens/TabThreeScreen';
 import LinkingConfiguration from './LinkingConfiguration';
 import SignUp from '../components/auth/SignUp';
 import SignIn from '../components/auth/SignIn';
-import { Auth, Hub, StorageClass } from 'aws-amplify';
-import { ActivityIndicator, Button } from 'react-native-paper';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import ForgotPassword from '../components/auth/ForgotPassword';
+import { Auth, Hub } from 'aws-amplify';
+import { ActivityIndicator } from 'react-native-paper';
 import MultiStepForm from '../src/components/BarInitiation/MultiStepForm';
 import CreateEmployees from '../src/components/BarInitiation/CreateEmployees';
 import CreateMenu from '../src/components/BarInitiation/CreateMenu';
@@ -167,8 +167,7 @@ function SettingsTabNav() {
             <SettingBottomTab.Screen name="EditEmployees" component={CreateEmployees} />
             <SettingBottomTab.Screen name="QRCode" component={QRCodeGenerator}  />
             <SettingBottomTab.Screen name="EditCommon"  component={CreateCommon}/>
-            {/* <SettingBottomTab.Screen name="ForgotPassword" />
-            <SettingBottomTab.Screen name="EditMenu" /> */}
+            <SettingBottomTab.Screen name="ForgotPassword" component={ForgotPassword} />
 
     </SettingBottomTab.Navigator>
   )

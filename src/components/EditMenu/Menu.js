@@ -96,13 +96,13 @@ const Menu = () => {
           graphqlOperation(listFoods, { filter: { menuID: { eq: menuID } } })
         );
         var response = await menuPromise;
-        setFoodItems(response.data.listFoods.items);
+        setFoodItems(response.data.listFoods.items.filter((item) => item._deleted === null));
 
         menuPromise = API.graphql(
           graphqlOperation(listBeers, { filter: { menuID: { eq: menuID } } })
         );
         response = await menuPromise;
-        setBeerItems(response.data.listBeers.items);
+        setBeerItems(response.data.listBeers.items.filter((item) => item._deleted === null));
 
         menuPromise = API.graphql(
           graphqlOperation(listCocktails, {
@@ -110,13 +110,13 @@ const Menu = () => {
           })
         );
         response = await menuPromise;
-        setCocktailItems(response.data.listCocktails.items);
+        setCocktailItems(response.data.listCocktails.items.filter((item) => item._deleted === null));
 
         menuPromise = API.graphql(
           graphqlOperation(listShots, { filter: { menuID: { eq: menuID } } })
         );
         response = await menuPromise;
-        setShotItems(response.data.listShots.items);
+        setShotItems(response.data.listShots.items.filter((item) => item._deleted === null));
 
         setIsLoading(false);
       } catch (err) {
