@@ -20,8 +20,9 @@ export type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
   Auth: undefined;
+  Settings: undefined;
   Menu: undefined;
-  Drawer: undefined
+  Drawer: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -43,6 +44,19 @@ export type AuthTabParamList = {
   BarInitiation: undefined
 };
 
+export type SettingsTabParamList = {
+  CreateEmployees: undefined;
+  CreateMenu: undefined;
+  QRCode: undefined;
+  BarInitiation: undefined;
+  EditBar: undefined;
+  ForgotPassword: undefined;
+  EditMenu: undefined;
+  OrderSummary: undefined;
+  SignOut: undefined;
+  EditCommon: undefined;
+};
+
 export type DrawerNav = {
   ForgotPass: undefined;
   Settings: undefined;
@@ -53,6 +67,7 @@ export type DrawerNav = {
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
+  
   NativeStackScreenProps<RootStackParamList>
 >;
 

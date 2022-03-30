@@ -32,6 +32,64 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
         },
       },
+      Settings: {
+        screens: {
+          CreateEmployees: {
+            screens: {
+              CreateEmployeeScreen: 'four',
+            }
+          },
+          CreateMenu: {
+            screens: {
+              CreateMenu: 'five',
+            },
+          },
+          QRCode: {
+            screens: {
+              QRCodeGenerator: 'six',
+            },
+          },
+          EditCommon: {
+            screens: {
+              EditCommon: 'seven',
+            },
+          },
+          SignOut: {
+            screens: {
+              SignOut: 'eight',
+            },
+          },
+          ForgotPassword: {
+            screens: {
+              ForgotPassword: 'nine',
+            },
+          },
+          EditMenu: {
+            screens: {
+              EditMenu:'ten',
+            },
+          },
+        }
+      },
+      Auth: {
+        screens: {
+          SignIn: {
+            screens: {
+              SignIn: 'elevin',
+            },
+          },
+          SignUp: {
+            screens: {
+              SignUp: 'twelve',
+            },
+          },
+          BarInitiation: {
+            screens: {
+              MultiStepForm: 'thirteen',
+            },
+          },
+        },
+      },
       Modal: 'modal',
       NotFound: '*',
     },
