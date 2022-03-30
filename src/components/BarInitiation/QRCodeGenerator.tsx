@@ -71,11 +71,11 @@ function QRCodeGenerator() {
       let link = website + bar.id +"/menu"
       return <QRCode value={link} logo={logoFromFile} logoSize={100} size={300}/>
     }
+
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Modal</Text>
-        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
         <Button onPress={signOut}>Log Out</Button>
+        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
         <Button onPress={toggleQR}>{showCode ? "Hide" : "Show"} QR code</Button>
         {showCode ? showQR() : null}
         <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
@@ -84,4 +84,4 @@ function QRCodeGenerator() {
   }
   
 
-export default QRCode
+export default QRCodeGenerator

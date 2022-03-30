@@ -2,31 +2,60 @@ import React, {useState, useEffect} from 'react';
 import { Text, View } from '../../../components/Themed';
 import {Button,TextInput} from 'react-native-paper';
 import {API, graphqlOperation} from 'aws-amplify';
-import {updateFood, updateBeer, updateCocktail, updateShot} from '../../graphql/mutations';
+import {updateFood, updateBeer, updateCocktail, updateShot, deleteFood, deleteBeer, deleteCocktail, deleteShot} from '../../graphql/mutations';
 import { StyleSheet } from 'react-native';
 
 const MenuItem = ({ item, type }) => {
-    //console.log(item)
 
     const [itemPrice, SetPrice] = useState(item.price.toFixed(2))
-    const [itemName, SetName] = useState(item.name)
-    const [isLoading, setIsLoading] = useState(true)
-    // [visible, setVisable] = useState(false)
+    const [itemName, SetName] = useState(item.name)    
 
-   // const onToggleSnackBar = () => setVisable(!visible);
+    message: "The variables input contains a field name 'name' that is not defined for input object type 'DeleteBeerInput' "
 
-    const onDismissSnackBar = () => setVisable(false);
+
+    async function deleteItem() {
+        const payload = {
+            id: item.id,
+            _version: item._version
     
+        }
+        try {
+            var update 
+            var updateResponse 
 
+            if(type=="Food"){
+                update = API.graphql(graphqlOperation(deleteFood, {
+                    input: payload
+                }))
+                updateResponse = await update
+            }
+            else if(type=="Beer"){
+                update = API.graphql(graphqlOperation(deleteBeer, {
+                    input: payload
+                }))
+                updateResponse = await update
+            }
+            else if(type=="Cocktail"){
+                update = API.graphql(graphqlOperation(deleteCocktail, {
+                    input: payload
+                }))
+                updateResponse = await update
+            }
+            else if(type=="Shot"){
+                update = API.graphql(graphqlOperation(deleteShot, {
+                    input: payload
+                }))
+                updateResponse = await update
+            }
+        
+        } catch (err) {
+            console.log(err)
+        }
 
+    }
         
 
     const updateItem = async () => {
-       // onChangeName("Bison")
-       // onChangeName(itemName)
-      //  onChangePrice(item.price)
-        console.debug(itemName)
-        console.debug(item.name)
         const payload = {
             id: item.id,
             name: itemName,
@@ -34,8 +63,6 @@ const MenuItem = ({ item, type }) => {
             _version: item._version
     
         }
-
-        console.debug(payload)
         try {
             var update 
             var updateResponse 
@@ -64,9 +91,7 @@ const MenuItem = ({ item, type }) => {
                 }))
                 updateResponse = await update
             }
-           // setIsLoading(false)
-            //console.log(updateResponse)
-            //onToggleSnackBar()
+        
         } catch (err) {
             console.log(err)
         }
@@ -149,7 +174,7 @@ const MenuItem = ({ item, type }) => {
                 keyboardType="numeric"
             />
             <Button onPress={updateItem}>Save</Button>
-            
+            <Button onPress={deleteItem}>Delete</Button>
             
             
             
