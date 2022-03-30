@@ -3,6 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
+ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
@@ -15,15 +16,20 @@ import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { AuthTabParamList, RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import { AuthTabParamList, SettingsTabParamList, RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import TabThreeScreen from '../screens/TabThreeScreen';
 import LinkingConfiguration from './LinkingConfiguration';
 import SignUp from '../components/auth/SignUp';
 import SignIn from '../components/auth/SignIn';
+import ForgotPassword from '../components/auth/ForgotPassword';
 import { Auth, Hub } from 'aws-amplify';
-import { ActivityIndicator, Button } from 'react-native-paper';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { ActivityIndicator } from 'react-native-paper';
 import MultiStepForm from '../src/components/BarInitiation/MultiStepForm';
+import CreateEmployees from '../src/components/BarInitiation/CreateEmployees';
+import CreateMenu from '../src/components/BarInitiation/CreateMenu';
+import QRCodeGenerator from '../src/components/BarInitiation/QRCodeGenerator';
+import CreateCommon from '../src/components/BarInitiation/CreateCommon';
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
 
@@ -95,6 +101,7 @@ function RootNavigator() {
           <Stack.Group screenOptions={{ presentation: 'modal' }}>
             <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
+          <Stack.Screen name="Settings" component={SettingsTabNav} />
           {/* <Stack.Screen name="Menu" component={Drawer} /> */}
         </>
         
@@ -114,6 +121,7 @@ function RootNavigator() {
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 const AuthBottomTab = createBottomTabNavigator<AuthTabParamList>();
+const SettingBottomTab = createBottomTabNavigator<SettingsTabParamList>();
 
 // the drawer import issn't working
 
@@ -150,6 +158,21 @@ function AuthTabNav() {
   )
 }
 
+function SettingsTabNav() {
+  const colorScheme = useColorScheme()
+
+  return (
+    <SettingBottomTab.Navigator>
+            {/* <SettingBottomTab.Screen name="SignOut" /> */}
+            <SettingBottomTab.Screen name="EditEmployees" component={CreateEmployees} />
+            <SettingBottomTab.Screen name="QRCode" component={QRCodeGenerator}  />
+            <SettingBottomTab.Screen name="EditCommon"  component={CreateCommon}/>
+            <SettingBottomTab.Screen name="ForgotPassword" component={ForgotPassword} />
+
+    </SettingBottomTab.Navigator>
+  )
+}
+
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
@@ -164,20 +187,17 @@ function BottomTabNavigator() {
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Barfly-E',
+          title: 'Order Queue',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={() => navigation.navigate('Settings')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
+              <Ionicons name="menu" size={25}
                 color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
+                style={{ marginRight: 15 }} />
             </Pressable>
           ),
         })}
@@ -185,18 +205,42 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
-        options={{
-          title: 'Financial',
+        options={({ navigation }: RootTabScreenProps<'TabTwo'>) => ({
+          title: 'Income Summary',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Settings')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+      
+              <Ionicons name="menu" size={25}
+                color={Colors[colorScheme].text}
+                style={{ marginRight: 15 }} />
+            </Pressable>
+          ),
+        })}
       /> 
       <BottomTab.Screen
         name ="TabThree"
         component={TabThreeScreen}
-        options={{
-        title: 'Menu',
-        tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-      }}
+        options={({ navigation }: RootTabScreenProps<'TabThree'>) => ({
+          title: 'Edit Menu',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Settings')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+      
+              <Ionicons name="menu" size={25}
+                color={Colors[colorScheme].text}
+                style={{ marginRight: 15 }} />
+            </Pressable>
+          ),
+        })}
     />
 </BottomTab.Navigator>
   );
@@ -211,7 +255,5 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
-function AuthContext(AuthContext: any): { state: any; } {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Button, TextInput, Headline, Chip } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
 import { createEmployee, deleteEmployee } from "../../graphql/mutations";
+import { listEmployees } from "../../graphql/queries";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Create emplyoees based on bar id
@@ -25,6 +26,7 @@ function CreateEmployees(props: any) {
       // error reading value
     }
   };
+  
 
   async function addEmployee() {
 
@@ -69,6 +71,25 @@ function CreateEmployees(props: any) {
     setEmployees(employees.filter((item) => item.id !== employee.id));
     return deletePromise;
   }
+
+  async function getEmployees() {
+    const bar = await getBar()
+    try {
+      const ordersPromise = API.graphql(
+        graphqlOperation(listEmployees, {
+          filter: { barID: { eq: bar.id }},
+        })
+      );
+      const response = await ordersPromise;
+      setEmployees(response.data.listEmployees.items.filter((item:any) => item._deleted === null))
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  React.useEffect(() => {
+    getEmployees()
+  }, [])
 
 
   return (

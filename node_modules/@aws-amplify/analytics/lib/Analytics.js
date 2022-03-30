@@ -1,6 +1,6 @@
 "use strict";
 /*
- * Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2017-2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,8 +63,7 @@ var core_1 = require("@aws-amplify/core");
 var AWSPinpointProvider_1 = require("./Providers/AWSPinpointProvider");
 var trackers_1 = require("./trackers");
 var logger = new core_1.ConsoleLogger('AnalyticsClass');
-var AMPLIFY_SYMBOL = (typeof Symbol !== 'undefined' &&
-    typeof Symbol.for === 'function'
+var AMPLIFY_SYMBOL = (typeof Symbol !== 'undefined' && typeof Symbol.for === 'function'
     ? Symbol.for('amplify_default')
     : '@@amplify_default');
 var dispatchAnalyticsEvent = function (event, data, message) {
@@ -133,7 +132,7 @@ var AnalyticsClass = /** @class */ (function () {
     };
     /**
      * add plugin into Analytics category
-     * @param {Object} pluggable - an instance of the plugin
+     * @param pluggable - an instance of the plugin
      */
     AnalyticsClass.prototype.addPluggable = function (pluggable) {
         if (pluggable && pluggable.getCategory() === 'Analytics') {
@@ -150,7 +149,7 @@ var AnalyticsClass = /** @class */ (function () {
     };
     /**
      * Get the plugin object
-     * @param providerName - the name of the plugin
+     * @param providerName - the name of the provider to be removed
      */
     AnalyticsClass.prototype.getPluggable = function (providerName) {
         for (var i = 0; i < this._pluggables.length; i += 1) {
@@ -164,7 +163,7 @@ var AnalyticsClass = /** @class */ (function () {
     };
     /**
      * Remove the plugin object
-     * @param providerName - the name of the plugin
+     * @param providerName - the name of the provider to be removed
      */
     AnalyticsClass.prototype.removePluggable = function (providerName) {
         var idx = 0;
@@ -197,6 +196,7 @@ var AnalyticsClass = /** @class */ (function () {
     };
     /**
      * Record Session start
+     * @param [provider] - name of the provider.
      * @return - A promise which resolves if buffer doesn't overflow
      */
     AnalyticsClass.prototype.startSession = function (provider) {
@@ -210,6 +210,7 @@ var AnalyticsClass = /** @class */ (function () {
     };
     /**
      * Record Session stop
+     * @param [provider] - name of the provider.
      * @return - A promise which resolves if buffer doesn't overflow
      */
     AnalyticsClass.prototype.stopSession = function (provider) {
@@ -221,14 +222,7 @@ var AnalyticsClass = /** @class */ (function () {
             });
         });
     };
-    /**
-     * Record one analytic event and send it to Pinpoint
-     * @param {String} name - The name of the event
-     * @param {Object} [attributes] - Attributes of the event
-     * @param {Object} [metrics] - Event metrics
-     * @return - A promise which resolves if buffer doesn't overflow
-     */
-    AnalyticsClass.prototype.record = function (event, provider, metrics) {
+    AnalyticsClass.prototype.record = function (event, providerOrAttributes, metrics) {
         return __awaiter(this, void 0, void 0, function () {
             var params;
             return __generator(this, function (_a) {
@@ -238,14 +232,14 @@ var AnalyticsClass = /** @class */ (function () {
                     params = {
                         event: {
                             name: event,
-                            attributes: provider,
+                            attributes: providerOrAttributes,
                             metrics: metrics,
                         },
                         provider: 'AWSPinpoint',
                     };
                 }
                 else {
-                    params = { event: event, provider: provider };
+                    params = { event: event, provider: providerOrAttributes };
                 }
                 return [2 /*return*/, this._sendEvent(params)];
             });

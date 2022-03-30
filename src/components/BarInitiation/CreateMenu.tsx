@@ -10,6 +10,7 @@ function CreateMenu(props:any) {
   const [itemPrice, SetPrice] = useState("")
   const [itemName, SetName] = useState("")
   const [type, SetType] = useState("")
+  const [menuID, setMenuID] = useState()
   const [open, SetOpen] = React.useState(false)
   const [items, SetItems] = React.useState([]);
   const [typelist, setTypeList] = React.useState([
@@ -18,28 +19,13 @@ function CreateMenu(props:any) {
     {label: 'Cocktail', value: 'Cocktail'},
     {label: 'Food', value: 'Food'},
   ])
-  // TODO Delete 
-  // async function DeleteMenuItem(item: any) {
-  //   const payload = {
-  //     id: item.id,
-  //     _version: item._version,
-  //   };
-  //   const res = API.graphql({
-  //     query: ,
-  //     variables: { input: payload },
-  //   });
-  //   const deletePromise: any = await res;
 
-  //   setEmployees(employees.filter((item) => item.id !== employee.id));
-  //   return deletePromise;
-  // }
-  
   const createItem = async () => {
+
       var payload = {
          name: itemName,
          price: itemPrice,
          menuID: props.menu
- 
      }
 
      console.debug(payload)
@@ -149,7 +135,7 @@ function CreateMenu(props:any) {
           value={type}
           items={typelist}
           open={open}
-          style={{ width: "50%", margin: 10, alignSelf:"flex-end" }}
+          style={{ width: "50%", margin: 10, alignSelf:"flex-end", backgroundColor: 'rgb(187, 134, 252)' }}
           />
 
       <TextInput
