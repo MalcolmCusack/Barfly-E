@@ -5,13 +5,22 @@ import { Auth, graphqlOperation, API } from "aws-amplify";
 import { listEmployees, getBar } from "../../src/graphql/queries";
 import { useStateValue } from "../../src/state/StateProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Linking } from "react-native";
 
 const SignIn = () => {
+
+  const forgotPassURL = 'https://www.barfly.llc/forgotpass';
+
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [notAdded, setNotAdded] = React.useState(false);
   const [{ bar }, dispatch] = useStateValue();
   const [message, setMessage] = React.useState("");
+
+    async function handlePress() {
+      await Linking.openURL(forgotPassURL)
+    }
+
 
   const storeBar = async (value: any) => {
     try {
@@ -98,6 +107,7 @@ const SignIn = () => {
       >
         Sign In
       </Button>
+      <Button  onPress={handlePress} >Forgot Password</Button>
     </View>
   );
 };

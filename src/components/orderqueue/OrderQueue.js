@@ -4,12 +4,15 @@ import { onCreateOrder } from "../../graphql/subscriptions";
 import { listOrders } from "../../graphql/queries";
 import { Text, View } from "../../../components/Themed";
 import Order from "./Order";
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { Auth } from "aws-amplify";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const styles = StyleSheet.create({
+  scrollView: {
+    width: '100%'
+  },
   container: {
     flex: 1,
     alignItems: "center",
@@ -126,7 +129,8 @@ const OrderQueue = () => {
   }, [isLoading, pressed]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.container}>
       <Text style={styles.title}>Order Queue</Text>
       <View style={styles.Innercontainer}>
         <View style={styles.orderQueueContainer}>
@@ -192,7 +196,8 @@ const OrderQueue = () => {
             : null}
         </View>
       </View>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

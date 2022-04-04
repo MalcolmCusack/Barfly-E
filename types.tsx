@@ -50,7 +50,7 @@ export type SettingsTabParamList = {
   QRCode: undefined;
   BarInitiation: undefined;
   EditBar: undefined;
-  ForgotPassword: undefined;
+  ChangePassword: undefined;
   EditMenu: undefined;
   OrderSummary: undefined;
   SignOut: undefined;
