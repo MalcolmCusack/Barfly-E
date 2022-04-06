@@ -859,7 +859,6 @@ export const getBar = /* GraphQL */ `
       payment
       event
       address
-      nightSummary
       bio
       _version
       _deleted

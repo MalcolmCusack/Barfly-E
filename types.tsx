@@ -45,6 +45,7 @@ export type AuthTabParamList = {
 };
 
 export type SettingsTabParamList = {
+  CreateEmployees: undefined;
   EditEmployees: undefined;
   CreateMenu: undefined;
   QRCode: undefined;
