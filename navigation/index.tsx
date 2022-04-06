@@ -164,7 +164,7 @@ function SettingsTabNav() {
   return (
     <SettingBottomTab.Navigator>
             {/* <SettingBottomTab.Screen name="SignOut" /> */}
-            <SettingBottomTab.Screen name="EditEmployees" component={CreateEmployees} />
+            <SettingBottomTab.Screen name="CreateEmployees" component={CreateEmployees} />
             <SettingBottomTab.Screen name="QRCode" component={QRCodeGenerator}  />
             <SettingBottomTab.Screen name="EditCommon"  component={CreateCommon}/>
             <SettingBottomTab.Screen name="ForgotPassword" component={ForgotPassword} />

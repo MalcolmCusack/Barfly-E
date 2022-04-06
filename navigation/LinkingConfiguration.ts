@@ -36,7 +36,7 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           CreateEmployees: {
             screens: {
-              CreateEmployeeScreen: 'four',
+              CreateEmployees: 'four',
             }
           },
           CreateMenu: {

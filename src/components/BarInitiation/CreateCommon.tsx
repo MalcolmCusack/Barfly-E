@@ -5,6 +5,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import { createBar, createMenu } from "../../graphql/mutations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UploadImageToS3WithReactS3 from "./UploadImageToS3WithReactS3";
+import { ScrollView } from "react-native";
 
 
 function CreateCommon(props: any) {
@@ -64,6 +65,7 @@ function CreateCommon(props: any) {
     props.nextStep();
   }
   return (
+    <ScrollView>
     <View
       style={{
         display: "flex",
@@ -118,6 +120,7 @@ function CreateCommon(props: any) {
 
       <UploadImageToS3WithReactS3 />
     </View>
+    </ScrollView>
   );
 }
 
