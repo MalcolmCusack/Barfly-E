@@ -72,9 +72,51 @@ function CreateCommon(props: any) {
         width: "100%",
       }}
     >
-      
-      <UploadImageToS3WithReactS3/>
-    
+      <Headline style={{ margin: 10 }}>
+        Enter Your Establishment's Details
+      </Headline>
+      <TextInput
+        onChangeText={(value) => setName(value)}
+        value={name}
+        label="Establishment's Name"
+        style={{ width: "50%", margin: 10 }}
+        autoComplete={null}
+      />
+      <TextInput
+        onChangeText={(value) => setEmail(value)}
+        value={email}
+        label="Email"
+        placeholder="bar@barfly.llc"
+        style={{ width: "50%", margin: 10 }}
+        autoComplete={null}
+      />
+      <TextInput
+        onChangeText={(value) => setPhone(value)}
+        value={phone}
+        label="Phone"
+        placeholder="(123) 456-7890"
+        style={{ width: "50%", margin: 10 }}
+        autoComplete={null}
+      />
+      <TextInput
+        onChangeText={(value) => setBio(value)}
+        value={bio}
+        label="Establishment's Description"
+        style={{ width: "50%", height: 150, margin: 10 }}
+        autoComplete={null}
+        multiline={true}
+      />
+
+      <Button
+        style={{ width: "50%", margin: 20 }}
+        mode="contained"
+        onPress={CreateBar}
+        disabled={name === "" || email === "" || phone === "" || bio === ""}
+      >
+        Next
+      </Button>
+
+      <UploadImageToS3WithReactS3 />
     </View>
   );
 }

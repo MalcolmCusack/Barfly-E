@@ -991,7 +991,6 @@ export const updateBar = /* GraphQL */ `
       payment
       event
       address
-      nightSummary
       bio
       _version
       _deleted
