@@ -59,14 +59,9 @@ const linking: LinkingOptions<RootStackParamList> = {
               SignOut: 'eight',
             },
           },
-          ForgotPassword: {
+          ChangePassword: {
             screens: {
-              ForgotPassword: 'nine',
-            },
-          },
-          EditMenu: {
-            screens: {
-              EditMenu:'ten',
+              ChangePassword: 'nine',
             },
           },
         }

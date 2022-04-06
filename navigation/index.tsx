@@ -21,7 +21,6 @@ import TabThreeScreen from '../screens/TabThreeScreen';
 import LinkingConfiguration from './LinkingConfiguration';
 import SignUp from '../components/auth/SignUp';
 import SignIn from '../components/auth/SignIn';
-import ForgotPassword from '../components/auth/ForgotPassword';
 import { Auth, Hub } from 'aws-amplify';
 import { ActivityIndicator } from 'react-native-paper';
 import MultiStepForm from '../src/components/BarInitiation/MultiStepForm';
@@ -29,6 +28,7 @@ import CreateEmployees from '../src/components/BarInitiation/CreateEmployees';
 import CreateMenu from '../src/components/BarInitiation/CreateMenu';
 import QRCodeGenerator from '../src/components/BarInitiation/QRCodeGenerator';
 import CreateCommon from '../src/components/BarInitiation/CreateCommon';
+import ChangePassword from '../components/auth/ChangePassword';
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -167,7 +167,7 @@ function SettingsTabNav() {
             <SettingBottomTab.Screen name="CreateEmployees" component={CreateEmployees} />
             <SettingBottomTab.Screen name="QRCode" component={QRCodeGenerator}  />
             <SettingBottomTab.Screen name="EditCommon"  component={CreateCommon}/>
-            <SettingBottomTab.Screen name="ForgotPassword" component={ForgotPassword} />
+            <SettingBottomTab.Screen name="ChangePassword" component={ChangePassword} />
 
     </SettingBottomTab.Navigator>
   )
