@@ -3,6 +3,7 @@ import { Text, View } from "../../../components/Themed";
 import { Button, TextInput, Headline } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
 import { updateBar } from "../../graphql/mutations";
+import UploadImageToS3WithReactS3 from "./UploadImageToS3WithReactS3"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function EditBar() {
@@ -95,7 +96,9 @@ function EditBar() {
           autoComplete={null}
           multiline={true}
         />
-  
+
+        <UploadImageToS3WithReactS3/>
+
         <Button
           style={{ width: "50%", margin: 20 }}
           mode="contained"
