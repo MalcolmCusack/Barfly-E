@@ -1129,7 +1129,6 @@ export const deleteOrder = /* GraphQL */ `
   ) {
     deleteOrder(input: $input, condition: $condition) {
       id
-      timestamp
       items
       completed
       userID
@@ -1140,22 +1139,6 @@ export const deleteOrder = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      User {
-        id
-        email
-        phone
-        profileImg
-        location
-        age
-        createdAt
-        name
-        address
-        order
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
-      }
     }
   }
 `;

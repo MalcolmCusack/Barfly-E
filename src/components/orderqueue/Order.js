@@ -3,7 +3,7 @@ import { View } from '../../../components/Themed';
 import {Card, Snackbar, Caption, Button, Subheading, Divider} from 'react-native-paper';
 import { getUser } from '../../graphql/queries';
 import {API, graphqlOperation} from 'aws-amplify';
-import {updateOrder} from '../../graphql/mutations';
+import {updateOrder, deleteOrder} from '../../graphql/mutations';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -93,6 +93,27 @@ const Order = ({ order, index, employee, setOrders, orders}) => {
         }
         
     }
+
+    const dismissOrder = async () => {
+        const payload = {
+            id: order.id,
+            _version: order._version
+    
+        }
+
+        try {
+            const update = API.graphql(graphqlOperation(deleteOrder, {
+                input: payload
+            }))
+            const deleteResponse = await update
+            let newOrders = [...orders]
+            setOrders(newOrders.filter((item) => item!== order))
+        } catch (err) {
+            console.log(err)
+        }
+        
+    }
+
     useEffect(() => {
 
         const gatherCustomer = async () => {
@@ -137,6 +158,11 @@ const Order = ({ order, index, employee, setOrders, orders}) => {
                        <Card.Title title={customer.name.charAt(0).toUpperCase() + customer.name.slice(1) + "'s Order"} />
                        <Caption style={styles.time} > Placed: {getTime()}</Caption>
                        <Caption style={styles.time} > Code: {order.id.substring(0,5)}</Caption>
+                       {order.employeeID ? (
+                            <>
+                            <Caption style={styles.time} > Employee: {order.employeeID.substring(0,5)}</Caption>
+                            </>
+                       ) : null}
                        <Divider style={styles.divider} />
                        
                        <Card.Content>
@@ -152,6 +178,7 @@ const Order = ({ order, index, employee, setOrders, orders}) => {
                        <Card.Actions>
                            <Button disabled={order.orderStatus === "complete" || order.orderStatus === "in-progress"} onPress={startOrder}>Start</Button>
                            <Button  disabled={!(order.orderStatus === "in-progress")} onPress={completeOrder}>Complete</Button>
+                           <Button  disabled={!(order.orderStatus === "complete")} onPress={dismissOrder}>Dismiss</Button>
                        </Card.Actions>
                     
                    </Card>

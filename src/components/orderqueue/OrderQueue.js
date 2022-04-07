@@ -8,7 +8,6 @@ import { ScrollView, StyleSheet } from "react-native";
 import { Auth } from "aws-amplify";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 const styles = StyleSheet.create({
   scrollView: {
     width: '100%'
@@ -59,6 +58,7 @@ const OrderQueue = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [pressed, setPressed] = useState(false);
   const [employee, setEmployee] = useState();
+  
 
   const getEmployee = async () => {
     const authEmployee = await Auth.currentUserInfo()
@@ -95,11 +95,12 @@ const OrderQueue = () => {
 
       try {
         const ordersPromise = API.graphql(
-          graphqlOperation(listOrders, {
+          graphqlOperation(listOrders), {
             filter: { barID: { eq: barr.id } },
-          })
-        );
+          });
+        
         const response = await ordersPromise;
+        setOrders(response.data.listOrders.items.filter((item) => item._deleted === null))
       } catch (err) {
         console.log(err);
       }
@@ -109,11 +110,14 @@ const OrderQueue = () => {
           graphqlOperation(onCreateOrder)
         ).subscribe({
           next: (orderData) => {
-            const items = JSON.parse(orderData.value.data.onCreateOrder.items);
-            setOrders((orders) => [
-              ...orders,
-              orderData.value.data.onCreateOrder,
-            ]);
+            const item = orderData.value.data.onCreateOrder
+            if(item.barID === barr.id){
+              setOrders((orders) => [
+                ...orders,
+                item,
+              ]);
+            }
+
           },
         });
       } catch (err) {
