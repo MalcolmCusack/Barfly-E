@@ -80,9 +80,9 @@ const getFilterTime = (filter) => {
 
 const getOrderTotal = (orders) => {
   var amount = 0;
-  orders.forEach((order) => {
+  orders?.forEach((order) => {
     var list = JSON.parse(order.items);
-    list.forEach((item) => {
+    list?.forEach((item) => {
       amount += item.price;
     });
   });

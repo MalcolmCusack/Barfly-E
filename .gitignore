@@ -48,3 +48,5 @@ amplifytools.xcconfig
 .expo
 .expo/packager-info.json
 .expo/settings.json
+node_modules
+node_modules

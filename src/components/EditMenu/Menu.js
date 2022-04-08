@@ -231,7 +231,7 @@ const Menu = () => {
           {items.map((item) => {
             return (
               <Chip
-                style={{ margin: 10 }}
+                style={{ margin: 10, height:40 }}
                 icon="delete"
                 key={Math.random() + ""}
                 //onPress={() => DeleteItem(item)}
