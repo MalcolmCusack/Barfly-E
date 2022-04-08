@@ -39,15 +39,15 @@ const SignIn = () => {
     );
 
     const response = await response_promise;
-    if (response.data.listEmployees.items[0]) {
+    if (response.data.listEmployees.items.filter((item) => item._deleted === null)[0]) {
       try {
         const res = API.graphql(
           graphqlOperation(getBar, {
-            id: String(response.data.listEmployees.items[0].barID),
+            id: String(response.data.listEmployees.items.filter((item) => item._deleted === null)[0].barID),
           })
         );
         const barPromise = await res;
-
+        console.log(barPromise)
         storeBar(barPromise.data.getBar)
 
       } catch (e) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View,  ScrollView } from "react-native";
 import { Button, TextInput, Headline, Chip } from "react-native-paper";
 import { API, graphqlOperation } from "aws-amplify";
 import { createEmployee, deleteEmployee } from "../../graphql/mutations";
@@ -93,6 +93,7 @@ function CreateEmployees(props: any) {
 
 
   return (
+    <ScrollView>
     <View style={{
         display: "flex",
         flexDirection: "column",
@@ -118,7 +119,7 @@ function CreateEmployees(props: any) {
           {employees.map((employee) => {
             return (
               <Chip
-                style={{ margin: 10 }}
+                style={{ margin: 10, height:40 }}
                 icon="delete"
                 key={Math.random() + ""}
                 onPress={() => DeleteEmployee(employee)}
@@ -181,6 +182,7 @@ function CreateEmployees(props: any) {
       </View>
       
     </View>
+    </ScrollView>
   );
 }
 
