@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     display: "flex",
     width: "100%",
+    height: "auto",
   },
   Innercontainer: {
     flex: 1,
@@ -29,11 +30,13 @@ const styles = StyleSheet.create({
   orderQueueContainer: {
     flex: 1,
     alignItems: "center",
+   // alignContent:"center",
     justifyContent: "flex-start",
     display: "flex",
     flexDirection: 'column',
     flexWrap: "wrap",
     width: "30%",
+   // maxHeight:600
   },
   title: {
     fontSize: 30,
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   subtitle: {
- ///   justifySelf: 'flex-start',
+ //   alignItems: 'center',
     fontSize: 20,
     fontWeight: "bold",
     margin: 5,

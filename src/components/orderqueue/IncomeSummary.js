@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     width: "70%",
+    height: "auto",
   },
   title: {
     fontSize: 30,
@@ -32,13 +33,15 @@ const styles = StyleSheet.create({
   summary: {
     marginVertical: 30,
     height: 1,
-    width: "80%",
-    borderColor: "#fcba03",
+    width: "100%",
+    height:"auto",
+    borderColor: "#6200ee",
     borderBottomWidth: 1,
   },
   content: {
     fontSize: 20,
     padding: 10,
+   // color: "#000"
   },
   special: {
     fontStyle: "italic",
