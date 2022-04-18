@@ -9,13 +9,17 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     orderContainer: {
       margin: 10,
+      width: "100%",
+      height: "auto",
+      //maxHeight: 1000,
     },
     orderQueueContainer: {
     flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
       display: 'flex',
-      flexDirection: 'row'
+      flexDirection: 'row',
+      height:10
     },
     title: {
       fontSize: 20,

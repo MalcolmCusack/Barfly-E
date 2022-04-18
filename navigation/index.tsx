@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
- import { Ionicons } from '@expo/vector-icons';
+ import { Ionicons, AntDesign  } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
@@ -25,7 +25,6 @@ import { Auth, Hub } from 'aws-amplify';
 import { ActivityIndicator } from 'react-native-paper';
 import MultiStepForm from '../src/components/BarInitiation/MultiStepForm';
 import CreateEmployees from '../src/components/BarInitiation/CreateEmployees';
-import CreateMenu from '../src/components/BarInitiation/CreateMenu';
 import QRCodeGenerator from '../src/components/BarInitiation/QRCodeGenerator';
 import CreateCommon from '../src/components/BarInitiation/CreateCommon';
 import ChangePassword from '../components/auth/ChangePassword';
@@ -150,10 +149,9 @@ function AuthTabNav() {
 
   return (
     <AuthBottomTab.Navigator>
-            <AuthBottomTab.Screen name="BarInitiation" component={MultiStepForm} />
-            <AuthBottomTab.Screen name="SignIn" component={SignIn}  />
-            <AuthBottomTab.Screen name="SignUp" component={SignUp}  />
-            
+            <AuthBottomTab.Screen name="SignIn" component={SignIn}  options={{tabBarIcon: ({ color }) => <TabBarIcon name="log-in-outline" color={color} />, title: 'Sign In',}}/>
+            <AuthBottomTab.Screen name="SignUp" component={SignUp}  options={{tabBarIcon: ({ color }) => <TabBarIcon name="open-outline" color={color} />, title: 'Sign Up',}}/>
+            <AuthBottomTab.Screen name="BarInitiation" component={MultiStepForm} options={{tabBarIcon: ({ color }) => <TabBarIcon name="globe-outline" color={color} />, title: 'Join Barfly-E',}}/>          
     </AuthBottomTab.Navigator>
   )
 }
@@ -164,10 +162,10 @@ function SettingsTabNav() {
   return (
     <SettingBottomTab.Navigator>
             {/* <SettingBottomTab.Screen name="SignOut" /> */}
-            <SettingBottomTab.Screen name="CreateEmployees" component={CreateEmployees} />
-            <SettingBottomTab.Screen name="QRCode" component={QRCodeGenerator}  />
-            <SettingBottomTab.Screen name="EditCommon"  component={CreateCommon}/>
-            <SettingBottomTab.Screen name="ChangePassword" component={ChangePassword} />
+            <SettingBottomTab.Screen name="CreateEmployees" component={CreateEmployees} options={{tabBarIcon: ({ color }) => <TabBarIcon name="person-add-outline" color={color} />, title: 'Create Employees',}}/>
+            <SettingBottomTab.Screen name="QRCode" component={QRCodeGenerator}  options={{tabBarIcon: ({ color }) => <TabBarIcon name="qr-code-outline" color={color} />, title: 'QR code',}}/>
+            <SettingBottomTab.Screen name="EditCommon"  component={CreateCommon} options={{tabBarIcon: ({ color }) => <TabBarIcon name="create-outline" color={color} />, title: 'Edit Info',}}/>
+            <SettingBottomTab.Screen name="ChangePassword" component={ChangePassword} options={{tabBarIcon: ({ color }) => <TabBarIcon name="settings-outline" color={color} />, title: 'Change Password',}}/>
 
     </SettingBottomTab.Navigator>
   )
@@ -188,14 +186,14 @@ function BottomTabNavigator() {
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Order Queue',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home-outline" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Settings')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
-              <Ionicons name="menu" size={25}
+              <Ionicons name="settings-outline" size={25}
                 color={Colors[colorScheme].text}
                 style={{ marginRight: 15 }} />
             </Pressable>
@@ -207,7 +205,7 @@ function BottomTabNavigator() {
         component={TabTwoScreen}
         options={({ navigation }: RootTabScreenProps<'TabTwo'>) => ({
           title: 'Income Summary',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="stats-chart-outline" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Settings')}
@@ -215,7 +213,7 @@ function BottomTabNavigator() {
                 opacity: pressed ? 0.5 : 1,
               })}>
       
-              <Ionicons name="menu" size={25}
+              <Ionicons name="settings-outline" size={25}
                 color={Colors[colorScheme].text}
                 style={{ marginRight: 15 }} />
             </Pressable>
@@ -227,7 +225,7 @@ function BottomTabNavigator() {
         component={TabThreeScreen}
         options={({ navigation }: RootTabScreenProps<'TabThree'>) => ({
           title: 'Edit Menu',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="fast-food-outline" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Settings')}
@@ -235,7 +233,7 @@ function BottomTabNavigator() {
                 opacity: pressed ? 0.5 : 1,
               })}>
       
-              <Ionicons name="menu" size={25}
+              <Ionicons name="settings-outline" size={25}
                 color={Colors[colorScheme].text}
                 style={{ marginRight: 15 }} />
             </Pressable>
@@ -250,10 +248,10 @@ function BottomTabNavigator() {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
+  name: React.ComponentProps<typeof Ionicons>['name'];
   color: string;
 }) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <Ionicons size={25} style={{ marginBottom: -3 }} {...props} />;
 }
 
 

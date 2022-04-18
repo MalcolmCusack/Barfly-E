@@ -39,6 +39,7 @@ const SignIn = () => {
     );
 
     const response = await response_promise;
+
     if (response.data.listEmployees.items.filter((item) => item._deleted === null)[0]) {
       try {
         const res = API.graphql(

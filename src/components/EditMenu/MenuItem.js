@@ -144,14 +144,14 @@ const MenuItem = ({ item, type }) => {
         input: {
             height: 40,
             margin: 12,
-            borderWidth: 1,
+           // borderWidth: 1,
             padding: 10,
             width:'50%'
           },
           inputNum: {
             height: 40,
             margin: 12,
-            borderWidth: 1,
+          //  borderWidth: 1,
             padding: 10,
           },
 

@@ -98,7 +98,7 @@ export default function ChangePassword() {
           disabled={passwordIssue != null}
           onPress={resetPassword}
         >
-          Sign In
+          Change Password
         </Button>
       </View>
     );
