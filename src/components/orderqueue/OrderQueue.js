@@ -85,7 +85,11 @@ const OrderQueue = () => {
   };
 
   useEffect(() => {
+    let isMounted = true;
     getBar()
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   useEffect(() => {
