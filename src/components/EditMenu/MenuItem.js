@@ -58,6 +58,7 @@ const MenuItem = ({ item, type }) => {
             id: item.id,
             name: itemName,
             price: itemPrice,
+            description: itemDescription,
             _version: item._version
     
         }
@@ -71,11 +72,12 @@ const MenuItem = ({ item, type }) => {
                 }))
                 updateResponse = await update
             }
-            else if(type=="Beer"){
+            else if(type==="Beer"){
                 update = API.graphql(graphqlOperation(updateBeer, {
                     input: payload
                 }))
                 updateResponse = await update
+
             }
             else if(type=="Cocktail"){
                 update = API.graphql(graphqlOperation(updateCocktail, {
@@ -83,7 +85,7 @@ const MenuItem = ({ item, type }) => {
                 }))
                 updateResponse = await update
             }
-            else if(type=="Shot"){
+            else if(type=="Shots"){
                 update = API.graphql(graphqlOperation(updateShot, {
                     input: payload
                 }))
