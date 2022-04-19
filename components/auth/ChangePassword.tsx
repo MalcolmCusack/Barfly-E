@@ -28,10 +28,6 @@ export default function ChangePassword() {
         }
     }, [password, password2]);
 
-    //const [email, setEmail] = useState("");
-    const TEXTFIELD_SPACING = "2ch";
-
-    // const [requestingReset, setRequestingReset] = useState(false);
     const [resetingPassword, setResetingPassword] = useState(false);
 
     async function resetPassword() {
@@ -53,6 +49,14 @@ export default function ChangePassword() {
             setResetingPassword(false);
         }
     }
+
+    async function signOut() {
+      try {
+          await Auth.signOut();
+      } catch (error) {
+          console.log(error);
+      }
+    } 
 
     return (
         <View
@@ -100,6 +104,8 @@ export default function ChangePassword() {
         >
           Change Password
         </Button>
+
+        <Button onPress={signOut}>Log Out</Button>
       </View>
     );
 }
