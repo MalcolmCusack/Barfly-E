@@ -64,6 +64,7 @@ const Menu = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [itemName, SetName] = useState("");
   const [itemPrice, SetPrice] = useState("");
+  const [itemDescription, setDescription] = useState("")
   const [open, SetOpen] = React.useState(false);
   const [items, SetItems] = React.useState([]);
   const [type, SetType] = useState("");
@@ -148,6 +149,7 @@ const Menu = () => {
     var payload = {
       name: itemName,
       price: itemPrice,
+      description: itemDescription,
       menuID: menuID,
     };
 
@@ -280,6 +282,15 @@ const Menu = () => {
             autoComplete={null}
             style={{ width: "50%", margin: 10, alignSelf: "flex-end" }}
           />
+          <TextInput
+            onChangeText={(e) => setDescription(e)}
+            value={itemDescription}
+            keyboardType="numeric"
+            label="Description"
+            autoComplete={null}
+            style={{ width: "50%", margin: 10, alignSelf: "flex-end"}}
+          />
+          
 
           <Button onPress={createItem} style={{ alignSelf: "flex-end" }}>
             Create
@@ -320,7 +331,7 @@ const Menu = () => {
             : null}
         </View>
 
-        <Text style={styles.subtitle}>Food</Text>
+        <Text style={[styles.subtitle, { marginTop: 100 }]}>Food</Text>
         <View style={styles.orderQueueContainer}>
           {!isLoading
             ? FoodItems.map((item) => {
@@ -335,7 +346,7 @@ const Menu = () => {
             : null}
         </View>
 
-        <Text style={styles.subtitle}>Shots</Text>
+        <Text style={[styles.subtitle, { marginTop: 100 }]}>Shots</Text>
         <View style={styles.orderQueueContainer}>
           {!isLoading
             ? ShotItems.map((item) => {

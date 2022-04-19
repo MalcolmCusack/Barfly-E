@@ -104,7 +104,6 @@ const OrderQueue = () => {
         );
 
         const response = await ordersPromise;
-        console.log(barr.id)
         setOrders(response.data.listOrders.items.filter((item) => item._deleted === null))
       } catch (err) {
         console.log(err);
