@@ -8,10 +8,8 @@ import { StyleSheet } from 'react-native';
 const MenuItem = ({ item, type }) => {
 
     const [itemPrice, SetPrice] = useState(item.price.toFixed(2))
-    const [itemName, SetName] = useState(item.name)    
-
-    message: "The variables input contains a field name 'name' that is not defined for input object type 'DeleteBeerInput' "
-
+    const [itemName, SetName] = useState(item.name)
+    const [itemDescription, setItemDescription] = useState(item.description ? item.description : "")
 
     async function deleteItem() {
         const payload = {
@@ -106,6 +104,10 @@ const MenuItem = ({ item, type }) => {
         SetPrice(newPrice);
     }
 
+    const OnChangeDescription = (newDescription) => {
+        setItemDescription(newDescription);
+    }
+
 
     const styles = StyleSheet.create({
         orderContainer: {
@@ -146,10 +148,18 @@ const MenuItem = ({ item, type }) => {
             margin: 12,
            // borderWidth: 1,
             padding: 10,
-            width:'50%'
+            width: '25%'
+          },
+          inputDesc: {
+            height: 40,
+            margin: 12,
+           // borderWidth: 1,
+            padding: 10,
+            width: 200
           },
           inputNum: {
             height: 40,
+            width: 100,
             margin: 12,
           //  borderWidth: 1,
             padding: 10,
@@ -171,6 +181,12 @@ const MenuItem = ({ item, type }) => {
                 style={styles.inputNum}
                 onChangeText={(e) => OnChangePrice(e)}
                 value={itemPrice}
+                keyboardType="numeric"
+            />
+            <TextInput
+                style={styles.inputDesc}
+                onChangeText={(e) => OnChangeDescription(e)}
+                value={itemDescription}
                 keyboardType="numeric"
             />
             <Button onPress={updateItem}>Save</Button>

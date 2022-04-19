@@ -28,6 +28,7 @@ import CreateEmployees from '../src/components/BarInitiation/CreateEmployees';
 import QRCodeGenerator from '../src/components/BarInitiation/QRCodeGenerator';
 import CreateCommon from '../src/components/BarInitiation/CreateCommon';
 import ChangePassword from '../components/auth/ChangePassword';
+import EditBar from '../src/components/BarInitiation/EditBar';
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -164,7 +165,7 @@ function SettingsTabNav() {
             {/* <SettingBottomTab.Screen name="SignOut" /> */}
             <SettingBottomTab.Screen name="CreateEmployees" component={CreateEmployees} options={{tabBarIcon: ({ color }) => <TabBarIcon name="person-add-outline" color={color} />, title: 'Create Employees',}}/>
             <SettingBottomTab.Screen name="QRCode" component={QRCodeGenerator}  options={{tabBarIcon: ({ color }) => <TabBarIcon name="qr-code-outline" color={color} />, title: 'QR code',}}/>
-            <SettingBottomTab.Screen name="EditCommon"  component={CreateCommon} options={{tabBarIcon: ({ color }) => <TabBarIcon name="create-outline" color={color} />, title: 'Edit Info',}}/>
+            <SettingBottomTab.Screen name="EditCommon"  component={EditBar} options={{tabBarIcon: ({ color }) => <TabBarIcon name="create-outline" color={color} />, title: 'Edit Info',}}/>
             <SettingBottomTab.Screen name="ChangePassword" component={ChangePassword} options={{tabBarIcon: ({ color }) => <TabBarIcon name="settings-outline" color={color} />, title: 'Change Password',}}/>
 
     </SettingBottomTab.Navigator>
